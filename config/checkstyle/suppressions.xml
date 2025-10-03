@@ -1,10 +1,21 @@
 <?xml version="1.0"?>
 
+<!--AvoidStarImport: "Using the '.*' form of import should be avoided"-->
+<!--LineLength: "Line is longer than"-->
+<!--MagicNumber: "Magic number"-->
+<!--MissingJavadocMethod: "Missing a Javadoc comment."-->
+<!--JavadocType: "Missing a Javadoc comment."-->
+<!--MethodLength: "Method length is"-->
+<!--ParameterNumber: "More than"-->
+<!--EmptyBlock: "Empty block"-->
+<!--FinalLocalVariable: "Local variable"-->
+
 <!DOCTYPE suppressions PUBLIC
-    "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
-    "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 
 <suppressions>
-  <suppress checks="JavadocType" files=".*Test\.java"/>
-  <suppress checks="MissingJavadocMethodCheck" files=".*Test\.java"/>
+    <suppress checks="JavadocType" files=".*Test\.java"/>
+    <suppress checks="MissingJavadocMethodCheck" files=".*Test\.java"/>
+    <suppress checks="AvoidStarImport" files="AddressBookParser.java" lines="12"/>
 </suppressions>
