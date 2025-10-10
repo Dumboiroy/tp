@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.AppointmentDateTime;
+import seedu.address.model.appointment.AppointmentDateTimeQuery;
 import seedu.address.model.appointment.AppointmentFlag;
 import seedu.address.model.appointment.AppointmentLength;
 import seedu.address.model.appointment.AppointmentLocation;
@@ -156,6 +159,43 @@ public class ParserUtil {
             throw new ParseException(AppointmentDateTime.MESSAGE_CONSTRAINTS);
         }
         return new AppointmentDateTime(trimmed);
+    }
+
+    /**
+     * Parses {@code keyword} into an {@code AppointmentDateTimeQuery}.
+     * Format:
+     * key
+     */
+    public static AppointmentDateTimeQuery parseAppointmentDateTimeQuery(String keyword)
+            throws ParseException {
+        if (keyword == null) {
+            return AppointmentDateTimeQuery.empty();
+        }
+        String trimmed = keyword.trim();
+        if (!AppointmentDateTimeQuery.isValidDateTimeQuery(trimmed)) {
+            throw new ParseException(AppointmentDateTimeQuery.MESSAGE_CONSTRAINTS);
+        }
+        if (trimmed.equals(AppointmentDateTimeQuery.KEYWORD_TODAY)) {
+            return AppointmentDateTimeQuery.today();
+        }
+        if (trimmed.charAt(0) == '+') {
+            String numberPart = trimmed.substring(1);
+            long value = Long.parseLong(numberPart);
+            return AppointmentDateTimeQuery.withinRelativeDays(value);
+        }
+        if (trimmed.charAt(0) == '-') {
+            String numberPart = trimmed.substring(1);
+            long value = (-1) * Long.parseLong(numberPart);
+            return AppointmentDateTimeQuery.withinRelativeDays(value);
+        }
+        // Split into start and end
+        String[] parts = trimmed.split(" - ");
+        String startStr = parts[0];
+        String endStr = parts[1];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        LocalDateTime start = LocalDateTime.parse(startStr, formatter);
+        LocalDateTime end = LocalDateTime.parse(endStr, formatter);
+        return new AppointmentDateTimeQuery(start, end);
     }
 
     /**

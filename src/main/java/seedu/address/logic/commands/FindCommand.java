@@ -12,6 +12,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.appointment.AppointmentQuery;
 import seedu.address.model.person.PersonQuery;
 
 /**
@@ -32,20 +33,34 @@ public class FindCommand extends Command {
         + PREFIX_PHONE + "91234567 "
         + PREFIX_EMAIL + "johndoe@example.com";
 
-    private final PersonQuery query;
+    private final PersonQuery personQuery;
+    private final AppointmentQuery appointmentQuery;
 
     /**
-     * @param query details for filtering clients
+     * @param personQuery details for filtering clients
      */
-    public FindCommand(PersonQuery query) {
-        requireNonNull(query);
-        this.query = query;
+    public FindCommand(PersonQuery personQuery) {
+        requireNonNull(personQuery);
+        this.personQuery = personQuery;
+        this.appointmentQuery = new AppointmentQuery(null, null, null);
+    }
+
+    /**
+     * @param personQuery details for filtering clients
+     * @param appointmentQuery details for filtering appointments
+     */
+    public FindCommand(PersonQuery personQuery, AppointmentQuery appointmentQuery) {
+        requireNonNull(personQuery);
+        requireNonNull(appointmentQuery);
+        this.personQuery = personQuery;
+        this.appointmentQuery = appointmentQuery;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredPersonList(query::filter);
+        model.updateFilteredPersonList(personQuery::filter);
+        model.updateFilteredAppointmentList(appointmentQuery::filter);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
@@ -62,11 +77,15 @@ public class FindCommand extends Command {
         }
 
         FindCommand otherFindCommand = (FindCommand) other;
-        return query.equals(otherFindCommand.query);
+        return personQuery.equals(otherFindCommand.personQuery);
     }
 
     @Override
     public String toString() {
-        return query.toString(new ToStringBuilder(this));
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.add("personQuery", personQuery.toString(new ToStringBuilder(this)));
+        builder.add("appointmentQuery",
+            appointmentQuery.toString(new ToStringBuilder(this)));
+        return builder.toString();
     }
 }
