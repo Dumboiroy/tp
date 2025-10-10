@@ -25,6 +25,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Appointment> filteredAppointments;
 
+    private ViewMode currentViewMode = ViewMode.PERSONS;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -181,7 +183,11 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
         requireNonNull(predicate);
-        filteredAppointments.setPredicate(predicate);
+        // It is important to check whether the client of the corresponding
+        // appointment is in the list or not
+        filteredAppointments.setPredicate(
+            appt -> getPerson(appt.getClientName().toString()) != null
+                && predicate.test(appt));
     }
 
     @Override
@@ -197,8 +203,8 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
-                && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+            && userPrefs.equals(otherModelManager.userPrefs)
+            && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
     public Person getPerson(String name) {
@@ -210,5 +216,13 @@ public class ModelManager implements Model {
             }
         }
         return null;
+    }
+
+    public ViewMode getViewMode() {
+        return currentViewMode;
+    }
+
+    public void setViewMode(ViewMode mode) {
+        currentViewMode = mode;
     }
 }

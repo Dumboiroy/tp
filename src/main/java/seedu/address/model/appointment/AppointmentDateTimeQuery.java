@@ -4,20 +4,26 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.person.PersonQuery;
 
 /**
  * Represents a query object to find {@code AppointmentDateTime}.
  */
 public class AppointmentDateTimeQuery {
-    public static final String MESSAGE_CONSTRAINTS = "DateTime must be in the format 'today',"
-        + " '+numberOfDatesFromToday', '-numberOfDatesFromToday' or 'dd-MM-yyyy (HHmm)"
-        + " - dd-MM-yyyy (HHmm)', and must represent a valid calendar date and time.";
+    public static final String MESSAGE_CONSTRAINTS =
+        "Please enter a valid DateTime in one of the following formats:\n"
+            + "• 'today' — for today's date\n"
+            + "• '+N' or '-N' — where N is the number of days from today\n"
+            + "• 'dd-MM-yyyy' — for a specific date\n"
+            + "• 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range\n"
+            + "Note: Time (HHmm) is optional. All dates must be valid calendar dates.";
 
     public static final String KEYWORD_TODAY = "today";
     private static final String VALIDATION_REGEX =
-        "^(today|[+-]\\\\d+|\\d{2}-\\d{2}-\\d{4}( \\d{4})? - \\d{2}-\\d{2}-\\d{4}( \\d{4})?)$";
+            "^(today|"
+            + "[+-]\\d+" + "|\\d{2}-\\d{2}-\\d{4}( \\d{4})?|"
+            + "\\d{2}-\\d{2}-\\d{4}( \\d{4})? to \\d{2}-\\d{2}-\\d{4}( \\d{4})?)$";
     private final LocalDateTime start;
     private final LocalDateTime end;
 
@@ -32,6 +38,21 @@ public class AppointmentDateTimeQuery {
     ) {
         this.start = start == null ? LocalDateTime.MIN : start;
         this.end = end == null ? LocalDateTime.MAX : end;
+    }
+
+    /**
+     * Create a query object wrt to the current Date.
+     */
+    public AppointmentDateTimeQuery(
+        LocalDateTime current
+    ) {
+        if (current == null) {
+            this.start = LocalDateTime.MIN;
+            this.end = LocalDateTime.MAX;
+        } else {
+            this.start = current.toLocalDate().atStartOfDay();
+            this.end = current.toLocalDate().atTime(23, 59, 59);
+        }
     }
 
     public static AppointmentDateTimeQuery empty() {

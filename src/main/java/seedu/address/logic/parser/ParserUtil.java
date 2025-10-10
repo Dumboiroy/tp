@@ -25,6 +25,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.rank.Rank;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.DateTimeUtil;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -188,13 +189,15 @@ public class ParserUtil {
             long value = (-1) * Long.parseLong(numberPart);
             return AppointmentDateTimeQuery.withinRelativeDays(value);
         }
-        // Split into start and end
-        String[] parts = trimmed.split(" - ");
-        String startStr = parts[0];
-        String endStr = parts[1];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-        LocalDateTime start = LocalDateTime.parse(startStr, formatter);
-        LocalDateTime end = LocalDateTime.parse(endStr, formatter);
+        if (!trimmed.contains(" to ")) {
+            LocalDateTime current = DateTimeUtil.localDateTimeFromString(trimmed);
+            return new AppointmentDateTimeQuery(current);
+        }
+        String[] parts = trimmed.split(" to ");
+        String startStr = parts[0].trim();
+        String endStr = parts[1].trim();
+        LocalDateTime start = DateTimeUtil.localDateTimeFromString(startStr);
+        LocalDateTime end = DateTimeUtil.localDateTimeFromStringEnd(endStr);
         return new AppointmentDateTimeQuery(start, end);
     }
 

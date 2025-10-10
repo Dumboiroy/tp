@@ -135,4 +135,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
+    /**
+     * Obtain the current mode for displaying lists
+     */
+    ViewMode getViewMode();
+
+    /**
+     * Update view mode
+     */
+    void setViewMode(ViewMode mode);
 }
