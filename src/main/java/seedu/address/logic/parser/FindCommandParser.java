@@ -3,11 +3,14 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -34,18 +37,33 @@ public class FindCommandParser implements Parser<FindCommand> {
          * Even though all fields in {@code FindCommand} are optional,
          * the command should expect at least one field. If the user
          * want to list all clients without filters, please use {@code ListCommand} instead.
-        */
+         *
+         * On the other hand, if the user wants to list all appointments,
+         * minimally, the user must specify {@code /appt} keyword. (and left it empty)
+         * Example:
+         * `find /appt` will list all appointments.
+         * `find /appt` today will list all appointments today.
+         * `find` will list all clients with attached appointments.
+         */
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_ADDRESS, PREFIX_TAG, PREFIX_RANK);
+            ArgumentTokenizer.tokenize(args,
+                // Person-related fields
+                PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_TAG, PREFIX_RANK,
+                // Appointment-related fields
+                PREFIX_APPOINTMENT, PREFIX_TYPE, PREFIX_STATUS);
         // No duplicate fields
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_RANK);
+        argMultimap.verifyNoDuplicatePrefixesFor(
+            // Person-related fields
+            PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+            PREFIX_TAG, PREFIX_RANK,
+            // Appointment-related fields
+            PREFIX_APPOINTMENT, PREFIX_TYPE, PREFIX_STATUS);
         // No trailing preamble
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
+                FindCommand.MESSAGE_USAGE));
         }
         PersonQuery query = PersonQuery.build();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
@@ -53,7 +71,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             String trimmedArgs = name.toString().trim();
             if (trimmedArgs.isEmpty()) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
             }
             String[] nameKeywords = trimmedArgs.split("\\s+");
             query = query.setName(nameKeywords);
@@ -66,16 +84,12 @@ public class FindCommandParser implements Parser<FindCommand> {
             Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
             query = query.setEmail(email);
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-            query = query.setAddress(address);
-        }
         var tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         query.setTags(tags);
         if (argMultimap.getValue(PREFIX_RANK).isPresent()) {
             Rank rank = ParserUtil.parseRank(argMultimap
-                    .getValue(PREFIX_RANK)
-                    .orElse(RankType.NONE.toString()));
+                .getValue(PREFIX_RANK)
+                .orElse(RankType.NONE.toString()));
             query = query.setRank(rank);
         }
         return new FindCommand(query);
