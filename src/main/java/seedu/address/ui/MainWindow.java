@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ViewMode;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -117,11 +118,16 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        // TODO: Conditional rendering
+        var viewMode = logic.getObservableViewMode();
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        personListPanelPlaceholder.visibleProperty().bind(viewMode.isEqualTo(ViewMode.PERSONS));
+        personListPanelPlaceholder.managedProperty().bind(viewMode.isEqualTo(ViewMode.PERSONS));
+
         appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
         appointmentListPanelPlaceHolder.getChildren().add(appointmentListPanel.getRoot());
+        appointmentListPanelPlaceHolder.visibleProperty().bind(viewMode.isEqualTo(ViewMode.APPOINTMENTS));
+        appointmentListPanelPlaceHolder.managedProperty().bind(viewMode.isEqualTo(ViewMode.APPOINTMENTS));
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

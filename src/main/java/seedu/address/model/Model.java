@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
@@ -136,13 +137,14 @@ public interface Model {
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
 
-    /**
-     * Obtain the current mode for displaying lists
-     */
-    ViewMode getViewMode();
 
     /**
-     * Update view mode
+     * Updates the view mode of the list shown in the MainWindow.
      */
     void setViewMode(ViewMode mode);
+
+    /**
+     *  Returns an observable object for binding with FXML components
+     */
+    ObjectProperty<ViewMode> getObservableViewMode();
 }

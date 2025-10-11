@@ -5,6 +5,7 @@ import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -94,19 +95,8 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
-    /**
-     * Obtain the current mode for displaying lists
-     */
     @Override
-    public ViewMode getViewMode() {
-        return this.model.getViewMode();
-    }
-
-    /**
-     * Update view mode
-     */
-    @Override
-    public void setViewMode(ViewMode mode) {
-        this.model.setViewMode(mode);
+    public ObjectProperty<ViewMode> getObservableViewMode() {
+        return model.getObservableViewMode();
     }
 }
