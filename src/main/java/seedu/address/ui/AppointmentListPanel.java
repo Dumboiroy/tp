@@ -1,16 +1,13 @@
 package seedu.address.ui;
 
 import java.util.logging.Logger;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.ViewMode;
 import seedu.address.model.appointment.Appointment;
 
 /**
@@ -26,9 +23,9 @@ public class AppointmentListPanel extends UiPart<Region> {
     /**
      * Creates a {@code AppointmentListPanel} with the given {@code ObservableList}.
      */
-    public AppointmentListPanel(ObservableList<Appointment> AppointmentList) {
+    public AppointmentListPanel(ObservableList<Appointment> appointmentList) {
         super(FXML);
-        appointmentListView.setItems(AppointmentList);
+        appointmentListView.setItems(appointmentList);
         appointmentListView.setCellFactory(listView -> new AppointmentListViewCell());
     }
 
@@ -37,14 +34,14 @@ public class AppointmentListPanel extends UiPart<Region> {
      */
     class AppointmentListViewCell extends ListCell<Appointment> {
         @Override
-        protected void updateItem(Appointment Appointment, boolean empty) {
-            super.updateItem(Appointment, empty);
+        protected void updateItem(Appointment appointment, boolean empty) {
+            super.updateItem(appointment, empty);
 
-            if (empty || Appointment == null) {
+            if (empty || appointment == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new AppointmentCard(Appointment).getRoot());
+                setGraphic(new AppointmentCard(appointment).getRoot());
             }
         }
     }

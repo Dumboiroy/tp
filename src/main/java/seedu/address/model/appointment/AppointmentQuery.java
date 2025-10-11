@@ -2,6 +2,7 @@ package seedu.address.model.appointment;
 
 import java.util.Objects;
 import java.util.Optional;
+
 import seedu.address.commons.util.ToStringBuilder;
 
 
