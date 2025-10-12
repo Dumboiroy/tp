@@ -63,6 +63,14 @@ public class AppointmentBuilder {
     /**
      * Sets the {@code clientName} of the {@code Appointment} that we are building.
      */
+    public AppointmentBuilder withId(String id) {
+        this.id = new AppointmentId(id);
+        return this;
+    }
+
+    /**
+     * Sets the {@code clientName} of the {@code Appointment} that we are building.
+     */
     public AppointmentBuilder withName(String name) {
         this.clientName = new Name(name);
         return this;
