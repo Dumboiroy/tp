@@ -23,7 +23,7 @@ import seedu.address.model.person.Person;
  */
 public class LinkAppointmentEditCommand extends LinkAppointmentCommand {
     public static final String MESSAGE_DUPLICATE_APPOINTMENTS = "This appointment already exists in the address book.";
-    public static final String MESSAGE_SUCCESS = "New appointment linked to %1$s: %2$s";
+    public static final String MESSAGE_SUCCESS = "Appointment with %1$s edited to:\n %2$s";
 
     private final AppointmentId targetId;
     private final EditAppointmentDescriptor newAppt;
