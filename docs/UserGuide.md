@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+HeartLink is a **desktop app for managing contact details for Social Workers in Singapore. It is optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
 
 * Table of Contents
 {:toc}
@@ -28,7 +28,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add /n John Doe /p 98765432 /e johnd@example.com /a John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -47,16 +47,16 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add /n NAME`, `NAME` is a parameter which can be used as `add /n John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `/n NAME [/t TAG]` can be used as `/n John Doe /t friend` or as `/n John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[/t TAG]…​` can be used as ` ` (i.e. 0 times), `/t friend`, `/t friend /t family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `/n NAME /p PHONE_NUMBER`, `/p PHONE_NUMBER /n NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -80,12 +80,12 @@ Adds a person to the address book.
 Format: `add /n NAME /p PHONE_NUMBER [/e EMAIL] [/a ADDRESS] [/r RANK] [/t TAG]…​`
 
 Acceptable Values: 
-* For name: Any String is acceptable. 
-* For phone number: (+65)98765432 or (+65) 9876 5432 can be accepted. 
-* For email: It should contain a “@” and have string before and after. 
-* For address: Any string is acceptable 
-* For tag: Any string is acceptable 
-* For ranking priority: “stable” / “vulnerable” / “urgent” / “crisis” (case-insensitive) is acceptable.
+* For name: Your input must be alphanumeric. 
+* For phone number: Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br> Eg. +65 98765432 or 9876 5432 (both acceptable). 
+* For email: Your input should contain a `@` and have alphanumeric characters before and after. Special characters `+ - . _`  are allowed. Don't forget to include the domain!
+* For address: Your input must be alphanumeric and only `# - , . ( ) / ; : &` symbols are accepted.
+* For tag: Your input must be alphanumeric 
+* For ranking priority: You can only input four types of priority, “stable” , “vulnerable” , “urgent” and “crisis” (all case-insensitive).
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
@@ -105,7 +105,7 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit OLD_NAME [/n NEW_NAME] [/p PHONE] [/e EMAIL] [/a ADDRESS] [/r RANK] [t/TAG]…​`
+Format: `edit OLD_NAME [/n NEW_NAME] [/p PHONE] [/e EMAIL] [/a ADDRESS] [/r RANK] [/t TAG]…​`
 
 * Edits the person at the specified `OLD_NAME`. The old name refers to the person's name before editing.
 * At least one of the optional fields must be provided.
@@ -229,10 +229,10 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/ NAME /p PHONE_NUMBER [/e EMAIL] [/a ADDRESS] [/r RANK] [/t TAG]…​` <br> e.g., `add /n James Ho /p 22224444 /e jamesho@example.com /a 123, Clementi Rd, 1234665 /t friend /t colleague`
+**Add** | `add /n NAME /p PHONE_NUMBER [/e EMAIL] [/a ADDRESS] [/r RANK] [/t TAG]…​` <br> e.g., `add /n James Ho /p 92248444 /e jamesho@example.com /a 123, Clementi Rd, 1234665 /t friend /t colleague /r stable`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit OLD_NAME [n/ NEW_NAME] [/p PHONE_NUMBER] [/e EMAIL] [/a ADDRESS] [/t TAG]…​`<br> e.g.,`edit James Tan /n James Lee /e jameslee@example.com`
+**Edit** | `edit OLD_NAME [/n NEW_NAME] [/p PHONE_NUMBER] [/e EMAIL] [/a ADDRESS] [/t TAG]…​`<br> e.g.,`edit James Tan /n James Lee /e jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
