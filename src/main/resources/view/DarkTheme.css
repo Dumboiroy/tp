@@ -425,3 +425,16 @@
 .status-confirmed  { -fx-background-color: #008000 !important; }
 .status-completed  { -fx-background-color: #FF8C00 !important; }
 .status-cancelled  { -fx-background-color: #BA110C !important; }
+
+.rank-label {
+    -fx-padding: 2 5 2 5;
+    -fx-background-radius: 10;
+    -fx-text-fill: #596D8F !important;
+    -fx-font-size: 9pt;
+}
+
+/* Rank colour */
+.rank-stable       { -fx-background-color: #ABFF6B !important; }
+.rank-vulnerable   { -fx-background-color: #FFF702 !important; }
+.rank-urgent       { -fx-background-color: #FFCC96 !important; }
+.rank-crisis       { -fx-background-color: #FF9E9E !important; }
