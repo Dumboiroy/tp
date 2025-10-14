@@ -14,34 +14,41 @@
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
-      </padding>
+      <HBox minHeight="105" GridPane.columnIndex="0" >
+          <!--Left side of person card-->
+          <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0" HBox.hgrow="ALWAYS">
+              <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+              </padding>
 
-      <!-- Header row with ID, Name, Rank -->
-      <HBox spacing="0.5" alignment="CENTER_LEFT">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" style="-fx-padding: 0 12 0 0"/>
-        <Label fx:id="rank" styleClass="cell_small_label" text="$rank" />
+              <!-- Header row with ID, Name, Rank -->
+              <HBox spacing="0.5" alignment="CENTER_LEFT">
+                <Label fx:id="id" styleClass="cell_big_label" wrapText="true" >
+                  <minWidth>
+                    <Region fx:constant="USE_PREF_SIZE" />
+                  </minWidth>
+                </Label>
+                <Label fx:id="name" text="\$first" styleClass="cell_big_label"
+                       style="-fx-padding: 0 12 0 0" wrapText="true"  />
+                <Label fx:id="rank" styleClass="rank-label" text="$rank" wrapText="true"  />
+              </HBox>
+
+              <!-- Tags -->
+              <FlowPane fx:id="tags" />
+
+              <!-- Contact info -->
+              <Label fx:id="phone" styleClass="cell_small_label" text="$phone" wrapText="true"  />
+              <Label fx:id="address" styleClass="cell_small_label" text="$address" wrapText="true" />
+              <Label fx:id="email" styleClass="cell_small_label" text="$email" wrapText="true" />
+          </VBox>
+
+          <!-- Appointments list on right side -->
+          <VBox fx:id="appointmentsBox"
+                spacing="5"
+                style="-fx-padding: 4 4 4 4; -fx-border-radius: 5;"
+                minWidth="310"
+                maxWidth="400"
+                alignment="CENTER_RIGHT"/>
       </HBox>
-
-      <!-- Tags -->
-      <FlowPane fx:id="tags" />
-
-      <!-- Contact info -->
-      <Label fx:id="phone" styleClass="cell_small_label" text="$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="$email" />
-
-      <!-- Appointments list -->
-      <VBox fx:id="appointmentsBox"
-            spacing="5"
-            style="-fx-padding: 4 4 4 4; -fx-border-radius: 5;" />
-    </VBox>
   </GridPane>
 </HBox>

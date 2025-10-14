@@ -9,7 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
-import seedu.address.model.rank.RankType;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -55,19 +54,10 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        RankType personRank = person.getRank().rankName;
-        if (personRank.equals(RankType.STABLE)) {
-            rank.setStyle("-fx-padding: 2 5 2 5; -fx-background-color: #008000; -fx-background-radius: 10");
-        } else if (personRank.equals(RankType.VULNERABLE)) {
-            rank.setStyle("-fx-padding: 2 5 2 5; -fx-background-color: #E6B400; -fx-background-radius: 10");
-        } else if (personRank.equals(RankType.URGENT)) {
-            rank.setStyle("-fx-padding: 2 5 2 5; -fx-background-color: #DD571C; -fx-background-radius: 10");
-        } else if (personRank.equals(RankType.CRISIS)) {
-            rank.setStyle("-fx-padding: 2 5 2 5; -fx-background-color: #BA110C; -fx-background-radius: 10");
-        } else {
-            rank.setStyle("-fx-padding: 2 5 2 5; -fx-background-radius: 10");
-        }
-        rank.setText(personRank.toString());
+
+        String personRank = person.getRank().rankName.toString();
+        rank.getStyleClass().add("rank-" + personRank );
+        rank.setText(personRank);
 
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
