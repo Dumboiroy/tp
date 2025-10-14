@@ -22,15 +22,15 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons whose fields"
         + " contain any of the given keywords.\n"
         + "Parameters: "
-        + "[" + PREFIX_NAME + "NAME] "
-        + "[" + PREFIX_PHONE + "PHONE] "
-        + "[" + PREFIX_EMAIL + "EMAIL] "
-        + "[" + PREFIX_ADDRESS + "ADDRESS] "
-        + "[" + PREFIX_TAG + "TAG]... "
-        + "[" + PREFIX_RANK + "RANK]\n"
+        + "[" + PREFIX_NAME + " NAME] "
+        + "[" + PREFIX_PHONE + " PHONE] "
+        + "[" + PREFIX_EMAIL + " EMAIL] "
+        + "[" + PREFIX_ADDRESS + " ADDRESS] "
+        + "[" + PREFIX_TAG + " TAG]... "
+        + "[" + PREFIX_RANK + " RANK]\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_PHONE + "91234567 "
-        + PREFIX_EMAIL + "johndoe@example.com";
+        + PREFIX_PHONE + " 91234567 "
+        + PREFIX_EMAIL + " johndoe@example.com";
 
     private final PersonQuery query;
 
