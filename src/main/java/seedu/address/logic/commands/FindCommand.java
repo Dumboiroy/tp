@@ -2,11 +2,14 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RANK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.Optional;
 
@@ -31,10 +34,14 @@ public class FindCommand extends Command {
         + "[" + PREFIX_EMAIL + "EMAIL] "
         + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_TAG + "TAG]... "
-        + "[" + PREFIX_RANK + "RANK]\n"
+        + "[" + PREFIX_RANK + "RANK]"
+        + "[" + PREFIX_APPOINTMENT + "APPOINTMENT DATE-TIME]"
+        + "[" + PREFIX_STATUS + "APPOINTMENT STATUS]"
+        + "[" + PREFIX_TYPE + "APPOINTMENT TYPES]\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_PHONE + "91234567 "
-        + PREFIX_EMAIL + "johndoe@example.com";
+        + PREFIX_PHONE + " 91234567 "
+        + PREFIX_EMAIL + " johndoe@example.com\n"
+        + COMMAND_WORD + " " + PREFIX_APPOINTMENT + " 24-10-2025 to 26-10-2025\n";
 
     private final PersonQuery personQuery;
     private final Optional<AppointmentQuery> appointmentQuery;
