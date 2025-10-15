@@ -21,15 +21,21 @@ public class AppointmentId {
     private final String id;
 
     public AppointmentId() {
-        this.id = generateId();
+        this.id = generateId(ID_FILEPATH);
     }
 
     public AppointmentId(String id) {
         this.id = id;
     }
 
-    private String generateId() {
-        Path path = Paths.get(ID_FILEPATH);
+
+    /**
+     * Generates a random ID
+     * @param id_filepath File to store all IDs to handle collisions
+     * @return
+     */
+    public String generateId(String id_filepath) {
+        Path path = Paths.get(id_filepath);
         String tempId = UUID.randomUUID().toString().substring(0, 7);
         List<String> ids;
         try {
