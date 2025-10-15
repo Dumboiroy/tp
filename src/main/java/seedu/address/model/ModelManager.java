@@ -204,9 +204,10 @@ public class ModelManager implements Model {
         }
 
         ModelManager otherModelManager = (ModelManager) other;
-        return addressBook.equals(otherModelManager.addressBook)
-                && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+        Boolean addressBookEqual = addressBook.equals(otherModelManager.addressBook);
+        Boolean userPrefsEqual = userPrefs.equals(otherModelManager.userPrefs);
+        Boolean filteredPersonsEqual = filteredPersons.equals(otherModelManager.filteredPersons);
+        return addressBookEqual && userPrefsEqual && filteredPersonsEqual;
     }
 
     public Person getPerson(String name) {
