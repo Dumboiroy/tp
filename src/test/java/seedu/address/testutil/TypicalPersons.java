@@ -116,7 +116,7 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .withRank(VALID_RANK_STABLE).withAppointments(MEETING_BOB).build();
     public static final Person ALICE_WITH_SUBSTRING_NAME = new PersonBuilder().withName("Alice Paul")
-            .withPhone("91234567").withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253").withTags("friends").withRank("stable")
             .build();
 
