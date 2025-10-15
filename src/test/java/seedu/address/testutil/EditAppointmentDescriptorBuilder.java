@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.LinkAppointmentEditCommand.EditAppointmentDescriptor;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDateTime;
-import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.AppointmentLength;
 import seedu.address.model.appointment.AppointmentLocation;
 import seedu.address.model.appointment.AppointmentMessage;

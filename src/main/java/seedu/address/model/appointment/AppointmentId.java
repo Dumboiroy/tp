@@ -31,11 +31,11 @@ public class AppointmentId {
 
     /**
      * Generates a random ID
-     * @param id_filepath File to store all IDs to handle collisions
+     * @param idFilepath File to store all IDs to handle collisions
      * @return
      */
-    public String generateId(String id_filepath) {
-        Path path = Paths.get(id_filepath);
+    public String generateId(String idFilepath) {
+        Path path = Paths.get(idFilepath);
         String tempId = UUID.randomUUID().toString().substring(0, 7);
         List<String> ids;
         try {

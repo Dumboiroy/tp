@@ -1,7 +1,8 @@
 package seedu.address.model.appointment;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,9 +11,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class AppointmentIdTest {
     private static final String ID_FILEPATH = "src/test/data/ConfigUtilTest/appt_ids.txt";

@@ -1,7 +1,15 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.LinkAppointmentEditCommand.EditAppointmentDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -13,11 +21,6 @@ import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditAppointmentDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 public class LinkAppointmentEditCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -240,7 +243,7 @@ public class LinkAppointmentEditCommandTest {
     }
 
     @Test
-    public void execute_editStatus_invalid_failure() {
+    public void execute_editStatusInvalid_failure() {
         assertThrows(IllegalArgumentException.class, () -> new EditAppointmentDescriptorBuilder()
                 .withStatus("test")
                 .build());
@@ -324,5 +327,71 @@ public class LinkAppointmentEditCommandTest {
                 Messages.format(newAppt));
 
         assertEquals(expectedMessage, editApptCommand.execute(model).getFeedbackToUser());
+    }
+
+    @Test
+    public void isAnyFieldEdited_success() {
+        Person client = new PersonBuilder(ALICE).build();
+        Appointment appt = client.getAppointments().get(0);
+        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder()
+                .withDateTime(appt.getDateTime().toString())
+                .withLength(appt.getLength().toString())
+                .withLocation(appt.getLocation().toString())
+                .withMessage(appt.getMessage().toString())
+                .withType(appt.getType().toString())
+                .withStatus(appt.getStatus().toString())
+                .build();
+
+        assertTrue(descriptor.isAnyFieldEdited());
+    }
+
+    @Test
+    public void isAnyFieldEdited_failure() {
+        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder().build();
+        assertFalse(descriptor.isAnyFieldEdited());
+    }
+
+    @Test
+    public void equals() {
+        Person client = new PersonBuilder(ALICE).build();
+        Appointment appt = client.getAppointments().get(0);
+        AppointmentId id = appt.getId();
+
+        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptorBuilder()
+                .withDateTime(appt.getDateTime().toString())
+                .withLength(appt.getLength().toString())
+                .withLocation(appt.getLocation().toString())
+                .withMessage(appt.getMessage().toString())
+                .withType(appt.getType().toString())
+                .withStatus(appt.getStatus().toString())
+                .build();
+
+        EditAppointmentDescriptor descriptor1 = new EditAppointmentDescriptorBuilder()
+                .withDateTime(appt.getDateTime().toString())
+                .withLength(appt.getLength().toString())
+                .withLocation(appt.getLocation().toString())
+                .withMessage(appt.getMessage().toString())
+                .withType(appt.getType().toString())
+                .withStatus(appt.getStatus().toString())
+                .build();
+
+        EditAppointmentDescriptor descriptor2 = new EditAppointmentDescriptorBuilder()
+                .withDateTime(appt.getDateTime().toString())
+                .withLength(appt.getLength().toString())
+                .withLocation("Testing")
+                .withMessage(appt.getMessage().toString())
+                .withType(appt.getType().toString())
+                .withStatus(appt.getStatus().toString())
+                .build();
+
+
+        LinkAppointmentCommand editApptCommand = new LinkAppointmentEditCommand(id, descriptor);
+        LinkAppointmentCommand editApptCommand1 = new LinkAppointmentEditCommand(id, descriptor1);
+        LinkAppointmentCommand editApptCommand2 = new LinkAppointmentEditCommand(id, descriptor2);
+
+        assertTrue(editApptCommand.equals(editApptCommand));
+        assertTrue(editApptCommand1.equals(editApptCommand));
+        assertFalse(editApptCommand1.equals(editApptCommand2));
+        assertFalse(editApptCommand1.equals(2));
     }
 }

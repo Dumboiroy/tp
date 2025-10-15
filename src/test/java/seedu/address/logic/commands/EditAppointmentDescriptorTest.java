@@ -1,21 +1,20 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BOB;
+
 import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.LinkAppointmentEditCommand.EditAppointmentDescriptor;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditAppointmentDescriptorBuilder;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import seedu.address.logic.commands.LinkAppointmentEditCommand.EditAppointmentDescriptor;
 import seedu.address.testutil.PersonBuilder;
 
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
 
 public class EditAppointmentDescriptorTest {
     private Person client1 = new PersonBuilder(ALICE).build();
@@ -93,7 +92,7 @@ public class EditAppointmentDescriptorTest {
                 + editAppointmentDescriptor.getLocation().orElse(null) + ", type="
                 + editAppointmentDescriptor.getType().orElse(null) + ", message="
                 + editAppointmentDescriptor.getMessage().orElse(null) + ", status="
-                + editAppointmentDescriptor.getStatus().orElse(null) +  "}";
+                + editAppointmentDescriptor.getStatus().orElse(null) + "}";
         assertEquals(expected, editAppointmentDescriptor.toString());
     }
 }

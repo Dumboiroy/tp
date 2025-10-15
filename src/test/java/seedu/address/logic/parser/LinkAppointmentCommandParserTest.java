@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_DATE_TIME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_LENGTH_DESC_BOB;
@@ -32,12 +31,10 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.LinkAppointmentCommand;
 import seedu.address.logic.commands.LinkAppointmentCreateCommand;
-import seedu.address.logic.commands.LinkAppointmentEditCommand;
 import seedu.address.logic.commands.LinkAppointmentEditCommand.EditAppointmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;

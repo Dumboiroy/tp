@@ -1,11 +1,11 @@
 package seedu.address.model.appointment;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class AppointmentFlagTest {
     @Test
@@ -22,8 +22,8 @@ public class AppointmentFlagTest {
     @Test
     public void create_appointmentFlag_fail() {
         char[] invalidFlags = new char[]
-                {'a', 'b', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
-                        'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+            {'a', 'b', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+                'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
         for (char i : invalidFlags) {
             assertThrows(IllegalArgumentException.class, () -> new AppointmentFlag(i));
         }
