@@ -133,13 +133,14 @@ public class Appointment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateTime, length, location, type, message, status);
+        return Objects.hash(id, clientName, dateTime, length, location, type, message, status);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("id", id)
+                .add("clientName", clientName)
                 .add("dateTime", dateTime)
                 .add("length", length)
                 .add("location", location)

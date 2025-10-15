@@ -118,7 +118,7 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
             if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_ID)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        "Wrong flag"));
+                        "Wrong Syntax for flag -e"));
             }
             break;
         default:

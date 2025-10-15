@@ -110,7 +110,6 @@ public class LinkAppointmentEditCommand extends LinkAppointmentCommand {
      * corresponding field value of the appointment.
      */
     public static class EditAppointmentDescriptor {
-        private AppointmentId id;
         private AppointmentDateTime dateTime;
         private AppointmentLength length;
         private AppointmentLocation location;
@@ -125,7 +124,6 @@ public class LinkAppointmentEditCommand extends LinkAppointmentCommand {
          * @param toCopy
          */
         public EditAppointmentDescriptor(EditAppointmentDescriptor toCopy) {
-            setId(toCopy.id);
             setDateTime(toCopy.dateTime);
             setLength(toCopy.length);
             setLocation(toCopy.location);
@@ -135,13 +133,10 @@ public class LinkAppointmentEditCommand extends LinkAppointmentCommand {
         }
 
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(id, dateTime, length, location, type, message, status);
+            return CollectionUtil.isAnyNonNull(dateTime, length, location, type, message, status);
         }
 
         //================ Setters ==================================
-        public void setId(AppointmentId id) {
-            this.id = id;
-        }
 
         public void setDateTime(AppointmentDateTime dateTime) {
             this.dateTime = dateTime;
@@ -168,9 +163,6 @@ public class LinkAppointmentEditCommand extends LinkAppointmentCommand {
         }
 
         //====================== Getters ===================================
-        public Optional<AppointmentId> getId() {
-            return Optional.ofNullable(id);
-        }
 
         public Optional<AppointmentDateTime> getDateTime() {
             return Optional.ofNullable(dateTime);
