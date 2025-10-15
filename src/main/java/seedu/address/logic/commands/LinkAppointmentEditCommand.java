@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -186,6 +188,37 @@ public class LinkAppointmentEditCommand extends LinkAppointmentCommand {
 
         public Optional<AppointmentType> getType() {
             return Optional.ofNullable(type);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (other == this) {
+                return true;
+            }
+
+            if (!(other instanceof EditAppointmentDescriptor)) {
+                return false;
+            }
+
+            EditAppointmentDescriptor otherDesc = (EditAppointmentDescriptor) other;
+            return Objects.equals(dateTime, otherDesc.dateTime)
+                    && Objects.equals(length, otherDesc.length)
+                    && Objects.equals(location, otherDesc.location)
+                    && Objects.equals(type, otherDesc.type)
+                    && Objects.equals(message, otherDesc.message)
+                    && Objects.equals(status, otherDesc.status);
+        }
+
+        @Override
+        public String toString() {
+            return new ToStringBuilder(this)
+                    .add("dateTime", dateTime)
+                    .add("length", length)
+                    .add("location", location)
+                    .add("type", type)
+                    .add("message", message)
+                    .add("status", status)
+                    .toString();
         }
     }
 }
