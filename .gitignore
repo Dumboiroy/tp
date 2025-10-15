@@ -30,3 +30,5 @@ docs/_site/
 
 # npm packages
 /node_modules/
+
+/htmlReport/

@@ -14,7 +14,7 @@ import seedu.address.model.person.Name;
  * A utility class to help with building {@code Appointment} objects.
  */
 public class AppointmentBuilder {
-    public static final String DEFAULT_ID = "0";
+    public static final String DEFAULT_ID = "dummy";
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_DATE_TIME = "12-10-2099 1430";
     public static final String DEFAULT_APPOINTMENT_LENGTH = "90";

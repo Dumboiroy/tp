@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.AppointmentDateTime;
+import seedu.address.model.appointment.AppointmentFlag;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.AppointmentLength;
 import seedu.address.model.appointment.AppointmentLocation;
 import seedu.address.model.appointment.AppointmentMessage;
@@ -27,6 +29,8 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
+    private static final String INVALID_FLAG_1 = "cd";
+    private static final String INVALID_FLAG_2 = "z";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = "*!blk 5";
@@ -41,6 +45,7 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_RANK = "urgent";
+    private static final String VALID_APPOINTMENT_FLAG = "c";
     private static final String VALID_APPOINTMENT_DATE_TIME = "20-10-2025 1400";
     private static final String VALID_APPOINTMENT_LENGTH = "60";
     private static final String VALID_APPOINTMENT_LOCATION = "Dental Clinic";
@@ -294,5 +299,29 @@ public class ParserUtilTest {
         String statusWithWhitespace = WHITESPACE + VALID_APPOINTMENT_STATUS + WHITESPACE;
         AppointmentStatus expectedStatus = new AppointmentStatus(VALID_APPOINTMENT_STATUS);
         assertEquals(expectedStatus, ParserUtil.parseAppointmentStatus(statusWithWhitespace));
+    }
+
+    @Test
+    public void parseAppointmentFlag_withValidFlag() throws Exception {
+        AppointmentFlag expectedFlag = ParserUtil.parseAppointmentFlag(VALID_APPOINTMENT_FLAG);
+        assertEquals(expectedFlag, new AppointmentFlag(VALID_APPOINTMENT_FLAG.charAt(0)));
+    }
+
+    @Test
+    public void parseAppointmentFlag_withInvalidFlag() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAppointmentFlag(INVALID_FLAG_1));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAppointmentFlag(INVALID_FLAG_2));
+    }
+
+    @Test
+    public void parseAppointmentId_withValidId() throws Exception {
+        AppointmentId expectedId = ParserUtil.parseAppointmentId("dummy");
+        assertEquals(new AppointmentId("dummy"), expectedId);
+    }
+
+    @Test
+    public void parseAppointmentId_withInvalidId() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAppointmentId(""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAppointmentId("   "));
     }
 }

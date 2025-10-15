@@ -233,10 +233,14 @@ public class ParserUtil {
      * @throws ParseException
      */
     public static AppointmentFlag parseAppointmentFlag(String flag) throws ParseException {
-        if (flag == null || flag.trim().isEmpty()) {
+        if (flag == null || flag.trim().isEmpty() || flag.length() > 1
+                || !AppointmentFlag.isValidFlag(flag.charAt(0))) {
             throw new ParseException("Invalid Flag!");
         }
-        return new AppointmentFlag(flag);
+
+        char charFlag = flag.toLowerCase().charAt(0);
+
+        return new AppointmentFlag(charFlag);
     }
 
     /**
