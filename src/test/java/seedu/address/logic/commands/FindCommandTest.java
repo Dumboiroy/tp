@@ -7,6 +7,7 @@ import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RANK_STABLE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.ALICE_WITH_SUBSTRING_NAME;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
@@ -84,41 +85,42 @@ public class FindCommandTest {
 
     @Test
     public void execute_phoneNumber_aliceFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
         PersonQuery query = PersonQuery.build().setPhone(new Phone("94351253"));
         FindCommand command = new FindCommand(query);
         expectedModel.updateFilteredPersonList(query::filter);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, ALICE_WITH_SUBSTRING_NAME), model.getFilteredPersonList());
     }
 
     @Test
     public void execute_address_aliceFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
         PersonQuery query = PersonQuery.build().setAddress(new Address("123, Jurong West Ave 6, #08-111"));
         FindCommand command = new FindCommand(query);
         expectedModel.updateFilteredPersonList(query::filter);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, ALICE_WITH_SUBSTRING_NAME), model.getFilteredPersonList());
     }
 
     @Test
     public void execute_singleTag_multipleFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 4);
         PersonQuery query = PersonQuery.build().setTags(Set.of(new Tag("friends")));
         FindCommand command = new FindCommand(query);
         expectedModel.updateFilteredPersonList(query::filter);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL, ALICE_WITH_SUBSTRING_NAME), model.getFilteredPersonList());
     }
 
     @Test
     public void execute_rank_multipleFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 4);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
         PersonQuery query = PersonQuery.build().setRank(new Rank(VALID_RANK_STABLE));
         FindCommand command = new FindCommand(query);
         expectedModel.updateFilteredPersonList(query::filter);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ALICE_WITH_SUBSTRING_NAME),
+                model.getFilteredPersonList());
     }
 }
