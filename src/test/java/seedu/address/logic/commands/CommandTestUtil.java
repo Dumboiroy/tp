@@ -17,7 +17,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -26,7 +25,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.NameMatchesQueryNamePredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.rank.RankType;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -157,8 +156,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPersonList(new NameMatchesQueryNamePredicate(person.getName()));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
