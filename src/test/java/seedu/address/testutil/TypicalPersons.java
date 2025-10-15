@@ -115,18 +115,23 @@ public class TypicalPersons {
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .withRank(VALID_RANK_STABLE).withAppointments(MEETING_BOB).build();
+    public static final Person ALICE_WITH_SUBSTRING_NAME = new PersonBuilder().withName("Alice Paul")
+            .withPhone("91234567").withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withPhone("94351253").withTags("friends").withRank("stable")
+            .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalPersons() {
+    } // prevents instantiation
 
     /**
      * Extract list of appointments from the given persons array
      */
     public static List<Appointment> extractAppointmentsFromPersons(List<Person> persons) {
         return persons.stream()
-            .flatMap(person -> person.getAppointments().stream())
-            .toList();
+                .flatMap(person -> person.getAppointments().stream())
+                .toList();
     }
 
     /**
@@ -139,11 +144,12 @@ public class TypicalPersons {
             ab.addPerson(person);
         }
         extractAppointmentsFromPersons(samplePersons)
-            .forEach(ab::addAppointment);
+                .forEach(ab::addAppointment);
         return ab;
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE,
+                ALICE_WITH_SUBSTRING_NAME));
     }
 }
