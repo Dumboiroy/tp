@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -190,14 +191,25 @@ public class ParserUtil {
             return AppointmentDateTimeQuery.withinRelativeDays(value);
         }
         if (!trimmed.contains(" to ")) {
-            LocalDateTime current = DateTimeUtil.localDateTimeFromString(trimmed);
+            LocalDateTime current;
+            try {
+                current = DateTimeUtil.localDateTimeFromString(trimmed);
+            } catch (DateTimeException err) {
+                throw new ParseException(AppointmentDateTimeQuery.MESSAGE_CONSTRAINTS);
+            }
             return new AppointmentDateTimeQuery(current);
         }
         String[] parts = trimmed.split(" to ");
         String startStr = parts[0].trim();
         String endStr = parts[1].trim();
-        LocalDateTime start = DateTimeUtil.localDateTimeFromString(startStr);
-        LocalDateTime end = DateTimeUtil.localDateTimeFromStringEnd(endStr);
+        LocalDateTime start;
+        LocalDateTime end;
+        try {
+            start = DateTimeUtil.localDateTimeFromString(startStr);
+            end = DateTimeUtil.localDateTimeFromStringEnd(endStr);
+        } catch (DateTimeException err) {
+            throw new ParseException(AppointmentDateTimeQuery.MESSAGE_CONSTRAINTS);
+        }
         return new AppointmentDateTimeQuery(start, end);
     }
 
