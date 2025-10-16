@@ -28,7 +28,7 @@ public class LinkAppointmentDeleteCommandTest {
     }
 
     @Test
-    public void execute_delete_appointment_success() throws CommandException {
+    public void execute_deleteAppointment_success() throws CommandException {
         Person client = new PersonBuilder(ALICE).build();
         Appointment appt = client.getAppointments().get(0);
         AppointmentId id = appt.getId();
@@ -43,7 +43,7 @@ public class LinkAppointmentDeleteCommandTest {
     }
 
     @Test
-    public void execute_delete_appointment_fail_AppointmentNotFound() {
+    public void execute_deleteAppointmentFail_appointmentNotFound() {
         AppointmentId invalidId = new AppointmentId();
 
         LinkAppointmentCommand deleteApptCommand1 = new LinkAppointmentDeleteCommand(invalidId);

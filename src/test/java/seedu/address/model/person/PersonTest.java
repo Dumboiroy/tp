@@ -15,6 +15,8 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.DENTIST_APPT;
 import static seedu.address.testutil.TypicalPersons.MEETING_APPT;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PersonBuilder;
@@ -105,6 +107,12 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withAppointments(MEETING_APPT, DENTIST_APPT).build();
         assertFalse(ALICE.equals(editedAlice));
 
+        // removing an appointment from a person -> returns false
+        Person dentistApptAlice = new PersonBuilder(ALICE).withAppointments(DENTIST_APPT).build();
+        Person noDentistApptAlice =
+                new PersonBuilder(ALICE).withAppointments(DENTIST_APPT).build()
+                        .withoutAppointments(List.of(DENTIST_APPT));
+        assertFalse(dentistApptAlice.equals(noDentistApptAlice));
     }
 
     @Test

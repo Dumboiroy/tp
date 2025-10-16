@@ -60,40 +60,40 @@ public class LinkAppointmentCommandParserTest {
                 + APPOINTMENT_MESSAGE_DESC_BOB
                 + APPOINTMENT_STATUS_DESC_BOB;
         assertParseSuccess(parser, input,
-            new LinkAppointmentCreateCommand(BOB.getName(), expectedAppointment));
+                new LinkAppointmentCreateCommand(BOB.getName(), expectedAppointment));
     }
 
     @Test
     public void parse_mandatoryFieldsPresent_success() {
         Appointment expectedAppointment = new Appointment(BOB.getName(),
-            new AppointmentDateTime(VALID_APPOINTMENT_DATE_TIME), new AppointmentLength(""),
-            new AppointmentLocation(""), new AppointmentType(""),
-            new AppointmentMessage(""), new AppointmentStatus(AppointmentStatusType.PLANNED.toString()));
+                new AppointmentDateTime(VALID_APPOINTMENT_DATE_TIME), new AppointmentLength(""),
+                new AppointmentLocation(""), new AppointmentType(""),
+                new AppointmentMessage(""), new AppointmentStatus(AppointmentStatusType.PLANNED.toString()));
         // whitespace only preamble
         assertParseSuccess(parser, CREATE_FLAG + NAME_DESC_BOB
-                + APPOINTMENT_DATE_TIME_DESC_BOB,
-            new LinkAppointmentCreateCommand(BOB.getName(), expectedAppointment));
+                        + APPOINTMENT_DATE_TIME_DESC_BOB,
+                new LinkAppointmentCreateCommand(BOB.getName(), expectedAppointment));
     }
 
     @Test
     public void parse_compulsoryFieldsMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-            LinkAppointmentCommand.MESSAGE_USAGE);
+                LinkAppointmentCommand.MESSAGE_USAGE);
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + APPOINTMENT_DATE_TIME_DESC_BOB,
-            expectedMessage);
+                expectedMessage);
 
         // missing appointment prefix
         assertParseFailure(parser, NAME_DESC_BOB + VALID_APPOINTMENT_DATE_TIME,
-            expectedMessage);
+                expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_APPOINTMENT_DATE_TIME,
-            expectedMessage);
+                expectedMessage);
 
         // Missing appointment timing
         assertParseFailure(parser, NAME_DESC_BOB,
-            expectedMessage);
+                expectedMessage);
     }
 
     @Test
