@@ -13,7 +13,9 @@ import seedu.address.model.person.Person;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
@@ -52,7 +54,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -79,11 +83,14 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
@@ -95,7 +102,8 @@ public interface Model {
 
     /**
      * Edits a given appointment
-     * @param target Appointment to be replaced
+     *
+     * @param target  Appointment to be replaced
      * @param newAppt Appointment to replace old appointment
      */
     void editAppointment(Appointment target, Appointment newAppt);
@@ -128,6 +136,8 @@ public interface Model {
 
     void setAppointmentWithPerson(Appointment target, Appointment editedAppointment, Person client);
 
+    void unsetAppointmentWithPerson(Appointment target, Person client);
+
     /**
      * Returns an unmodifiable view of the filtered appointment list.
      */
@@ -135,6 +145,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
@@ -146,7 +157,7 @@ public interface Model {
     void setViewMode(ViewMode mode);
 
     /**
-     *  Returns an observable object for binding with FXML components
+     * Returns an observable object for binding with FXML components
      */
     ObjectProperty<ViewMode> getObservableViewMode();
 }

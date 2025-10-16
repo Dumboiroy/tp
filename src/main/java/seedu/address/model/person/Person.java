@@ -119,6 +119,15 @@ public class Person {
     }
 
     /**
+     * Returns a new Person with the given appointments removed.
+     */
+    public Person withoutAppointments(List<Appointment> appointmentsToRemove) {
+        List<Appointment> updatedAppointments = new ArrayList<>(appointments);
+        updatedAppointments.removeAll(appointmentsToRemove);
+        return new Person(name, phone, email, address, tags, rank, updatedAppointments);
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
