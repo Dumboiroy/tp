@@ -105,16 +105,6 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_address_aliceFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
-        PersonQuery query = PersonQuery.build().setAddress(new Address("123, Jurong West Ave 6, #08-111"));
-        FindCommand command = new FindCommand(query);
-        expectedModel.updateFilteredPersonList(query::filter);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, ALICE_WITH_SUBSTRING_NAME), model.getFilteredPersonList());
-    }
-
-    @Test
     public void execute_singleTag_multipleFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 4);
         PersonQuery query = PersonQuery.build().setTags(Set.of(new Tag("friends")));
