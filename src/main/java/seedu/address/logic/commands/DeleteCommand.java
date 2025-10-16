@@ -37,15 +37,17 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        // get person from nameQuery - i.e. get person from lastShownList whose name matches nameToDelete
+        // get person from nameQuery - i.e. get person from lastShownList whose name
+        // matches nameToDelete
         List<Person> matchedPersons = lastShownList.stream()
-                .filter(person -> person.getName().containsName(targetName))
+                .filter(person -> person.getName().equals(targetName))
                 .toList();
         if (matchedPersons.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_PERSON_DOES_NOT_EXIST);
         }
 
         if (matchedPersons.size() > 1) {
+            // should never reach here since we don't allow duplicate names
             String[] names = matchedPersons.stream()
                     .map(person -> person.getName().fullName)
                     .toArray(String[]::new);

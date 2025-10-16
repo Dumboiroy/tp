@@ -1,76 +1,105 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
-  "persons" : [ {
-    "name" : "Alice Pauline",
-    "phone" : "94351253",
-    "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "tags" : [ "friends" ],
-    "rank" : "stable",
-    "appointments" : [ {
-      "id": "2",
-      "dateTime" : "21-10-2025 1030",
-      "length" : "90",
-      "location" : "NTU Library",
-      "type" : "Meeting",
-      "message" : "Project discussion",
-      "status" : "planned"
-    }]
-  }, {
-    "name" : "Benson Meier",
-    "phone" : "98765432",
-    "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "tags" : [ "owesMoney", "friends" ],
-    "rank" : "stable",
-    "appointments" : [ {
-      "id": "1",
-      "dateTime" : "20-10-2025 1400",
-      "length" : "60",
-      "location" : "Dental Clinic",
-      "type" : "Health",
-      "message" : "Routine checkup",
-      "status" : "planned"
-    }]
-  }, {
-    "name" : "Carl Kurz",
-    "phone" : "95352563",
-    "email" : "heinz@example.com",
-    "address" : "wall street",
-    "tags" : [ ],
-    "rank" : "stable",
-    "appointments": []
-  }, {
-    "name" : "Daniel Meier",
-    "phone" : "87652533",
-    "email" : "cornelia@example.com",
-    "address" : "10th street",
-    "tags" : [ "friends" ],
-    "rank" : "stable",
-    "appointments": []
-  }, {
-    "name" : "Elle Meyer",
-    "phone" : "94823224",
-    "email" : "werner@example.com",
-    "address" : "michegan ave",
-    "tags" : [ ],
-    "rank" : "",
-    "appointments": []
-  }, {
-    "name" : "Fiona Kunz",
-    "phone" : "94821427",
-    "email" : "lydia@example.com",
-    "address" : "little tokyo",
-    "tags" : [ ],
-    "rank" : "",
-    "appointments": []
-  }, {
-    "name" : "George Best",
-    "phone" : "94821442",
-    "email" : "anna@example.com",
-    "address" : "4th street",
-    "tags" : [ ],
-    "rank" : "",
-    "appointments": []
-  } ]
+  "persons": [
+    {
+      "name": "Alice Pauline",
+      "phone": "94351253",
+      "email": "alice@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "tags": [
+        "friends"
+      ],
+      "rank": "stable",
+      "appointments": [
+        {
+          "id": "2",
+          "dateTime": "21-10-2025 1030",
+          "length": "90",
+          "location": "NTU Library",
+          "type": "Meeting",
+          "message": "Project discussion",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "name": "Benson Meier",
+      "phone": "98765432",
+      "email": "johnd@example.com",
+      "address": "311, Clementi Ave 2, #02-25",
+      "tags": [
+        "owesMoney",
+        "friends"
+      ],
+      "rank": "stable",
+      "appointments": [
+        {
+          "id": "1",
+          "dateTime": "20-10-2025 1400",
+          "length": "60",
+          "location": "Dental Clinic",
+          "type": "Health",
+          "message": "Routine checkup",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "name": "Carl Kurz",
+      "phone": "95352563",
+      "email": "heinz@example.com",
+      "address": "wall street",
+      "tags": [],
+      "rank": "stable",
+      "appointments": []
+    },
+    {
+      "name": "Daniel Meier",
+      "phone": "87652533",
+      "email": "cornelia@example.com",
+      "address": "10th street",
+      "tags": [
+        "friends"
+      ],
+      "rank": "stable",
+      "appointments": []
+    },
+    {
+      "name": "Elle Meyer",
+      "phone": "94823224",
+      "email": "werner@example.com",
+      "address": "michegan ave",
+      "tags": [],
+      "rank": "",
+      "appointments": []
+    },
+    {
+      "name": "Fiona Kunz",
+      "phone": "94821427",
+      "email": "lydia@example.com",
+      "address": "little tokyo",
+      "tags": [],
+      "rank": "",
+      "appointments": []
+    },
+    {
+      "name": "George Best",
+      "phone": "94821442",
+      "email": "anna@example.com",
+      "address": "4th street",
+      "tags": [],
+      "rank": "",
+      "appointments": []
+    },
+    {
+      "name": "Alice Paul",
+      "phone": "94351253",
+      "email": "alice@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "tags": [
+        "friends"
+      ],
+      "rank": "stable",
+      "appointments": []
+    }
+  ]
 }
