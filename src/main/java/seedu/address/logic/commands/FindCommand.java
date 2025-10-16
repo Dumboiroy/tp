@@ -102,10 +102,10 @@ public class FindCommand extends Command {
     @Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
-        builder.add("personQuery", personQuery.toString(new ToStringBuilder(this)));
+        builder.add("personQuery", personQuery.toString(new ToStringBuilder("")));
         appointmentQuery.ifPresent(
             appt -> builder.add("appointmentQuery",
-                appt.toString(new ToStringBuilder(this))));
+                appt.toString(new ToStringBuilder(""))));
         return builder.toString();
     }
 }

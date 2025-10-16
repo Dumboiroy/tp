@@ -25,6 +25,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -32,6 +33,7 @@ import seedu.address.model.appointment.AppointmentDateTimeQuery;
 import seedu.address.model.appointment.AppointmentQuery;
 import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.appointment.AppointmentType;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonQuery;
 import seedu.address.model.person.Phone;
@@ -51,7 +53,7 @@ public class FindCommandTest {
         AppointmentQuery firstAppointmentQuery = AppointmentQuery.build().setStatus(new AppointmentStatus("planned"));
         PersonQuery secondQuery = PersonQuery.build().setName(new String[]{"second"});
         AppointmentQuery secondAppointmentQuery = AppointmentQuery.build()
-                .setDateTime(AppointmentDateTimeQuery.today());
+            .setDateTime(AppointmentDateTimeQuery.today());
 
         FindCommand findFirstCommand = new FindCommand(firstQuery, firstAppointmentQuery);
         FindCommand findSecondCommand = new FindCommand(secondQuery, secondAppointmentQuery);
@@ -127,8 +129,8 @@ public class FindCommandTest {
     public void execute_appointmentDateTime_aliceFound() {
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 1);
         AppointmentDateTimeQuery dateTimeQuery = AppointmentDateTimeQuery.interval(
-                ALICE.getAppointments().get(0).getDateTime().dateTime,
-                ALICE.getAppointments().get(0).getLength().duration);
+            ALICE.getAppointments().get(0).getDateTime().dateTime,
+            ALICE.getAppointments().get(0).getLength().duration);
         AppointmentQuery query = AppointmentQuery.build().setDateTime(dateTimeQuery);
         FindCommand command = new FindCommand(PersonQuery.build(), query);
         expectedModel.updateFilteredAppointmentList(query::filter);
@@ -140,7 +142,7 @@ public class FindCommandTest {
     public void execute_appointmentDateTime_noOneFound() {
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 0);
         AppointmentDateTimeQuery dateTimeQuery = AppointmentDateTimeQuery.interval(
-                LocalDateTime.MIN, Duration.ofDays(1));
+            LocalDateTime.MIN, Duration.ofDays(1));
         AppointmentQuery query = AppointmentQuery.build().setDateTime(dateTimeQuery);
         FindCommand command = new FindCommand(PersonQuery.build(), query);
         expectedModel.updateFilteredAppointmentList(query::filter);
@@ -156,7 +158,7 @@ public class FindCommandTest {
         expectedModel.updateFilteredAppointmentList(query::filter);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(MEETING_APPT, DENTIST_APPT),
-                model.getFilteredAppointmentList());
+            model.getFilteredAppointmentList());
     }
 
     @Test
@@ -167,5 +169,23 @@ public class FindCommandTest {
         expectedModel.updateFilteredAppointmentList(query::filter);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE.getAppointments().get(0)), model.getFilteredAppointmentList());
+    }
+
+    @Test
+    public void toStringMethod() {
+        PersonQuery personQuery = PersonQuery.build().setName(new Name[]{ALICE.getName()})
+            .setEmail(ALICE.getEmail())
+            .setPhone(ALICE.getPhone())
+            .setRank(ALICE.getRank());
+        AppointmentQuery appointmentQuery = AppointmentQuery.build()
+            .setDateTime(AppointmentDateTimeQuery.today())
+            .setStatus(new AppointmentStatus("planned"));
+
+        FindCommand findCommand = new FindCommand(personQuery, appointmentQuery);
+
+        String expected = FindCommand.class.getCanonicalName()
+            + "{personQuery=" + personQuery.toString(new ToStringBuilder("")) + ", "
+            + "appointmentQuery=" + appointmentQuery.toString(new ToStringBuilder("")) + "}";
+        assertEquals(expected, findCommand.toString());
     }
 }

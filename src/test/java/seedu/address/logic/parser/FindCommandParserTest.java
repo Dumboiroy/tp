@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
@@ -19,8 +20,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_RANK_STABLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -34,7 +38,10 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.appointment.AppointmentDateTimeQuery;
 import seedu.address.model.appointment.AppointmentQuery;
+import seedu.address.model.appointment.AppointmentStatus;
+import seedu.address.model.appointment.AppointmentType;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.PersonQuery;
 import seedu.address.model.person.Phone;
 import seedu.address.model.rank.Rank;
@@ -43,6 +50,14 @@ import seedu.address.model.tag.Tag;
 public class FindCommandParserTest {
 
     private FindCommandParser parser = new FindCommandParser();
+
+    @Test
+    public void parse_trailingPreamble_failed() {
+        String userInput = "trail";
+        FindCommand expectedFindCommand = new FindCommand(PersonQuery.build());
+        assertParseFailure(parser, userInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            FindCommand.MESSAGE_USAGE));
+    }
 
     @Test
     public void parse_emptyArg_success() {
@@ -91,6 +106,10 @@ public class FindCommandParserTest {
         userInput = PHONE_DESC_BOB + INVALID_PHONE_DESC;
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
 
+        // empty name failed
+        userInput = " " + PREFIX_NAME;
+        assertParseFailure(parser, userInput, Name.MESSAGE_CONSTRAINTS);
+
         // multiple valid fields repeated
         userInput = PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + TAG_DESC_FRIEND + PHONE_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
@@ -121,6 +140,11 @@ public class FindCommandParserTest {
         // +3 days
         userInput = " " + PREFIX_APPOINTMENT + " +3";
         query = AppointmentQuery.build().setDateTime(AppointmentDateTimeQuery.withinRelativeDays(3));
+        expectedFindCommand = new FindCommand(defaultPersonQuery, query);
+        assertParseSuccess(parser, userInput, expectedFindCommand);
+        // -3 days
+        userInput = " " + PREFIX_APPOINTMENT + " -3";
+        query = AppointmentQuery.build().setDateTime(AppointmentDateTimeQuery.withinRelativeDays(-3));
         expectedFindCommand = new FindCommand(defaultPersonQuery, query);
         assertParseSuccess(parser, userInput, expectedFindCommand);
         // only one day specified
@@ -155,12 +179,36 @@ public class FindCommandParserTest {
         query = AppointmentQuery.build().setDateTime(AppointmentDateTimeQuery.today());
         assertParseFailure(parser, userInput, AppointmentDateTimeQuery.MESSAGE_CONSTRAINTS);
         // incorrect date format
-        String dateTimeStr = "12-10-20215 1200";
+        String dateTimeStr = "12-20-2015 1200";
         userInput = " " + PREFIX_APPOINTMENT + " " + dateTimeStr;
         assertParseFailure(parser, userInput, AppointmentDateTimeQuery.MESSAGE_CONSTRAINTS);
         // incorrect keyword
         dateTimeStr = "12-10-2025 1200 too 13-10-2025";
         userInput = " " + PREFIX_APPOINTMENT + " " + dateTimeStr;
         assertParseFailure(parser, userInput, AppointmentDateTimeQuery.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_status_success() {
+        String userInput;
+        FindCommand expectedFindCommand;
+        PersonQuery defaultPersonQuery = PersonQuery.build();
+        AppointmentQuery query;
+        userInput = " " + PREFIX_STATUS + "planned";
+        query = AppointmentQuery.build().setStatus(new AppointmentStatus("planned"));
+        expectedFindCommand = new FindCommand(defaultPersonQuery, query);
+        assertParseSuccess(parser, userInput, expectedFindCommand);
+    }
+
+    @Test
+    public void parse_type_success() {
+        String userInput;
+        FindCommand expectedFindCommand;
+        PersonQuery defaultPersonQuery = PersonQuery.build();
+        AppointmentQuery query;
+        userInput = " " + PREFIX_TYPE + "type";
+        query = AppointmentQuery.build().setType(new AppointmentType("type"));
+        expectedFindCommand = new FindCommand(defaultPersonQuery, query);
+        assertParseSuccess(parser, userInput, expectedFindCommand);
     }
 }
