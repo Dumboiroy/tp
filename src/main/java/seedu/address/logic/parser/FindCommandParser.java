@@ -85,10 +85,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             String trimmedArgs = name.toString().trim();
-            if (trimmedArgs.isEmpty()) {
-                throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-            }
             String[] nameKeywords = trimmedArgs.split("\\s+");
             query = query.setName(nameKeywords);
         }
