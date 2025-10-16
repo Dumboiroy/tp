@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.LinkAppointmentCommand;
 import seedu.address.logic.commands.LinkAppointmentCreateCommand;
 import seedu.address.logic.commands.LinkAppointmentEditCommand;
+import seedu.address.logic.commands.LinkAppointmentEditCommand.EditAppointmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDateTime;
@@ -64,7 +65,7 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
             return new LinkAppointmentCreateCommand(clientName, appointment);
         } else if (flag.value == 'e') {
             AppointmentId targetId = ParserUtil.parseAppointmentId(argMultimap.getValue(PREFIX_ID).get());
-            setEditAppointDescriptor(editAppointmentDescriptor, argMultimap);
+            setEditAppointmentDescriptor(editAppointmentDescriptor, argMultimap);
             if (!editAppointmentDescriptor.isAnyFieldEdited()) {
                 throw new ParseException(LinkAppointmentCommand.MESSAGE_INVALID_EDIT_SYNTAX);
             }
@@ -73,8 +74,8 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
         return null;
     }
 
-    public void setEditAppointDescriptor(
-            LinkAppointmentEditCommand.EditAppointmentDescriptor editAppointmentDescriptor,
+    public void setEditAppointmentDescriptor(
+            EditAppointmentDescriptor editAppointmentDescriptor,
             ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(PREFIX_APPOINTMENT).isPresent()) {
             editAppointmentDescriptor.setDateTime(
@@ -118,7 +119,7 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
             if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_ID)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        "Wrong flag"));
+                        "Wrong Syntax for flag -e"));
             }
             break;
         default:

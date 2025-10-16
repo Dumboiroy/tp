@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RANK_STABLE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -11,10 +12,14 @@ import static seedu.address.testutil.TypicalPersons.ALICE_WITH_SUBSTRING_NAME;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.DENTIST_APPT;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.MEETING_APPT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -24,7 +29,10 @@ import javafx.collections.ObservableList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Address;
+import seedu.address.model.appointment.AppointmentDateTimeQuery;
+import seedu.address.model.appointment.AppointmentQuery;
+import seedu.address.model.appointment.AppointmentStatus;
+import seedu.address.model.appointment.AppointmentType;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonQuery;
 import seedu.address.model.person.Phone;
@@ -41,10 +49,13 @@ public class FindCommandTest {
     @Test
     public void equals() {
         PersonQuery firstQuery = PersonQuery.build().setName(new String[]{"first"});
+        AppointmentQuery firstAppointmentQuery = AppointmentQuery.build().setStatus(new AppointmentStatus("planned"));
         PersonQuery secondQuery = PersonQuery.build().setName(new String[]{"second"});
+        AppointmentQuery secondAppointmentQuery = AppointmentQuery.build()
+                .setDateTime(AppointmentDateTimeQuery.today());
 
-        FindCommand findFirstCommand = new FindCommand(firstQuery);
-        FindCommand findSecondCommand = new FindCommand(secondQuery);
+        FindCommand findFirstCommand = new FindCommand(firstQuery, firstAppointmentQuery);
+        FindCommand findSecondCommand = new FindCommand(secondQuery, secondAppointmentQuery);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
@@ -122,5 +133,51 @@ public class FindCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ALICE_WITH_SUBSTRING_NAME),
                 model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_appointmentDateTime_aliceFound() {
+        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 1);
+        AppointmentDateTimeQuery dateTimeQuery = AppointmentDateTimeQuery.interval(
+                ALICE.getAppointments().get(0).getDateTime().dateTime,
+                ALICE.getAppointments().get(0).getLength().duration);
+        AppointmentQuery query = AppointmentQuery.build().setDateTime(dateTimeQuery);
+        FindCommand command = new FindCommand(PersonQuery.build(), query);
+        expectedModel.updateFilteredAppointmentList(query::filter);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICE.getAppointments().get(0)), model.getFilteredAppointmentList());
+    }
+
+    @Test
+    public void execute_appointmentDateTime_noOneFound() {
+        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 0);
+        AppointmentDateTimeQuery dateTimeQuery = AppointmentDateTimeQuery.interval(
+                LocalDateTime.MIN, Duration.ofDays(1));
+        AppointmentQuery query = AppointmentQuery.build().setDateTime(dateTimeQuery);
+        FindCommand command = new FindCommand(PersonQuery.build(), query);
+        expectedModel.updateFilteredAppointmentList(query::filter);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(), model.getFilteredAppointmentList());
+    }
+
+    @Test
+    public void execute_appointmentStatus_twoPeopleFound() {
+        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 2);
+        AppointmentQuery query = AppointmentQuery.build().setStatus(new AppointmentStatus("planned"));
+        FindCommand command = new FindCommand(PersonQuery.build(), query);
+        expectedModel.updateFilteredAppointmentList(query::filter);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(MEETING_APPT, DENTIST_APPT),
+                model.getFilteredAppointmentList());
+    }
+
+    @Test
+    public void execute_appointmentType_aliceFound() {
+        String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 1);
+        AppointmentQuery query = AppointmentQuery.build().setType(new AppointmentType("Meeting"));
+        FindCommand command = new FindCommand(PersonQuery.build(), query);
+        expectedModel.updateFilteredAppointmentList(query::filter);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICE.getAppointments().get(0)), model.getFilteredAppointmentList());
     }
 }

@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.LinkAppointmentEditCommand.EditAppointmentDescriptor;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDateTime;
-import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.AppointmentLength;
 import seedu.address.model.appointment.AppointmentLocation;
 import seedu.address.model.appointment.AppointmentMessage;
@@ -29,21 +28,12 @@ public class EditAppointmentDescriptorBuilder {
      */
     public EditAppointmentDescriptorBuilder(Appointment appointment) {
         descriptor = new EditAppointmentDescriptor();
-        descriptor.setId(appointment.getId());
         descriptor.setDateTime(appointment.getDateTime());
         descriptor.setLength(appointment.getLength());
         descriptor.setLocation(appointment.getLocation());
         descriptor.setType(appointment.getType());
         descriptor.setMessage(appointment.getMessage());
         descriptor.setStatus(appointment.getStatus());
-    }
-
-    /**
-     * Sets the {@code Id} of the {@code EditAppointmentDescriptor} that we are building.
-     */
-    public EditAppointmentDescriptorBuilder withId(String id) {
-        descriptor.setId(new AppointmentId(id));
-        return this;
     }
 
     /**
