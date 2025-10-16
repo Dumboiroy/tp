@@ -51,7 +51,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_RANK + "RANK]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE +  "91234567 "
+            + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Successfully edited %1$s's information to:\n";
@@ -61,7 +61,7 @@ public class EditCommand extends Command {
             + "- Edit tags (able to chain more than 1 tag): edit NAME " + PREFIX_TAG + "TAG\n"
             + "- Edit home address: edit NAME " + PREFIX_ADDRESS + "ADDRESS\n"
             + "- Edit phone number: edit NAME " + PREFIX_PHONE + "PHONE\n"
-            + "- Edit email address: edit NAME "+PREFIX_EMAIL + "EMAIL\n"
+            + "- Edit email address: edit NAME " + PREFIX_EMAIL + "EMAIL\n"
             + "- Combinations: edit NAME " + PREFIX_TAG + "TAG " + PREFIX_PHONE + "PHONE ...";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
