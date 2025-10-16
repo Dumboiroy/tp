@@ -24,6 +24,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -52,17 +53,16 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
+    private static final String TAG_EMPTY = PREFIX_TAG + " ";
 
-    private static final String MESSAGE_INVALID_FORMAT =
-        """
-             Invalid syntax. Please ensure that the command adheres to the following:
-             - Edit name: `edit [name] /n [name]`
-             - Edit tags (able to chain more than 1 tag): `edit [name] /t [tag]`
-             - Edit home address: `edit [name] /a [address]`
-             - Edit phone number: `edit [name] /p [phone number]`
-             - Edit email address: `edit [name] /e [email address]`
-             - Combinations: `edit [name] /t [tag] /p [phone number] ...`""";
+    private static final String MESSAGE_INVALID_FORMAT ="Invalid command format. Please ensure that "
+            + "the command adheres to the following:\n"
+            + "- Edit name: edit NAME " + PREFIX_NAME + "NEW_NAME\n"
+            + "- Edit tags (able to chain more than 1 tag): edit NAME " + PREFIX_TAG + "TAG\n"
+            + "- Edit home address: edit NAME " + PREFIX_ADDRESS + "ADDRESS\n"
+            + "- Edit phone number: edit NAME " + PREFIX_PHONE + "PHONE\n"
+            + "- Edit email address: edit NAME "+PREFIX_EMAIL + "EMAIL\n"
+            + "- Combinations: edit NAME " + PREFIX_TAG + "TAG " + PREFIX_PHONE + "PHONE ...";
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -231,7 +231,7 @@ public class EditCommandParserTest {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = model.getFilteredPersonList().get(targetIndex.getZeroBased()).getName().toString()
-                + TAG_EMPTY;
+                + " " + TAG_EMPTY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
         EditCommand expectedCommand = new EditCommand(

@@ -39,8 +39,8 @@ public class FindCommand extends Command {
         + "[" + PREFIX_STATUS + "APPOINTMENT STATUS]"
         + "[" + PREFIX_TYPE + "APPOINTMENT TYPES]\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_PHONE + " 91234567 "
-        + PREFIX_EMAIL + " johndoe@example.com\n"
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_EMAIL + "johndoe@example.com\n"
         + COMMAND_WORD + " " + PREFIX_APPOINTMENT + " 24-10-2025 to 26-10-2025\n";
 
     private final PersonQuery personQuery;
