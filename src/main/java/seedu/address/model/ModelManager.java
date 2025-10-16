@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -183,6 +184,13 @@ public class ModelManager implements Model {
         setAppointment(target, editedAppointment);
     }
 
+    @Override
+    public void unsetAppointmentWithPerson(Appointment target, Person client) {
+        Person updatedClient = client.withoutAppointments(List.of(target));
+        setPerson(client, updatedClient);
+        deleteAppointment(target);
+    }
+
 
     //=========== Filtered Appointment List Accessors =======================================================
 
@@ -197,8 +205,8 @@ public class ModelManager implements Model {
         // It is important to check whether the client of the corresponding
         // appointment is in the list or not
         filteredAppointments.setPredicate(
-            appt -> getPerson(appt.getClientName().toString()) != null
-                && predicate.test(appt));
+                appt -> getPerson(appt.getClientName().toString()) != null
+                        && predicate.test(appt));
     }
 
     @Override

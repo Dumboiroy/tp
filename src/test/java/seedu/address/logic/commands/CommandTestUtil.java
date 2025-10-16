@@ -50,6 +50,7 @@ public class CommandTestUtil {
     public static final String VALID_RANK_STABLE = RankType.STABLE.toString();
     public static final String VALID_RANK_URGENT = RankType.URGENT.toString();
     public static final String VALID_RANK_VULNERABLE = RankType.VULNERABLE.toString();
+    public static final String VALID_APPOINTMENT_ID = "1";
     public static final String VALID_APPOINTMENT_DATE_TIME = "20-10-2025 1400";
     public static final String VALID_APPOINTMENT_LENGTH = "60";
     public static final String VALID_APPOINTMENT_LOCATION = "Dental Clinic";
@@ -93,6 +94,7 @@ public class CommandTestUtil {
 
     public static final String CREATE_FLAG = " -c";
     public static final String EDIT_FLAG = " -e";
+    public static final String DELETE_FLAG = " -d";
 
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;

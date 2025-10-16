@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.LinkAppointmentCommand;
 import seedu.address.logic.commands.LinkAppointmentCreateCommand;
+import seedu.address.logic.commands.LinkAppointmentDeleteCommand;
 import seedu.address.logic.commands.LinkAppointmentEditCommand;
 import seedu.address.logic.commands.LinkAppointmentEditCommand.EditAppointmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -43,9 +44,9 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
                 new LinkAppointmentEditCommand.EditAppointmentDescriptor();
 
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args,
-                PREFIX_FLAG, PREFIX_ID, PREFIX_NAME, PREFIX_APPOINTMENT, PREFIX_LENGTH,
-                PREFIX_LOCATION, PREFIX_TYPE, PREFIX_MESSAGE, PREFIX_STATUS);
+                ArgumentTokenizer.tokenize(args,
+                        PREFIX_FLAG, PREFIX_ID, PREFIX_NAME, PREFIX_APPOINTMENT, PREFIX_LENGTH,
+                        PREFIX_LOCATION, PREFIX_TYPE, PREFIX_MESSAGE, PREFIX_STATUS);
 
         if (args.trim().isEmpty() || !argMultimap.getValue(PREFIX_FLAG).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -55,7 +56,7 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
         validateCommand(argMultimap);
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ID, PREFIX_NAME, PREFIX_APPOINTMENT,
-            PREFIX_LENGTH, PREFIX_LOCATION, PREFIX_TYPE, PREFIX_MESSAGE, PREFIX_STATUS);
+                PREFIX_LENGTH, PREFIX_LOCATION, PREFIX_TYPE, PREFIX_MESSAGE, PREFIX_STATUS);
 
         AppointmentFlag flag = ParserUtil.parseAppointmentFlag(argMultimap.getValue(PREFIX_FLAG).get());
 
@@ -70,6 +71,9 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
                 throw new ParseException(LinkAppointmentCommand.MESSAGE_INVALID_EDIT_SYNTAX);
             }
             return new LinkAppointmentEditCommand(targetId, editAppointmentDescriptor);
+        } else if (flag.value == 'd') {
+            AppointmentId targetId = ParserUtil.parseAppointmentId(argMultimap.getValue(PREFIX_ID).get());
+            return new LinkAppointmentDeleteCommand(targetId);
         }
         return null;
     }
@@ -79,7 +83,7 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
             ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(PREFIX_APPOINTMENT).isPresent()) {
             editAppointmentDescriptor.setDateTime(
-                            ParserUtil.parseAppointmentDateTime(argMultimap.getValue(PREFIX_APPOINTMENT).get()));
+                    ParserUtil.parseAppointmentDateTime(argMultimap.getValue(PREFIX_APPOINTMENT).get()));
         }
         if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
             editAppointmentDescriptor.setType(
@@ -114,6 +118,11 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
             }
             break;
         case 'd':
+            if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_ID)
+                    || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        "Wrong Syntax for flag -d"));
+            }
             break;
         case 'e':
             if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_ID)
