@@ -28,7 +28,7 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
    * `list` : Lists all contacts.
 
-   * `add /n John Doe /p 98765432 /e johnd@example.com /a John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -47,16 +47,16 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add /n NAME`, `NAME` is a parameter which can be used as `add /n John Doe`.
+  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `/n NAME [/t TAG]` can be used as `/n John Doe /t friend` or as `/n John Doe`.
+  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[/t TAG]…​` can be used as ` ` (i.e. 0 times), `/t friend`, `/t friend /t family` etc.
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `/n NAME /p PHONE_NUMBER`, `/p PHONE_NUMBER /n NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -77,7 +77,7 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add /n NAME /p PHONE_NUMBER [/e EMAIL] [/a ADDRESS] [/r RANK] [/t TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`
 
 Acceptable Values: 
 * For name: Your input must be alphanumeric. 
@@ -92,8 +92,8 @@ A person can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add /n John Doe /p 98765432 /e johnd@example.com /a John street, block 123, #01-01 /r stable`
-* `add /n Betsy Crowe /t friend /e betsycrowe@example.com /a Newgate Prison /p 91234567 /t criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal`
 
 ### Listing all persons : `list`
 
@@ -105,13 +105,13 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit OLD_NAME [/n NEW_NAME] [/p PHONE] [/e EMAIL] [/a ADDRESS] [/r RANK] [/t TAG]…​`
+Format: `edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`
 
 * Edits the person at the specified `OLD_NAME`. The old name refers to the person's name before editing.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `/t` without specifying any tags after it.
+* You can remove all the person’s tags by typing `t/ ` without specifying any tags after it.
 
 Acceptable Values:
 - Edit phone number: must be 8 digit integers, starting with 6, 8 or 9. Starting with country code (+65) is acceptable.
@@ -119,24 +119,24 @@ Acceptable Values:
 - Combinations: Any combination is acceptable
 
 Examples:
-*  `edit John Doe /p 91234567 /e johndoe@example.com /rank urgent`  
+*  `edit John Doe p/91234567 e/johndoe@example.com r/urgent`  
 Edits the phone number and email address of John Doe to be `91234567`, `johndoe@example.com` respectively
 and ranks the contact as `urgent`.
-*  `edit Betsy Crownerrr /n Betsy Crower /t`  
+*  `edit Betsy Crownerrr n/Betsy Crower t/`  
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### Look up clients by fields: `find`
 
 ```
-find [/n KEYWORD_1 KEYWORD_2 ...] [/p PHONE] [/e EMAIL] [/t TAG] [/r RANK]
+find [n/KEYWORD_1 KEYWORD_2 ...] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]
 ```
 You can use this command to retrieve a list of clients that match the specified attributes:
-- Name `/n KEYWORD_1 KEYWORD_2 ...` — lists all clients whose names contain any of the specified keywords.
+- Name `n/KEYWORD_1 KEYWORD_2 ...` — lists all clients whose names contain any of the specified keywords.
 The search is case-insensitive.
-- Phone number `/p PHONE` - lists all clients whose phone numbers exactly match `PHONE`.
-- Email `/e EMAIL` - lists all clients whose email exactly match `EMAIL`.
-- Tag `/t TAG` - lists all clients whose tag contains `TAG`.
-- Rank `/r RANK` - lists all clients whose rank exactly match `RANK`.
+- Phone number `p/PHONE` - lists all clients whose phone numbers exactly match `PHONE`.
+- Email `e/EMAIL` - lists all clients whose email exactly match `EMAIL`.
+- Tag `t/TAG` - lists all clients whose tag contains `TAG`.
+- Rank `r/RANK` - lists all clients whose rank exactly match `RANK`.
 
 <div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
 The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
@@ -146,18 +146,18 @@ Example usage:
 
 You want to list all urgent clients whose name contains "John" or "Doe.
 ```
-find /n John Doe /r urgent
+find n/John Doe r/urgent
 ```
 
 You want to list all clients with tag patients and phone number 81234567.
 ```
-find /p 81234567 /t patient
+find p/81234567 t/patient
 ```
 
 ### Look up appointments by fields `find`
 
 ```
-find [/appt TIME] [/status STATUS] [/type TYPE]
+find [appt/TIME] [status/STATUS] [type/TYPE]
 ```
 
 You can use this command to retrieve a list of appointments
@@ -170,49 +170,49 @@ Here are the example usages.
 
 List all appointments between 24th October 2025 10 - 11 am.
 ```
-find /appt 24-10-2025 1000 to 24-10-2025 1100
+find appt/24-10-2025 1000 to 24-10-2025 1100
 ```
 List all appointments on 4th July 2025.
 ```
-find /appt 04-07-2025
+find appt/04-07-2025
 ```
 List today's appointment.
 ```
-find /appt today
+find appt/today
 ```
 
 List all appointments in the upcoming three days.
 ```
-find /appt +3
+find appt/+3
 ```
 
 #### Appointment status `STATUS`
 List all appointments with the given status. For example,
 you want to list all cancelled appointments, you can type
 ```
-find /status cancelled
+find status/cancelled
 ```
 
 #### Appointment type `TYPE`
 List all appointments with the given type. For example,
 you want to list all meetings with GIC. You can type
 ```
-find /type GIC-Meeting
+find type/GIC-Meeting
 ```
 
 #### Chaining commands
 It is possible to chain these fields with [client fields](#head1234).
 For example, if you want to find today's appointment for urgent clients, you can type
 ```
-find /r urgent /appt today 
+find r/urgent appt/today 
 ```
 
 > Although the leading command to list appointments and clients is the same, the behavior differs depending on the fields provided.
-If you include any appointment-related fields, such as `/appt`, `/status`, or `/type`, the system will list appointments.
+If you include any appointment-related fields, such as `appt/`, `status/`, or `type/`, the system will list appointments.
 However, providing client-related fields alone only trigger a client listing view instead.
 For example,
-> - `find /r urgent` will show list of all clients with their respective appointments.
-> - `find /r urgent /appt today` will only show list of appointments.
+> - `find r/urgent` will show list of all clients with their respective appointments.
+> - `find r/urgent appt/today` will only show list of appointments.
 >
 > The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
 
@@ -279,10 +279,10 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add /n NAME /p PHONE_NUMBER [/e EMAIL] [/a ADDRESS] [/r RANK] [/t TAG]…​` <br> e.g., `add /n James Ho /p 92248444 /e jamesho@example.com /a 123, Clementi Rd, 1234665 /t friend /t colleague /r stable`
+**Add** | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​` <br> e.g., `add n/James Ho p/92248444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague r/stable`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit OLD_NAME [/n NEW_NAME] [/p PHONE_NUMBER] [/e EMAIL] [/a ADDRESS] [/t TAG]…​`<br> e.g.,`edit James Tan /n James Lee /e jameslee@example.com`
+**Edit** | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit James Tan n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
