@@ -46,7 +46,7 @@
           <VBox fx:id="appointmentsBox"
                 spacing="5"
                 style="-fx-padding: 4 4 4 4; -fx-border-radius: 5;"
-                minWidth="310"
+                minWidth="400"
                 maxWidth="400"
                 alignment="CENTER_RIGHT"/>
       </HBox>
