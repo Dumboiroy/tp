@@ -82,7 +82,6 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 <br><br>
 ### List of commands:
 
-<br>
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the acceptable inputs:**<br>
@@ -176,7 +175,26 @@ You want to list all clients with tag patients and phone number 81234567.
 find p/81234567 t/patient
 ```
 
-### 6. Look up appointments by fields `find`
+### 6. Linking client with appointment `link`
+There are three types of command you can do with the `link` command.
+
+Here's the new fields and their acceptable inputs relating to appointment:
+* APPT: Your input must be a valid calendar date in the format `dd-MM-yyyy [HHmm]` or `d-MM-yyyy [HHmm]` where `HHmm` is optional
+* ID: You do NOT need to create an ID. It will be generated once the appointment is created.
+* LENGTH: Your input must be a positive integer, in **minutes**
+* LOCATION: Any input is acceptable
+* TYPE: Any input is acceptable
+* NOTE: Any input is acceptable
+* STATUS: You can only input four types of status, `planned` , `confirmed` , `completed` and `cancelled` (all case-insensitive).
+  It is given the `planned` status by default.
+
+#### i. Creating an appointment `-c`
+
+#### ii. Editing an appointment `-e`
+
+#### iii. Deleting an appointment `-d`
+
+### 7. Look up appointments by fields `find`
 
 ```
 find [appt/TIME] [status/STATUS] [type/TYPE]
@@ -238,7 +256,7 @@ For example,
 >
 > The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
 
-### 7. Deleting a person : `delete`
+### 8. Deleting a person : `delete`
 
 Deletes the specified person from the address book.
 
@@ -252,13 +270,13 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### 8. Clearing all entries : `clear`
+### 9. Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
 
-### 9. Exiting the program : `exit`
+### 10. Exiting the program : `exit`
 
 Exits the program.
 
@@ -286,12 +304,12 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: 
-> 1. Install the app in the other computer, say computer B.
-> 2. On both computers, navigate to the folder with HeartLink.
-> 3. Navigate to a folder named `data` and you will see a file called `addressbook.json` <br> 
+**A**: Follow the steps below:
+1. Install the app in the other computer, say computer B.
+2. On both computers, navigate to the folder with HeartLink. 
+3. Navigate to a folder named `data` and you will see a file called `addressbook.json` <br> 
 (If you don't see it in computer B, you can either run HeartLink once or create the file manually)
-> 4. Copy the contents of `addressbook.json` file from computer A (where your data is) to computer B.
+4. Copy the contents of `addressbook.json` file from computer A (where your data is) to computer B.
 
 --------------------------------------------------------------------------------------------------------------------
 
