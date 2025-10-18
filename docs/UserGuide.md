@@ -86,14 +86,18 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 **:information_source: Notes about the acceptable inputs:**<br>
 
-* For NAME: Your input must be alphanumeric.
-* For PHONE_NUMBER: Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
-  E.g. +6598765432 or 98765432.
-* For EMAIL: Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
-  The local and domain parts should be alphanumeric characters.
-* For ADDRESS: Your input must be alphanumeric. Special characters like `# - , . ( ) / ; : &` are accepted.
-* For TAG: Your input must be alphanumeric
-* For RANK: You can only input four types of priority, “stable” , “vulnerable” , “urgent” and “crisis” (all case-insensitive).
+* **n/NAME**: This specifies the name of the client. Your input must be alphanumeric. <br> 
+  E.g. `John Doe`  
+* **p/PHONE_NUMBER**: This specifies the phone number of the client. Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
+  E.g. `+6598765432` or `98765432`.
+* **e/EMAIL**: This specifies the email address of the client. Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
+  The local and domain parts should be alphanumeric characters. <br> 
+  E.g. `johndoe@example.com`
+* **a/ADDRESS**: This specifies the address of the client. Your input must be alphanumeric. Special characters like `# - , . ( ) / ; : &` are accepted. <br>
+  E.g. `John street, block 123, #01-01`
+* **t/TAG**: This specifies the tag(s) of the client. Your input must be alphanumeric. <br>
+  E.g. `friend` or `patient`
+* **r/RANK**: This specifies the priority rank of the client. You can only input four types of priority, `stable` , `vulnerable` , `urgent` and `crisis` (all case-insensitive). <br>
 
 </div>
 
@@ -175,35 +179,97 @@ You want to list all clients with tag patients and phone number 81234567.
 find p/81234567 t/patient
 ```
 
-### 6. Linking client with appointment `link`
-There are three types of command you can do with the `link` command.
+### 6. Managing Appointments with Clients : `link`
 
-Here's the new fields and their acceptable inputs relating to appointment:
-* APPT: Your input must be a valid calendar date in the format `dd-MM-yyyy [HHmm]` or `d-MM-yyyy [HHmm]` where `HHmm` is optional
-* ID: You do NOT need to create an ID. It will be generated once the appointment is created.
-* LENGTH: Your input must be a positive integer, in **minutes**
-* LOCATION: Any input is acceptable
-* TYPE: Any input is acceptable
-* NOTE: Any input is acceptable
-* STATUS: You can only input four types of status, `planned` , `confirmed` , `completed` and `cancelled` (all case-insensitive).
+Adds, edits, or deletes appointments linked to clients.  
+These commands allows social workers to record, track, and manage client appointments efficiently.
+
+Here's the fields and their acceptable inputs relating to appointment:
+* **n/NAME**: This specifies the client the appointment is linking to. Your input must be alphanumeric and should be an existing name in contact list.
+* **appt/DATE [TIME]**: This specifies the date and time of the appointment. Your input must be a valid calendar date in the format `dd-MM-yyyy [HHmm]` or `d-MM-yyyy [HHmm]` where `HHmm` is optional in 24-hour time format
+  <br> E.g. `04-07-2025` or `04-07-2025 0930`
+* **id/APPOINTMENT_ID**: This is an unique ID of the appointment. You do NOT need to create an ID. It will be generated once the appointment is created.
+* **len/MINUTES**: This specifies the length of appointment. Your input must be a positive integer, in **minutes** <br> E.g. `45`
+* **loc/LOCATION**: This specifies the location of the appointment. Your input can contain letters, numbers, and symbols `, . # - / ( ) ' ; & :`. <br> E.g. `Blk 10 Tampines Ave 3 #02-15`
+* **type/TYPE**: This specifies the type of the appointment. Any input is acceptable. <br> E.g. `House Visit`, `Follow-up Call`, `Counselling Session`.
+* **msg/MESSAGE**: This specifies any note or reminder for the appointment. Any input is acceptable <br> E.g. `Bring consent form and medical report`.
+* **status/STATUS**: This specifies the status of the appointment. You can only input four types of status, `planned` , `confirmed` , `completed` and `cancelled` (all case-insensitive).
   It is given the `planned` status by default.
 
-#### i. Creating an appointment `-c`
+#### i. Creating an appointment `link -c`
 
-#### ii. Editing an appointment `-e`
+Creates a new appointment and links it to a client.
+Each appointment automatically receives a unique `Appointment ID`.
 
-#### iii. Deleting an appointment `-d`
+**Format:** `link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`
+
+<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+- Both date and time can be specified, or just the date for all-day appointments.
+- A random unique `Appointment ID` is generated automatically.
+- All unspecified optional fields default to empty values or `"planned"` status.
+- Note that fields in `[]` are optional!
+</div>
+
+**Examples:**
+```
+link -c n/Alex appt/15-12-2025 2359 len/60 loc/Alex House type/House Visit msg/Bring Consent Form status/confirmed
+```
+Creates a **House Visit** appointment with Alex on **15 Dec 2025, 11:59PM**, lasting **60 minutes**, with a message **“Bring Consent Form”**, marked as **confirmed**.
+
+```
+link -c n/Ben appt/10-01-2026
+```
+Creates an appointment with Ben on **10 Jan 2026** with unspecified duration, location, type, message and status set to **planned** by default.
+
+#### ii. Editing an Appointment : `link -e`
+
+Edits details of an existing appointment using its `Appointment ID`.
+
+**Format:** `link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`
+
+<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+- You can edit multiple fields at once or just one.
+- Only specified fields are updated, unspecified fields remain unchanged.
+- The appointment ID (`id/`) can be seen from the client card display.
+- Note that fields in `[]` are optional!
+</div>
+
+**Examples:**
+```
+link -e id/107f3db status/completed
+```
+Marks appointment with id `107f3db` as **completed**.
+
+```
+link -e id/1b9a395 appt/18-12-2025 1500 loc/Office msg/Rescheduled meeting
+```
+Edits appointment `1b9a395` to reschedule the date and time to **18 Dec 2025, 3:00PM**, with the new location **Office** and message **“Rescheduled meeting”**.
+
+#### iii. Deleting an Appointment : `link -d`
+
+Deletes an existing appointment from a client’s record.
+
+**Format:** `link -d id/APPOINTMENT_ID`
+
+<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+- Deleting an appointment cannot be undone.
+- Once deleted, it will be removed from both the client’s appointment list and the database.
+</div>
+
+**Examples:**
+```link -d id/1b9a395```
+Deletes the appointment with ID `1b9a395`.
 
 ### 7. Look up appointments by fields `find`
 
 ```
-find [appt/TIME] [status/STATUS] [type/TYPE]
+find [appt/DATE [TIME]] [status/STATUS] [type/TYPE]
 ```
 
 You can use this command to retrieve a list of appointments
 that match the specified attributes.
 
-#### i. Appointment meeting time `TIME`
+#### i. Appointment meeting time `DATE [TIME]`
 
 list all appointments that  overlap with the specified time. 
 Here are the example usages.
@@ -270,102 +336,6 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### Managing Appointments with Clients : `link`
-
-Adds, edits, or deletes appointments linked to clients.  
-This command allows social workers to record, track, and manage client appointments efficiently.
-
-#### Creating an Appointment : `link -c`
-
-Creates a new appointment and links it to a client.
-Each appointment automatically receives a unique `Appointment ID`.
-
-**Format:** `link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`
-
-**Acceptable Values:**
-- `n/NAME` — **(Required)** Name of an existing client to link the appointment to.
-- `appt/DATE [TIME]` — **(Required)** Appointment date and optional 24-hour time in the format `dd-MM-yyyy` or `dd-MM-yyyy HHmm`.
-    - Example: `04-07-2025` or `04-07-2025 0930`
-    - Must represent a valid calendar date/time.
-- `len/MINUTES` — **(Optional)** Appointment duration in positive integer minutes (e.g., `30`, `60`, `90`).
-    - Example: `45`
-- `loc/LOCATION` — **(Optional)** Appointment location.
-    - Can contain letters, numbers, and symbols `, . # - / ( ) ' ; & :`.
-    - Example: `Blk 10 Tampines Ave 3 #02-15`
-- `type/TYPE` — **(Optional)** Describes the appointment type.
-    - Example: `House Visit`, `Follow-up Call`, `Counselling Session`.
-- `msg/MESSAGE` — **(Optional)** A short note or reminder.
-    - Example: `Bring consent form and medical report`.
-- `status/STATUS` — **(Optional)** Current appointment status.
-    - Acceptable values: `planned`, `confirmed`, `completed`, `cancelled`.
-
-<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
-- Both date and time can be specified, or just the date for all-day appointments.
-- A random unique `Appointment ID` is generated automatically.
-- All unspecified optional fields default to empty values or `"planned"` status.
-</div>
-
-**Examples:**
-```
-link -c n/Alex appt/15-12-2025 2359 len/60 loc/Alex House type/House Visit msg/Bring Consent Form status/confirmed
-```
-Creates a **House Visit** appointment with Alex on **15 Dec 2025, 11:59PM**, lasting **60 minutes**, with a message **“Bring Consent Form”**, marked as **confirmed**.
-
-```
-link -c n/Ben appt/10-01-2026
-```
-Creates an appointment with Ben on **10 Jan 2026** with unspecified duration, location, type, message and status set to **planned** by default.
-
-#### Editing an Appointment : `link -e`
-
-Edits details of an existing appointment using its `Appointment ID`.
-
-**Format:** `link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`
-
-**Acceptable Values:**
-- `id/APPOINTMENT_ID` — **(Required)** Unique ID of the appointment to edit.
-- `appt/DATE [TIME]` — **(Optional)** Updates the appointment date and/or time.
-- `len/MINUTES` — **(Optional)** Updates the appointment duration.
-- `loc/LOCATION` — **(Optional)** Updates the appointment location.
-- `type/TYPE` — **(Optional)** Updates the appointment type.
-- `msg/MESSAGE` — **(Optional)** Updates the appointment message.
-- `status/STATUS` — **(Optional)** Updates the appointment’s current status (`planned`, `confirmed`, `completed`, or `cancelled`).
-
-<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
-- You can edit multiple fields at once or just one.
-- Only specified fields are updated, unspecified fields remain unchanged.
-- The appointment ID (`id/`) can be seen from the client card display.
-</div>
-
-**Examples:**
-```
-link -e id/107f3db status/completed
-```
-Marks appointment with id `107f3db` as **completed**.
-
-```
-link -e id/1b9a395 appt/18-12-2025 1500 loc/Office msg/Rescheduled meeting
-```
-Edits appointment `1b9a395` to reschedule the date and time to **18 Dec 2025, 3:00PM**, with the new location **Office** and message **“Rescheduled meeting”**.
-
-#### Deleting an Appointment : `link -d`
-
-Deletes an existing appointment from a client’s record.
-
-**Format:** `link -d id/APPOINTMENT_ID`
-
-**Acceptable Values:**
-- `id/APPOINTMENT_ID` — **(Required)** Unique ID of the appointment to delete.
-
-<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
-- Deleting an appointment cannot be undone.
-- Once deleted, it will be removed from both the client’s appointment list and the database.
-</div>
-
-**Examples:**
-```link -d id/1b9a395```
-Deletes the appointment with ID `1b9a395`.
-
 ### 9. Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -418,17 +388,17 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
 
 ## Command summary
 
-| Action                 | Format, Examples |
-|------------------------|------------------|
-| **Add Client**         | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable` |
-| **Edit Client**        | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent` |
-| **Delete Client**      | `delete INDEX`<br>e.g. `delete 3` |
-| **List Client**        | `list` |
-| **Find Clients**       | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent` |
-| **Find Appointments**  | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today` |
-| **Edit Appointment**   | `link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift` |
-| **Delete Appointment** | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395` |
+| Action                 | Format, Examples                                                                                                                                                                                                     |
+|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Client**         | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                                   |
+| **Edit Client**        | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                             |
+| **Delete Client**      | `delete INDEX`<br>e.g. `delete 3`                                                                                                                                                                                    |
+| **List Client**        | `list`                                                                                                                                                                                                               |
+| **Find Clients**       | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent`                                                                                                                                  |
+| **Find Appointments**  | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today`                                                                                                                                             |
+| **Edit Appointment**   | `link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift`                        |
+| **Delete Appointment** | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395`                                                                                                                                                             |
 | **Add Appointment**    | `link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -c n/Alex appt/15-12-2025 2359 type/House Visit loc/Alex House len/60 msg/Bring Consent Form` |
-| **Clear All Entries**  | `clear` |
-| **Help**               | `help` |
-| **Exit Program**       | `exit` |
+| **Clear All Entries**  | `clear`                                                                                                                                                                                                              |
+| **Help**               | `help`                                                                                                                                                                                                               |
+| **Exit Program**       | `exit`                                                                                                                                                                                                               |
