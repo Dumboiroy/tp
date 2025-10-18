@@ -5,8 +5,8 @@ title: User Guide
 
 HeartLink is a **desktop app for managing contact details for Social Workers in Singapore. It is optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
 
-* Table of Contents
-{:toc}
+    * Table of Contents
+    {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -14,29 +14,43 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+   > **How to check if you have Java `17` or above?**<br>
+    Click on start and search for Command Prompt/Terminal. Type `java -version` and click enter. You will see the 
+    java version installed on your computer. 
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+    > **Don't have Java 17?** <br>
+    Install it [here](https://www.openlogic.com/openjdk-downloads)!
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-T09-1/tp/releases).
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+3. Copy the file to the folder you want to use as the _home folder_ for HeartLink.
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+4. Run HeartLink using the `java -jar HeartLink.jar` command.<br>
+   > **How to run HeartLink?** (for beginners) <br>
+   > 1. Open start and search for Command Prompt or Terminal.
+   > 2. Type `cd [filename]` to navigate to the folder with your HeartLink jar. <br>
+   >  E.g. If your jar is in `Users\(name)\Downloads` and you are currently
+   >  in `Users\(name)`, you will type `cd Downloads` in the terminal)
+   > 3. Type `java -jar HeartLink.jar` and HeartLink will open!
+
+    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+    ![Ui](images/Ui.png)
+    
+
+5. Try typing some command in the command box and press Enter to execute it. <br> E.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete John Doe` : Deletes `John Doe` from the list of contacts.
 
    * `clear` : Deletes all contacts.
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for more features with its details.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -61,10 +75,30 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines 
+  as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### Viewing help : `help`
+<br><br>
+### List of commands:
+
+<br>
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about the acceptable inputs:**<br>
+
+* For NAME: Your input must be alphanumeric.
+* For PHONE_NUMBER: Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
+  E.g. +6598765432 or 98765432.
+* For EMAIL: Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
+  The local and domain parts should be alphanumeric characters.
+* For ADDRESS: Your input must be alphanumeric. Special characters like `# - , . ( ) / ; : &` are accepted.
+* For TAG: Your input must be alphanumeric
+* For RANK: You can only input four types of priority, “stable” , “vulnerable” , “urgent” and “crisis” (all case-insensitive).
+
+</div>
+
+### 1. Viewing help : `help`
 
 Shows a message explaining how to access the help page.
 
@@ -73,19 +107,11 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### 2. Adding a person: `add`
 
 Adds a person to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`
-
-Acceptable Values: 
-* For name: Your input must be alphanumeric. 
-* For phone number: Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br> Eg. +65 98765432 or 9876 5432 (both acceptable). 
-* For email: Your input should contain a `@` and have alphanumeric characters before and after. Special characters `+ - . _`  are allowed. Don't forget to include the domain!
-* For address: Your input must be alphanumeric and only `# - , . ( ) / ; : &` symbols are accepted.
-* For tag: Your input must be alphanumeric 
-* For ranking priority: You can only input four types of priority, “stable” , “vulnerable” , “urgent” and “crisis” (all case-insensitive).
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
@@ -95,13 +121,13 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal`
 
-### Listing all persons : `list`
+### 3. Listing all persons : `list`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
 
-### Editing a person : `edit`
+### 4. Editing a person : `edit`
 
 Edits an existing person in the address book.
 
@@ -112,11 +138,7 @@ Format: `edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/ ` without specifying any tags after it.
-
-Acceptable Values:
-- Edit phone number: must be 8 digit integers, starting with 6, 8 or 9. Starting with country code (+65) is acceptable.
-- Edit email address: must be in `[name]@[email].[domain]` , e.g. `alexyeoh@xyz.io`
-- Combinations: Any combination is acceptable
+* You can use any combinations of the fields.
 
 Examples:
 *  `edit John Doe p/91234567 e/johndoe@example.com r/urgent`  
@@ -125,7 +147,7 @@ and ranks the contact as `urgent`.
 *  `edit Betsy Crownerrr n/Betsy Crower t/`  
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Look up clients by fields: `find`
+### 5. Look up clients by fields: `find`
 
 ```
 find [n/KEYWORD_1 KEYWORD_2 ...] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]
@@ -154,7 +176,7 @@ You want to list all clients with tag patients and phone number 81234567.
 find p/81234567 t/patient
 ```
 
-### Look up appointments by fields `find`
+### 6. Look up appointments by fields `find`
 
 ```
 find [appt/TIME] [status/STATUS] [type/TYPE]
@@ -163,7 +185,7 @@ find [appt/TIME] [status/STATUS] [type/TYPE]
 You can use this command to retrieve a list of appointments
 that match the specified attributes.
 
-#### Appointment meeting time `TIME`
+#### i. Appointment meeting time `TIME`
 
 list all appointments that  overlap with the specified time. 
 Here are the example usages.
@@ -186,21 +208,21 @@ List all appointments in the upcoming three days.
 find appt/+3
 ```
 
-#### Appointment status `STATUS`
+#### ii. Appointment status `STATUS`
 List all appointments with the given status. For example,
 you want to list all cancelled appointments, you can type
 ```
 find status/cancelled
 ```
 
-#### Appointment type `TYPE`
+#### iii. Appointment type `TYPE`
 List all appointments with the given type. For example,
 you want to list all meetings with GIC. You can type
 ```
 find type/GIC-Meeting
 ```
 
-#### Chaining commands
+#### iv. Chaining commands
 It is possible to chain these fields with [client fields](#head1234).
 For example, if you want to find today's appointment for urgent clients, you can type
 ```
@@ -216,7 +238,7 @@ For example,
 >
 > The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
 
-### Deleting a person : `delete`
+### 7. Deleting a person : `delete`
 
 Deletes the specified person from the address book.
 
@@ -230,41 +252,46 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### Clearing all entries : `clear`
+### 8. Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+### 9. Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
+<br><br>
+### Other features:
+
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+HeartLink data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+HeartLink data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. 
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If you are familiar with JSON, you are welcome to update data directly by editing that data file! <br>
+However, do note that if the changes make the format invalid(e.g. values out of range, missing field), HeartLink will discard all data and start with an empty data file at the next run. 
+Hence, it is recommended to take a backup of the file before editing it.<br>
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: 
+> 1. Install the app in the other computer, say computer B.
+> 2. On both computers, navigate to the folder with HeartLink.
+> 3. Navigate to a folder named `data` and you will see a file called `addressbook.json` <br> 
+(If you don't see it in computer B, you can either run HeartLink once or create the file manually)
+> 4. Copy the contents of `addressbook.json` file from computer A (where your data is) to computer B.
 
 --------------------------------------------------------------------------------------------------------------------
 
