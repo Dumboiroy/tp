@@ -326,15 +326,13 @@ For example,
 
 Deletes the specified person from the address book.
 
-Format: `delete INDEX`
+Format: `delete NAME`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Deletes the person at the specified `NAME`.
+* The NAME must be the same as the name reflected in HeartLink.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* You have a person named `Alex Yeoh` in HeartLink. By executing `delete Alex Yeoh`, `Alex Yeoh` will be removed from HeartLink.
 
 ### 9. Clearing all entries : `clear`
 
@@ -392,7 +390,7 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
 |------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add Client**         | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                                   |
 | **Edit Client**        | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                             |
-| **Delete Client**      | `delete INDEX`<br>e.g. `delete 3`                                                                                                                                                                                    |
+| **Delete Client**      | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                              |
 | **List Client**        | `list`                                                                                                                                                                                                               |
 | **Find Clients**       | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent`                                                                                                                                  |
 | **Find Appointments**  | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today`                                                                                                                                             |
