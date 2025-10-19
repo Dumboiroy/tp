@@ -18,7 +18,7 @@ import seedu.address.model.Model;
 public abstract class LinkAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "link";
     public static final String MESSAGE_EDIT_APPOINTMENT = COMMAND_WORD + " -e "
-            + PREFIX_ID + "123456 "
+            + PREFIX_ID + "1234567 "
             + PREFIX_NAME + "Alex Wu "
             + PREFIX_APPOINTMENT + "12-10-2025 1430 "
             + PREFIX_LENGTH + "90 "
@@ -34,6 +34,8 @@ public abstract class LinkAppointmentCommand extends Command {
             + PREFIX_TYPE + "home-visit "
             + PREFIX_MESSAGE + "Bring consent form "
             + PREFIX_STATUS + "planned";
+    public static final String MESSAGE_DELETE_APPOINTMENT = COMMAND_WORD + " -d "
+            + PREFIX_ID + "1234567 ";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Links a new appointment to a client. "
             + "Parameters: "
             + "FLAG "
@@ -48,6 +50,10 @@ public abstract class LinkAppointmentCommand extends Command {
             + "Example:\n"
             + MESSAGE_ADD_APPOINTMENT + "\n"
             + MESSAGE_EDIT_APPOINTMENT;
+    public static final String INCLUDE_FLAG = "Please include a flag after command. \n"
+            + "i.e. link -c [PARAMETERS], "
+            + "link -d [PARAMETERS], "
+            + "link -e [PARAMETERS]";
     public static final String MESSAGE_SUCCESS = "New appointment linked to %1$s: %2$s";
     public static final String MESSAGE_NO_SUCH_PERSON = "No client found with the name: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENTS = "This appointment already exists in the address book.";

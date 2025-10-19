@@ -11,10 +11,25 @@ import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LENGTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MESSAGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+
 /**
  * Edits an appointment and links it directly to a client (person).
  */
 public class LinkAppointmentDeleteCommand extends LinkAppointmentCommand {
+    public static final String MESSAGE_FAIL =
+            "Delete flag: Deletes an existing appointment with a client. \nParameters: "
+                    + "link -d "
+                    + PREFIX_ID + "ID "
+                    + "Example: "
+                    + MESSAGE_DELETE_APPOINTMENT;
     public static final String MESSAGE_APPOINTMENT_NOT_FOUND = "The appointment with id %1$s could not be found.";
     public static final String MESSAGE_SUCCESS = "Appointment with %1$s deleted.";
 

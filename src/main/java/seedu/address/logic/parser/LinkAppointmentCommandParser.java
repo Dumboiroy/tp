@@ -50,7 +50,7 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
 
         if (args.trim().isEmpty() || !argMultimap.getValue(PREFIX_FLAG).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    LinkAppointmentCommand.MESSAGE_USAGE));
+                    LinkAppointmentCommand.INCLUDE_FLAG));
         }
 
         validateCommand(argMultimap);
@@ -114,26 +114,26 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
             if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_NAME, PREFIX_APPOINTMENT)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        LinkAppointmentCommand.MESSAGE_USAGE));
+                        LinkAppointmentCreateCommand.MESSAGE_FAIL));
             }
             break;
         case 'd':
             if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_ID)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        "Wrong Syntax for flag -d"));
+                        LinkAppointmentDeleteCommand.MESSAGE_FAIL));
             }
             break;
         case 'e':
             if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_ID)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        "Wrong Syntax for flag -e"));
+                        LinkAppointmentEditCommand.MESSAGE_FAIL));
             }
             break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    LinkAppointmentCommand.MESSAGE_USAGE));
+                    LinkAppointmentCommand.INCLUDE_FLAG));
         }
     }
 

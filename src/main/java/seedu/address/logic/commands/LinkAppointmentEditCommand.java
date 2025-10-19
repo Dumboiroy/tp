@@ -20,10 +20,32 @@ import seedu.address.model.appointment.AppointmentType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LENGTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MESSAGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+
 /**
  * Edits an appointment and links it directly to a client (person).
  */
 public class LinkAppointmentEditCommand extends LinkAppointmentCommand {
+    public static final String MESSAGE_FAIL =
+            "Edit flag: Updates an existing appointment for a client. \nParameters: "
+                    + "link -e "
+                    + PREFIX_ID + "ID "
+                    + "[" + PREFIX_NAME + "NAME ] "
+                    + "[" + PREFIX_APPOINTMENT + "DATE [TIME]] "
+                    + "[" + PREFIX_LENGTH + "MINUTES] "
+                    + "[" + PREFIX_LOCATION + "LOCATION] "
+                    + "[" + PREFIX_TYPE + "TYPE] "
+                    + "[" + PREFIX_MESSAGE + "NOTES] "
+                    + "[" + PREFIX_STATUS + "planned|confirmed|completed|cancelled]\n"
+                    + "Example: "
+                    + MESSAGE_EDIT_APPOINTMENT;
     public static final String MESSAGE_DUPLICATE_APPOINTMENTS = "This appointment already exists in the address book.";
     public static final String MESSAGE_SUCCESS = "Appointment with %1$s edited to:\n %2$s";
 
