@@ -6,8 +6,13 @@ title: User Guide
 HeartLink is a **desktop app for managing contact details for Social Workers in Singapore. It is optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
 
 ## Table of Contents
-* Table of Contents
-{:toc}
+1. [Quick start](#quick-start)
+2. [Features](#features)
+    1. [List of commands](#list-of-commands)
+    2. [Other features](#other-features)
+3. [FAQ](#faq)
+4. [Command summary](#command-summary)
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -91,12 +96,22 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 3. [Listing all persons](#3-listing-all-persons--list)
 4. [Editing a person](#4-editing-a-person--edit)
 5. [Deleting a person](#5-deleting-a-person--delete)
-6. [Look up clients by fields](#6-look-up-clients-by-fields-find)
-7. [Managing Appointments with Clients](#7-managing-appointments-with-clients--link)
+6. [Managing Appointments with Clients](#7-managing-appointments-with-clients--link)
     1. [Linking appointments](#71-linking-appointments)
     2. [Editing appointments](#72-editing-appointments)
     3. [Deleting appointments](#73-deleting-appointments)
+7. [Look up clients by fields](#6-look-up-clients-by-fields-find)
+    1. [Client name](#i-client-name-keyword)
+    2. [Client phone number](#ii-client-phone-number-phone)
+    3. [Client email](#iii-client-email-email)
+    4. [Client tag](#iv-client-tag-tag)
+    5. [Client rank](#v-client-rank-rank)
+    6. [Chaining attributes](#vi-chaining-client-attributes)
 8. [Look up appointments by fields](#8-look-up-appointments-by-fields-find)
+    1. [Appointment meeting time](#i-appointment-meeting-time-date-time)
+    2. [Appointment status](#ii-appointment-status-status)
+    3. [Appointment type](#iii-appointment-type-type)
+    4. [Chaining all attributes](#iv-chaining-commands)
 9. [Clearing all entries](#9-clearing-all-entries--clear)
 10. [Exiting the program](#10-exiting-the-program--exit)
 
@@ -130,15 +145,21 @@ Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
+Format: 
+```
+help
+```
 
-[Back to Quick Links](#quick-links)
+[Back to List of Commands](#quick-links)
 
 ### 2. Adding a person: `add`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`
+Format: 
+```
+add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
+```
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
@@ -148,21 +169,27 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal`
 
-[Back to Quick Links](#quick-links)
+[Back to List of Commands](#quick-links)
 
 ### 3. Listing all persons : `list`
 
 Shows a list of all persons in the address book.
 
-Format: `list`
+Format: 
+```
+list
+```
 
-[Back to Quick Links](#quick-links)
+[Back to List of Commands](#quick-links)
 
 ### 4. Editing a person : `edit`
 
 Edits an existing person in the address book.
 
-Format: `edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`
+Format: 
+```
+edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
+```
 
 * Edits the person at the specified `OLD_NAME`. The old name refers to the person's name before editing.
 * At least one of the optional fields must be provided.
@@ -178,54 +205,27 @@ and ranks the contact as `urgent`.
 *  `edit Betsy Crownerrr n/Betsy Crower t/`  
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-[Back to Quick Links](#quick-links)
+[Back to List of Commands](#quick-links)
 
 ### 5. Deleting a person : `delete`
 
 Deletes the specified person from the address book.
 
-Format: `delete NAME`
+Format: 
+```
+delete NAME
+```
 
 * Deletes the person at the specified `NAME`.
 * The NAME must be the same as the name reflected in HeartLink.
 
-Examples:
-* You have a person named `Alex Yeoh` in HeartLink. By executing `delete Alex Yeoh`, `Alex Yeoh` will be removed from HeartLink.
+Example:
+* You have a person named `Alex Yeoh` in HeartLink. <br>
+  By executing `delete Alex Yeoh`, `Alex Yeoh` will be removed from HeartLink.
 
-[Back to Quick Links](#quick-links)
+[Back to List of Commands](#quick-links)
 
-### 6. Look up clients by fields: `find`
-
-```
-find [n/KEYWORD_1 KEYWORD_2 ...] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]
-```
-You can use this command to retrieve a list of clients that match the specified attributes:
-- Name `n/KEYWORD_1 KEYWORD_2 ...` — lists all clients whose names contain any of the specified keywords.
-The search is case-insensitive.
-- Phone number `p/PHONE` - lists all clients whose phone numbers exactly match `PHONE`.
-- Email `e/EMAIL` - lists all clients whose email exactly match `EMAIL`.
-- Tag `t/TAG` - lists all clients whose tag contains `TAG`.
-- Rank `r/RANK` - lists all clients whose rank exactly match `RANK`.
-
-<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
-The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
-</div>
-
-Example usage:
-
-You want to list all urgent clients whose name contains "John" or "Doe.
-```
-find n/John Doe r/urgent
-```
-
-You want to list all clients with tag patients and phone number 81234567.
-```
-find p/81234567 t/patient
-```
-
-[Back to Quick Links](#quick-links)
-
-### 7. Managing Appointments with Clients : `link`
+### 6. Managing Appointments with Clients : `link`
 
 Adds, edits, or deletes appointments linked to clients.  
 These commands allows social workers to record, track, and manage client appointments efficiently.
@@ -242,14 +242,17 @@ Here's the fields and their acceptable inputs relating to appointment:
 * **status/STATUS**: This specifies the status of the appointment. You can only input four types of status, `planned` , `confirmed` , `completed` and `cancelled` (all case-insensitive).
   It is given the `planned` status by default.
 
-[Back to Quick Links](#quick-links)
+[Back to List of Commands](#quick-links)
 
 #### i. Creating an appointment `link -c`
 
 Creates a new appointment and links it to a client.
 Each appointment automatically receives a unique `Appointment ID`.
 
-**Format:** `link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`
+Format:
+```
+link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]
+```
 
 <div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
 - Both date and time can be specified, or just the date for all-day appointments.
@@ -258,24 +261,22 @@ Each appointment automatically receives a unique `Appointment ID`.
 - Note that fields in `[]` are optional!
 </div>
 
-**Examples:**
-```
-link -c n/Alex appt/15-12-2025 2359 len/60 loc/Alex House type/House Visit msg/Bring Consent Form status/confirmed
-```
-Creates a **House Visit** appointment with Alex on **15 Dec 2025, 11:59PM**, lasting **60 minutes**, with a message **“Bring Consent Form”**, marked as **confirmed**.
+Examples:
+* `link -c n/Alex appt/15-12-2025 2359 len/60 loc/Alex House type/House Visit msg/Bring Consent Form status/confirmed`
+<br> Creates a **House Visit** appointment with Alex on **15 Dec 2025, 11:59PM**, lasting **60 minutes**, with a message **“Bring Consent Form”**, marked as **confirmed**.
+* `link -c n/Ben appt/10-01-2026`
+<br> Creates an appointment with Ben on **10 Jan 2026** with unspecified duration, location, type, message and status set to **planned** by default.
 
-```
-link -c n/Ben appt/10-01-2026
-```
-Creates an appointment with Ben on **10 Jan 2026** with unspecified duration, location, type, message and status set to **planned** by default.
-
-[Back to Quick Links](#quick-links)
+[Back to List of Commands](#quick-links)
 
 #### ii. Editing an Appointment : `link -e`
 
 Edits details of an existing appointment using its `Appointment ID`.
 
-**Format:** `link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`
+Format:
+```
+link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]
+```
 
 <div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
 - You can edit multiple fields at once or just one.
@@ -284,38 +285,122 @@ Edits details of an existing appointment using its `Appointment ID`.
 - Note that fields in `[]` are optional!
 </div>
 
-**Examples:**
-```
-link -e id/107f3db status/completed
-```
+Examples:
+* `link -e id/107f3db status/completed` <br>
 Marks appointment with id `107f3db` as **completed**.
 
-```
-link -e id/1b9a395 appt/18-12-2025 1500 loc/Office msg/Rescheduled meeting
-```
+* `link -e id/1b9a395 appt/18-12-2025 1500 loc/Office msg/Rescheduled meeting` <br>
 Edits appointment `1b9a395` to reschedule the date and time to **18 Dec 2025, 3:00PM**, with the new location **Office** and message **“Rescheduled meeting”**.
 
-[Back to Quick Links](#quick-links)
+[Back to List of Commands](#quick-links)
 
 #### iii. Deleting an Appointment : `link -d`
 
 Deletes an existing appointment from a client’s record.
 
-**Format:** `link -d id/APPOINTMENT_ID`
+Format: 
+```
+link -d id/APPOINTMENT_ID
+```
 
 <div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
 - Deleting an appointment cannot be undone.
 - Once deleted, it will be removed from both the client’s appointment list and the database.
 </div>
 
-**Examples:**
-```link -d id/1b9a395```
-Deletes the appointment with ID `1b9a395`.
+Example:
+* `link -d id/1b9a395` <br>
+  Deletes the appointment with ID `1b9a395`.
 
-[Back to Quick Links](#quick-links)
+[Back to List of Commands](#quick-links)
+
+### 7. Look up clients by fields: `find`
+
+Here is the first part of `find` command specific for clients.
+[Click here](#8-look-up-appointments-by-fields-find) to go to the second part for finding by appointment!
+
+Format:
+```
+find [n/KEYWORD_1 KEYWORD_2 ...] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]
+```
+
+You can use this command to retrieve a list of clients that match the specified attributes:
+
+<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
+</div>
+
+##### Here's the list of attributes for client:
+* [Client name](#i-client-name-keyword)
+* [Client phone number](#ii-client-phone-number-phone)
+* [Client email](#iii-client-email-email)
+* [Client tag](#iv-client-tag-tag)
+* [Client rank](#v-client-rank-rank)
+* [Chaining attributes](#vi-chaining-client-attributes)
+
+[Back to List of Commands](#quick-links)
+
+#### i. Client name `KEYWORD`
+
+Lists all clients whose names contain any of the specified keywords.
+The search is case-insensitive.
+Example:
+* You have a `Alex Yeoh` and a `Alex Tan` in Heartlink. <br>
+  Executing `find n/Alex` would list both `Alex Yeoh` and `Alex Tan` as they have `Alex` in their name.
+
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+#### ii. Client phone number `PHONE`
+Lists all clients whose phone numbers exactly match `PHONE`.
+
+Example:
+* `find p/98765432` lists the contacts that has they same phone number inputted.
+
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+#### iii. Client email `EMAIL`
+Lists all clients whose email exactly match `EMAIL`.
+
+Example:
+* `find e/johndoe@example.com` lists the contacts that has they same email inputted.
+
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+#### iv. Client tag `TAG`
+Lists all clients whose tag contains `TAG`.
+
+Example:
+* `find t/friend` lists the contacts that is tagged as `friend`.
+
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+#### v. Client rank `RANK`
+Lists all clients whose rank exactly match `RANK`.
+
+Example:
+* `find r/stable` lists the contacts that has the `stable` rank.
+
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+#### vi. Chaining client attributes
+You can also type different attributes at once
+
+Examples:
+* `find n/John Doe r/urgent` <br>
+  allows you to list all urgent clients whose name contains "John" or "Doe.
+* `find p/81234567 t/patient` <br>
+  allows you to list all clients with tag patients and phone number 81234567.
+
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+[Back to List of Commands](#quick-links)
 
 ### 8. Look up appointments by fields `find`
 
+Here is the second part of `find` command specific for appointments.
+[Click here](#8-look-up-appointments-by-fields-find) to go back to the first part for finding by client!
+
+Format:
 ```
 find [appt/DATE [TIME]] [status/STATUS] [type/TYPE]
 ```
@@ -323,57 +408,54 @@ find [appt/DATE [TIME]] [status/STATUS] [type/TYPE]
 You can use this command to retrieve a list of appointments
 that match the specified attributes.
 
-[Back to Quick Links](#quick-links)
+##### Here's the list of attributes for appointment:
+* [Appointment meeting time](#i-appointment-meeting-time-date-time)
+* [Appointment status](#ii-appointment-status-status)
+* [Appointment type](#iii-appointment-type-type)
+* [Chaining all attributes](#iv-chaining-commands)
+
+[Back to List of Commands](#quick-links)
 
 #### i. Appointment meeting time `DATE [TIME]`
 
-list all appointments that  overlap with the specified time. 
-Here are the example usages.
+List all appointments that  overlap with the specified time. 
 
+Examples:
+* `find appt/24-10-2025 1000 to 24-10-2025 1100` <br>
 List all appointments between 24th October 2025 10 - 11 am.
-```
-find appt/24-10-2025 1000 to 24-10-2025 1100
-```
+* `find appt/04-07-2025` <br>
 List all appointments on 4th July 2025.
-```
-find appt/04-07-2025
-```
+* `find appt/today` <br>
 List today's appointment.
-```
-find appt/today
-```
-
+* `find appt/+3`<br>
 List all appointments in the upcoming three days.
-```
-find appt/+3
-```
 
-[Back to Quick Links](#quick-links)
+[Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
 #### ii. Appointment status `STATUS`
-List all appointments with the given status. For example,
-you want to list all cancelled appointments, you can type
-```
-find status/cancelled
-```
+List all appointments with the given status. 
 
-[Back to Quick Links](#quick-links)
+Example:
+* `find status/cancelled`<br>
+List all cancelled appointments for you
+
+[Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
 #### iii. Appointment type `TYPE`
-List all appointments with the given type. For example,
-you want to list all meetings with GIC. You can type
-```
-find type/GIC-Meeting
-```
+List all appointments with the given type. 
 
-[Back to Quick Links](#quick-links)
+Example:
+* `find type/GIC-Meeting` <br>
+List out all meetings with GIC for you.
+
+[Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
 #### iv. Chaining commands
-It is possible to chain these fields with [client fields](#head1234).
-For example, if you want to find today's appointment for urgent clients, you can type
-```
-find r/urgent appt/today 
-```
+It is possible to chain these fields with [client fields](#6-look-up-clients-by-fields-find).
+
+Example:
+* `find r/urgent appt/today`
+This command allows you to find today's appointment for urgent clients
 
 > Although the leading command to list appointments and clients is the same, the behavior differs depending on the fields provided.
 If you include any appointment-related fields, such as `appt/`, `status/`, or `type/`, the system will list appointments.
@@ -384,23 +466,31 @@ For example,
 >
 > The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
 
-[Back to Quick Links](#quick-links)
+[Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
+
+[Back to List of Commands](#quick-links)
 
 ### 9. Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
-Format: `clear`
+Format: 
+```
+clear
+```
 
-[Back to Quick Links](#quick-links)
+[Back to List of Commands](#quick-links)
 
 ### 10. Exiting the program : `exit`
 
 Exits the program.
 
-Format: `exit`
+Format: 
+```
+exit
+```
 
-[Back to Quick Links](#quick-links)
+[Back to List of Commands](#quick-links)
 
 <br><br>
 ### Other features:
