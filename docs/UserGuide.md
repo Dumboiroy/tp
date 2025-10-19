@@ -5,6 +5,7 @@ title: User Guide
 
 HeartLink is a **desktop app for managing contact details for Social Workers in Singapore. It is optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
 
+## Table of Contents
 * Table of Contents
 {:toc}
 
@@ -52,6 +53,8 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 6. Refer to the [Features](#features) below for more features with its details.
 
+[Back to table of contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
@@ -95,6 +98,8 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 7. [Deleting a person](#8-deleting-a-person--delete)
 8. [Clearing all entries](#9-clearing-all-entries--clear)
 9. [Exiting the program](#10-exiting-the-program--exit)
+
+[Back to table of contents](#table-of-contents)
 
 <div markdown="block" class="alert alert-info">
 
@@ -412,6 +417,8 @@ However, do note that if the changes make the format invalid(e.g. values out of 
 Hence, it is recommended to take a backup of the file before editing it.<br>
 </div>
 
+[Back to table of contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -423,6 +430,8 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
 3. Navigate to a folder named `data` and you will see a file called `addressbook.json` <br> 
 (If you don't see it in computer B, you can either run HeartLink once or create the file manually)
 4. Copy the contents of `addressbook.json` file from computer A (where your data is) to computer B.
+
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -442,3 +451,5 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
 | **Clear All Entries**  | `clear`                                                                                                                                                                                                              |
 | **Help**               | `help`                                                                                                                                                                                                               |
 | **Exit Program**       | `exit`                                                                                                                                                                                                               |
+
+[Back to table of contents](#table-of-contents)
