@@ -90,14 +90,15 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 2. [Adding a person](#2-adding-a-person--add)
 3. [Listing all persons](#3-listing-all-persons--list)
 4. [Editing a person](#4-editing-a-person--edit)
-5. [Look up clients by fields](#5-look-up-clients-by-fields-find)
-6. [Managing Appointments with Clients](#6-managing-appointments-with-clients--link)
-    1. [Linking appointments](#61-linking-appointments)
-    2. [Editing appointments](#62-editing-appointments)
-    3. [Deleting appointments](#63-deleting-appointments)
-7. [Deleting a person](#8-deleting-a-person--delete)
-8. [Clearing all entries](#9-clearing-all-entries--clear)
-9. [Exiting the program](#10-exiting-the-program--exit)
+5. [Deleting a person](#5-deleting-a-person--delete)
+6. [Look up clients by fields](#6-look-up-clients-by-fields-find)
+7. [Managing Appointments with Clients](#7-managing-appointments-with-clients--link)
+    1. [Linking appointments](#71-linking-appointments)
+    2. [Editing appointments](#72-editing-appointments)
+    3. [Deleting appointments](#73-deleting-appointments)
+8. [Look up appointments by fields](#8-look-up-appointments-by-fields-find)
+9. [Clearing all entries](#9-clearing-all-entries--clear)
+10. [Exiting the program](#10-exiting-the-program--exit)
 
 [Back to table of contents](#table-of-contents)
 
@@ -179,7 +180,21 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 
 [Back to Quick Links](#quick-links)
 
-### 5. Look up clients by fields: `find`
+### 5. Deleting a person : `delete`
+
+Deletes the specified person from the address book.
+
+Format: `delete NAME`
+
+* Deletes the person at the specified `NAME`.
+* The NAME must be the same as the name reflected in HeartLink.
+
+Examples:
+* You have a person named `Alex Yeoh` in HeartLink. By executing `delete Alex Yeoh`, `Alex Yeoh` will be removed from HeartLink.
+
+[Back to Quick Links](#quick-links)
+
+### 6. Look up clients by fields: `find`
 
 ```
 find [n/KEYWORD_1 KEYWORD_2 ...] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]
@@ -210,7 +225,7 @@ find p/81234567 t/patient
 
 [Back to Quick Links](#quick-links)
 
-### 6. Managing Appointments with Clients : `link`
+### 7. Managing Appointments with Clients : `link`
 
 Adds, edits, or deletes appointments linked to clients.  
 These commands allows social workers to record, track, and manage client appointments efficiently.
@@ -299,7 +314,7 @@ Deletes the appointment with ID `1b9a395`.
 
 [Back to Quick Links](#quick-links)
 
-### 7. Look up appointments by fields `find`
+### 8. Look up appointments by fields `find`
 
 ```
 find [appt/DATE [TIME]] [status/STATUS] [type/TYPE]
@@ -368,20 +383,6 @@ For example,
 > - `find r/urgent appt/today` will only show list of appointments.
 >
 > The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
-
-[Back to Quick Links](#quick-links)
-
-### 8. Deleting a person : `delete`
-
-Deletes the specified person from the address book.
-
-Format: `delete NAME`
-
-* Deletes the person at the specified `NAME`.
-* The NAME must be the same as the name reflected in HeartLink.
-
-Examples:
-* You have a person named `Alex Yeoh` in HeartLink. By executing `delete Alex Yeoh`, `Alex Yeoh` will be removed from HeartLink.
 
 [Back to Quick Links](#quick-links)
 
