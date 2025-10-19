@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
+import static seedu.address.model.person.Address.NO_ADDRESS;
+
 import java.util.Comparator;
+import java.util.Objects;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -60,7 +63,12 @@ public class PersonCard extends UiPart<Region> {
         rank.getStyleClass().addAll("pill", "rank-" + personRank);
 
         phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
+
+        String personAddress = person.getAddress().value;
+        boolean isEmpty = Objects.equals(personAddress, NO_ADDRESS);
+        address.setManaged(!isEmpty);
+        address.setText(personAddress);
+
         email.setText(person.getEmail().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
