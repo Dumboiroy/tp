@@ -230,7 +230,15 @@ Example:
 Adds, edits, or deletes appointments linked to clients.  
 These commands allows social workers to record, track, and manage client appointments efficiently.
 
-Here's the fields and their acceptable inputs relating to appointment:
+##### Here's the shortcut link to the three commands:
+- [Creating appointment](#i-creating-an-appointment-link--c)
+- [Editing appointment](#ii-editing-an-appointment--link--e)
+- [Deleting appointment](#iii-deleting-an-appointment--link--d)
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Here's the fields and their acceptable inputs relating to appointment:**<br>
+
 * **n/NAME**: This specifies the client the appointment is linking to. Your input must be alphanumeric and should be an existing name in contact list.
 * **appt/DATE [TIME]**: This specifies the date and time of the appointment. Your input must be a valid calendar date in the format `dd-MM-yyyy [HHmm]` or `d-MM-yyyy [HHmm]` where `HHmm` is optional in 24-hour time format
   <br> E.g. `04-07-2025` or `04-07-2025 0930`
@@ -241,6 +249,8 @@ Here's the fields and their acceptable inputs relating to appointment:
 * **msg/MESSAGE**: This specifies any note or reminder for the appointment. Any input is acceptable <br> E.g. `Bring consent form and medical report`.
 * **status/STATUS**: This specifies the status of the appointment. You can only input four types of status, `planned` , `confirmed` , `completed` and `cancelled` (all case-insensitive).
   It is given the `planned` status by default.
+
+</div>
 
 [Back to List of Commands](#quick-links)
 
@@ -267,7 +277,7 @@ Examples:
 * `link -c n/Ben appt/10-01-2026`
 <br> Creates an appointment with Ben on **10 Jan 2026** with unspecified duration, location, type, message and status set to **planned** by default.
 
-[Back to List of Commands](#quick-links)
+[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
 
 #### ii. Editing an Appointment : `link -e`
 
@@ -292,7 +302,7 @@ Marks appointment with id `107f3db` as **completed**.
 * `link -e id/1b9a395 appt/18-12-2025 1500 loc/Office msg/Rescheduled meeting` <br>
 Edits appointment `1b9a395` to reschedule the date and time to **18 Dec 2025, 3:00PM**, with the new location **Office** and message **“Rescheduled meeting”**.
 
-[Back to List of Commands](#quick-links)
+[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
 
 #### iii. Deleting an Appointment : `link -d`
 
@@ -311,6 +321,8 @@ link -d id/APPOINTMENT_ID
 Example:
 * `link -d id/1b9a395` <br>
   Deletes the appointment with ID `1b9a395`.
+
+[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
 
 [Back to List of Commands](#quick-links)
 
