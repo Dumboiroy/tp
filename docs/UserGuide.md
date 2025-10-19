@@ -82,6 +82,20 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 <br><br>
 ### List of commands:
 
+#### Quick Links
+1. [Viewing help](#1-viewing-help--help)
+2. [Adding a person](#2-adding-a-person--add)
+3. [Listing all persons](#3-listing-all-persons--list)
+4. [Editing a person](#4-editing-a-person--edit)
+5. [Look up clients by fields](#5-look-up-clients-by-fields-find)
+6. [Managing Appointments with Clients](#6-managing-appointments-with-clients--link)
+    1. [Linking appointments](#61-linking-appointments)
+    2. [Editing appointments](#62-editing-appointments)
+    3. [Deleting appointments](#63-deleting-appointments)
+7. [Deleting a person](#8-deleting-a-person--delete)
+8. [Clearing all entries](#9-clearing-all-entries--clear)
+9. [Exiting the program](#10-exiting-the-program--exit)
+
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the acceptable inputs:**<br>
@@ -101,6 +115,8 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 </div>
 
+
+
 ### 1. Viewing help : `help`
 
 Shows a message explaining how to access the help page.
@@ -109,6 +125,7 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+[Back to Quick Links](#quick-links)
 
 ### 2. Adding a person: `add`
 
@@ -124,11 +141,15 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal`
 
+[Back to Quick Links](#quick-links)
+
 ### 3. Listing all persons : `list`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
+
+[Back to Quick Links](#quick-links)
 
 ### 4. Editing a person : `edit`
 
@@ -149,6 +170,8 @@ Edits the phone number and email address of John Doe to be `91234567`, `johndoe@
 and ranks the contact as `urgent`.
 *  `edit Betsy Crownerrr n/Betsy Crower t/`  
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+[Back to Quick Links](#quick-links)
 
 ### 5. Look up clients by fields: `find`
 
@@ -179,6 +202,8 @@ You want to list all clients with tag patients and phone number 81234567.
 find p/81234567 t/patient
 ```
 
+[Back to Quick Links](#quick-links)
+
 ### 6. Managing Appointments with Clients : `link`
 
 Adds, edits, or deletes appointments linked to clients.  
@@ -195,6 +220,8 @@ Here's the fields and their acceptable inputs relating to appointment:
 * **msg/MESSAGE**: This specifies any note or reminder for the appointment. Any input is acceptable <br> E.g. `Bring consent form and medical report`.
 * **status/STATUS**: This specifies the status of the appointment. You can only input four types of status, `planned` , `confirmed` , `completed` and `cancelled` (all case-insensitive).
   It is given the `planned` status by default.
+
+[Back to Quick Links](#quick-links)
 
 #### i. Creating an appointment `link -c`
 
@@ -221,6 +248,8 @@ link -c n/Ben appt/10-01-2026
 ```
 Creates an appointment with Ben on **10 Jan 2026** with unspecified duration, location, type, message and status set to **planned** by default.
 
+[Back to Quick Links](#quick-links)
+
 #### ii. Editing an Appointment : `link -e`
 
 Edits details of an existing appointment using its `Appointment ID`.
@@ -245,6 +274,8 @@ link -e id/1b9a395 appt/18-12-2025 1500 loc/Office msg/Rescheduled meeting
 ```
 Edits appointment `1b9a395` to reschedule the date and time to **18 Dec 2025, 3:00PM**, with the new location **Office** and message **“Rescheduled meeting”**.
 
+[Back to Quick Links](#quick-links)
+
 #### iii. Deleting an Appointment : `link -d`
 
 Deletes an existing appointment from a client’s record.
@@ -260,6 +291,8 @@ Deletes an existing appointment from a client’s record.
 ```link -d id/1b9a395```
 Deletes the appointment with ID `1b9a395`.
 
+[Back to Quick Links](#quick-links)
+
 ### 7. Look up appointments by fields `find`
 
 ```
@@ -268,6 +301,8 @@ find [appt/DATE [TIME]] [status/STATUS] [type/TYPE]
 
 You can use this command to retrieve a list of appointments
 that match the specified attributes.
+
+[Back to Quick Links](#quick-links)
 
 #### i. Appointment meeting time `DATE [TIME]`
 
@@ -292,6 +327,8 @@ List all appointments in the upcoming three days.
 find appt/+3
 ```
 
+[Back to Quick Links](#quick-links)
+
 #### ii. Appointment status `STATUS`
 List all appointments with the given status. For example,
 you want to list all cancelled appointments, you can type
@@ -299,12 +336,16 @@ you want to list all cancelled appointments, you can type
 find status/cancelled
 ```
 
+[Back to Quick Links](#quick-links)
+
 #### iii. Appointment type `TYPE`
 List all appointments with the given type. For example,
 you want to list all meetings with GIC. You can type
 ```
 find type/GIC-Meeting
 ```
+
+[Back to Quick Links](#quick-links)
 
 #### iv. Chaining commands
 It is possible to chain these fields with [client fields](#head1234).
@@ -322,6 +363,8 @@ For example,
 >
 > The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
 
+[Back to Quick Links](#quick-links)
+
 ### 8. Deleting a person : `delete`
 
 Deletes the specified person from the address book.
@@ -334,17 +377,23 @@ Format: `delete NAME`
 Examples:
 * You have a person named `Alex Yeoh` in HeartLink. By executing `delete Alex Yeoh`, `Alex Yeoh` will be removed from HeartLink.
 
+[Back to Quick Links](#quick-links)
+
 ### 9. Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
 
+[Back to Quick Links](#quick-links)
+
 ### 10. Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
+
+[Back to Quick Links](#quick-links)
 
 <br><br>
 ### Other features:
@@ -374,13 +423,6 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
 3. Navigate to a folder named `data` and you will see a file called `addressbook.json` <br> 
 (If you don't see it in computer B, you can either run HeartLink once or create the file manually)
 4. Copy the contents of `addressbook.json` file from computer A (where your data is) to computer B.
-
---------------------------------------------------------------------------------------------------------------------
-
-## Known issues
-
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
