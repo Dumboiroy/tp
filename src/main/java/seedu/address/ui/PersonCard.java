@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,6 +10,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
+
+import static seedu.address.model.person.Address.NO_ADDRESS;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -60,7 +63,12 @@ public class PersonCard extends UiPart<Region> {
         rank.setText(personRank);
 
         phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
+
+        String personAddress = person.getAddress().value;
+        boolean isEmpty = Objects.equals(personAddress, NO_ADDRESS);
+        address.setManaged(!isEmpty);
+        address.setText(personAddress);
+
         email.setText(person.getEmail().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

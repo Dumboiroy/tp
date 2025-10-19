@@ -13,7 +13,7 @@ public class Phone {
     public static final String MESSAGE_CONSTRAINTS =
             "Phone numbers should only contain numbers, and it should be 8 digits long starting with 9, 8 or 6";
     public static final String ERROR_MESSAGE = "Invalid phone number. \n" + MESSAGE_CONSTRAINTS;
-    public static final String VALIDATION_REGEX = "^(\\+65\\s?)?[689]\\d{7}$";
+    public static final String VALIDATION_REGEX = "^(\\+65\\s?)?[689](\\d\\s?){7}$";
     public final String value;
 
     /**
