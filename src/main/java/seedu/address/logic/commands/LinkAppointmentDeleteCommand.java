@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -10,15 +12,6 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LENGTH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MESSAGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 /**
  * Edits an appointment and links it directly to a client (person).

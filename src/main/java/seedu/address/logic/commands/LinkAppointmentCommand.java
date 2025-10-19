@@ -50,10 +50,10 @@ public abstract class LinkAppointmentCommand extends Command {
             + "Example:\n"
             + MESSAGE_ADD_APPOINTMENT + "\n"
             + MESSAGE_EDIT_APPOINTMENT;
-    public static final String INCLUDE_FLAG = "Please include a flag after command. \n"
-            + "i.e. link -c [PARAMETERS], "
-            + "link -d [PARAMETERS], "
-            + "link -e [PARAMETERS]";
+    public static final String MESSAGE_INCLUDE_FLAG = "Please include a flag after command. \n"
+            + "i.e. To create an appointment: link -c [PARAMETERS], "
+            + "to delete an appointment: link -d [PARAMETERS], "
+            + "to edit an appointment: link -e [PARAMETERS]";
     public static final String MESSAGE_SUCCESS = "New appointment linked to %1$s: %2$s";
     public static final String MESSAGE_NO_SUCH_PERSON = "No client found with the name: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENTS = "This appointment already exists in the address book.";
