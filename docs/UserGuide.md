@@ -108,7 +108,8 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 * **n/NAME**: This specifies the name of the client. Your input must be alphanumeric. <br> 
   E.g. `John Doe`  
 * **p/PHONE_NUMBER**: This specifies the phone number of the client. Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
-  E.g. `+6598765432` or `98765432`.
+  You may choose to include spaces but they are only allowed after +65 and in the middle of the 8 digits <br>
+  E.g. `+6598765432`, `+65 98765432`, `+65 9876 5432`, `98765432` or `9876 5432`.
 * **e/EMAIL**: This specifies the email address of the client. Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
   The local and domain parts should be alphanumeric characters. <br> 
   E.g. `johndoe@example.com`
