@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.model.person.Address.NO_ADDRESS;
+
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -10,8 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
-
-import static seedu.address.model.person.Address.NO_ADDRESS;
 
 /**
  * An UI component that displays information of a {@code Person}.
