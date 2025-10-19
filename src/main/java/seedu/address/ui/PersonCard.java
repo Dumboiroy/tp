@@ -59,8 +59,8 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
 
         String personRank = person.getRank().rankName.toString();
-        rank.getStyleClass().add("rank-" + personRank);
         rank.setText(personRank);
+        rank.getStyleClass().addAll("pill", "rank-" + personRank);
 
         phone.setText(person.getPhone().value);
 

@@ -5,8 +5,14 @@ title: User Guide
 
 HeartLink is a **desktop app for managing contact details for Social Workers in Singapore. It is optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
 
-* Table of Contents
-{:toc}
+## Table of Contents
+1. [Quick start](#quick-start)
+2. [Features](#features)
+    1. [List of commands](#list-of-commands)
+    2. [Other features](#other-features)
+3. [FAQ](#faq)
+4. [Command summary](#command-summary)
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -14,29 +20,45 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+   > **How to check if you have Java `17` or above?**<br>
+    Click on start and search for Command Prompt/Terminal. Type `java -version` and click enter. You will see the 
+    java version installed on your computer. 
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+    > **Don't have Java 17?** <br>
+    Install it [here](https://www.openlogic.com/openjdk-downloads)!
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-T09-1/tp/releases).
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+3. Copy the file to the folder you want to use as the _home folder_ for HeartLink.
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+4. Run HeartLink using the `java -jar HeartLink.jar` command.<br>
+   > **How to run HeartLink?** (for beginners) <br>
+   > 1. Open start and search for Command Prompt or Terminal.
+   > 2. Type `cd [filename]` to navigate to the folder with your HeartLink jar. <br>
+   >  E.g. If your jar is in `Users\(name)\Downloads` and you are currently
+   >  in `Users\(name)`, you will type `cd Downloads` in the terminal)
+   > 3. Type `java -jar HeartLink.jar` and HeartLink will open!
+
+    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+    ![Ui](images/Ui.png)
+    
+
+5. Try typing some command in the command box and press Enter to execute it. <br> E.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete John Doe` : Deletes `John Doe` from the list of contacts.
 
    * `clear` : Deletes all contacts.
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for more features with its details.
+
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -61,31 +83,83 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines 
+  as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### Viewing help : `help`
+<br><br>
+### List of commands:
+
+#### Quick Links
+1. [Viewing help](#1-viewing-help--help)
+2. [Adding a person](#2-adding-a-person-add)
+3. [Listing all persons](#3-listing-all-persons--list)
+4. [Editing a person](#4-editing-a-person--edit)
+5. [Deleting a person](#5-deleting-a-person--delete)
+6. [Managing Appointments with Clients](#6-managing-appointments-with-clients--link)
+    1. [Linking appointments](#i-creating-an-appointment-link--c)
+    2. [Editing appointments](#ii-editing-an-appointment--link--e)
+    3. [Deleting appointments](#iii-deleting-an-appointment--link--d)
+7. [Look up clients by fields](#7-look-up-clients-by-fields-find)
+    1. [Client name](#i-client-name-keyword)
+    2. [Client phone number](#ii-client-phone-number-phone)
+    3. [Client email](#iii-client-email-email)
+    4. [Client tag](#iv-client-tag-tag)
+    5. [Client rank](#v-client-rank-rank)
+    6. [Chaining attributes](#vi-chaining-client-attributes)
+8. [Look up appointments by fields](#8-look-up-appointments-by-fields-find)
+    1. [Appointment meeting time](#i-appointment-meeting-time-date-time)
+    2. [Appointment status](#ii-appointment-status-status)
+    3. [Appointment type](#iii-appointment-type-type)
+    4. [Chaining all attributes](#iv-chaining-commands)
+9. [Clearing all entries](#9-clearing-all-entries--clear)
+10. [Exiting the program](#10-exiting-the-program--exit)
+
+[Back to table of contents](#table-of-contents)
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about the acceptable inputs:**<br>
+
+* **n/NAME**: This specifies the name of the client. Your input must be alphanumeric. <br> 
+  E.g. `John Doe`  
+* **p/PHONE_NUMBER**: This specifies the phone number of the client. Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
+  You may choose to include spaces but they are only allowed after +65 and in the middle of the 8 digits <br>
+  E.g. `+6598765432`, `+65 98765432`, `+65 9876 5432`, `98765432` or `9876 5432`.
+* **e/EMAIL**: This specifies the email address of the client. Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
+  The local and domain parts should be alphanumeric characters. <br> 
+  E.g. `johndoe@example.com`
+* **a/ADDRESS**: This specifies the address of the client. Your input must be alphanumeric. Special characters like `# - , . ( ) / ; : &` are accepted. <br>
+  E.g. `John street, block 123, #01-01`
+* **t/TAG**: This specifies the tag(s) of the client. Your input must be alphanumeric. <br>
+  E.g. `friend` or `patient`
+* **r/RANK**: This specifies the priority rank of the client. You can only input four types of priority, `stable` , `vulnerable` , `urgent` and `crisis` (all case-insensitive). <br>
+
+</div>
+
+
+
+### 1. Viewing help : `help`
 
 Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
+Format: 
+```
+help
+```
 
+[Back to List of Commands](#quick-links)
 
-### Adding a person: `add`
+### 2. Adding a person: `add`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`
-
-Acceptable Values: 
-* For name: Your input must be alphanumeric. 
-* For phone number: Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br> Eg. +65 98765432 or 9876 5432 (both acceptable). 
-* For email: Your input should contain a `@` and have alphanumeric characters before and after. Special characters `+ - . _`  are allowed. Don't forget to include the domain!
-* For address: Your input must be alphanumeric and only `# - , . ( ) / ; : &` symbols are accepted.
-* For tag: Your input must be alphanumeric 
-* For ranking priority: You can only input four types of priority, “stable” , “vulnerable” , “urgent” and “crisis” (all case-insensitive).
+Format: 
+```
+add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
+```
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
@@ -95,28 +169,34 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal`
 
-### Listing all persons : `list`
+[Back to List of Commands](#quick-links)
+
+### 3. Listing all persons : `list`
 
 Shows a list of all persons in the address book.
 
-Format: `list`
+Format: 
+```
+list
+```
 
-### Editing a person : `edit`
+[Back to List of Commands](#quick-links)
+
+### 4. Editing a person : `edit`
 
 Edits an existing person in the address book.
 
-Format: `edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`
+Format: 
+```
+edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
+```
 
 * Edits the person at the specified `OLD_NAME`. The old name refers to the person's name before editing.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/ ` without specifying any tags after it.
-
-Acceptable Values:
-- Edit phone number: must be 8 digit integers, starting with 6, 8 or 9. Starting with country code (+65) is acceptable.
-- Edit email address: must be in `[name]@[email].[domain]` , e.g. `alexyeoh@xyz.io`
-- Combinations: Any combination is acceptable
+* You can use any combinations of the fields.
 
 Examples:
 *  `edit John Doe p/91234567 e/johndoe@example.com r/urgent`  
@@ -125,87 +205,269 @@ and ranks the contact as `urgent`.
 *  `edit Betsy Crownerrr n/Betsy Crower t/`  
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Look up clients by fields: `find`
+[Back to List of Commands](#quick-links)
 
+### 5. Deleting a person : `delete`
+
+Deletes the specified person from the address book.
+
+Format: 
+```
+delete NAME
+```
+
+* Deletes the person at the specified `NAME`.
+* The NAME must be the same as the name reflected in HeartLink.
+
+Example:
+* You have a person named `Alex Yeoh` in HeartLink. <br>
+  By executing `delete Alex Yeoh`, `Alex Yeoh` will be removed from HeartLink.
+
+[Back to List of Commands](#quick-links)
+
+### 6. Managing Appointments with Clients : `link`
+
+Adds, edits, or deletes appointments linked to clients.  
+These commands allows social workers to record, track, and manage client appointments efficiently.
+
+##### Here's the shortcut link to the three commands:
+- [Creating appointment](#i-creating-an-appointment-link--c)
+- [Editing appointment](#ii-editing-an-appointment--link--e)
+- [Deleting appointment](#iii-deleting-an-appointment--link--d)
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Here's the fields and their acceptable inputs relating to appointment:**<br>
+
+* **n/NAME**: This specifies the client the appointment is linking to. Your input must be alphanumeric and should be an existing name in contact list.
+* **appt/DATE [TIME]**: This specifies the date and time of the appointment. Your input must be a valid calendar date in the format `dd-MM-yyyy [HHmm]` or `d-MM-yyyy [HHmm]` where `HHmm` is optional in 24-hour time format
+  <br> E.g. `04-07-2025` or `04-07-2025 0930`
+* **id/APPOINTMENT_ID**: This is an unique ID of the appointment. You do NOT need to create an ID. It will be generated once the appointment is created.
+* **len/MINUTES**: This specifies the length of appointment. Your input must be a positive integer, in **minutes** <br> E.g. `45`
+* **loc/LOCATION**: This specifies the location of the appointment. Your input can contain letters, numbers, and symbols `, . # - / ( ) ' ; & :`. <br> E.g. `Blk 10 Tampines Ave 3 #02-15`
+* **type/TYPE**: This specifies the type of the appointment. Any input is acceptable. <br> E.g. `House Visit`, `Follow-up Call`, `Counselling Session`.
+* **msg/MESSAGE**: This specifies any note or reminder for the appointment. Any input is acceptable <br> E.g. `Bring consent form and medical report`.
+* **status/STATUS**: This specifies the status of the appointment. You can only input four types of status, `planned` , `confirmed` , `completed` and `cancelled` (all case-insensitive).
+  It is given the `planned` status by default.
+
+</div>
+
+[Back to List of Commands](#quick-links)
+
+#### i. Creating an appointment `link -c`
+
+Creates a new appointment and links it to a client.
+Each appointment automatically receives a unique `Appointment ID`.
+
+Format:
+```
+link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]
+```
+
+<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+- Both date and time can be specified, or just the date for all-day appointments.
+- A random unique `Appointment ID` is generated automatically.
+- All unspecified optional fields default to empty values or `"planned"` status.
+- Note that fields in `[]` are optional!
+</div>
+
+Examples:
+* `link -c n/Alex appt/15-12-2025 2359 len/60 loc/Alex House type/House Visit msg/Bring Consent Form status/confirmed`
+<br> Creates a **House Visit** appointment with Alex on **15 Dec 2025, 11:59PM**, lasting **60 minutes**, with a message **“Bring Consent Form”**, marked as **confirmed**.
+* `link -c n/Ben appt/10-01-2026`
+<br> Creates an appointment with Ben on **10 Jan 2026** with unspecified duration, location, type, message and status set to **planned** by default.
+
+[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
+
+#### ii. Editing an Appointment : `link -e`
+
+Edits details of an existing appointment using its `Appointment ID`.
+
+Format:
+```
+link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]
+```
+
+<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+- You can edit multiple fields at once or just one.
+- Only specified fields are updated, unspecified fields remain unchanged.
+- The appointment ID (`id/`) can be seen from the client card display.
+- Note that fields in `[]` are optional!
+</div>
+
+Examples:
+* `link -e id/107f3db status/completed` <br>
+Marks appointment with id `107f3db` as **completed**.
+
+* `link -e id/1b9a395 appt/18-12-2025 1500 loc/Office msg/Rescheduled meeting` <br>
+Edits appointment `1b9a395` to reschedule the date and time to **18 Dec 2025, 3:00PM**, with the new location **Office** and message **“Rescheduled meeting”**.
+
+[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
+
+#### iii. Deleting an Appointment : `link -d`
+
+Deletes an existing appointment from a client’s record.
+
+Format: 
+```
+link -d id/APPOINTMENT_ID
+```
+
+<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+- Deleting an appointment cannot be undone.
+- Once deleted, it will be removed from both the client’s appointment list and the database.
+</div>
+
+Example:
+* `link -d id/1b9a395` <br>
+  Deletes the appointment with ID `1b9a395`.
+
+[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
+
+[Back to List of Commands](#quick-links)
+
+### 7. Look up clients by fields: `find`
+
+Here is the first part of `find` command specific for clients.
+[Click here](#8-look-up-appointments-by-fields-find) to go to the second part for finding by appointment!
+
+Format:
 ```
 find [n/KEYWORD_1 KEYWORD_2 ...] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]
 ```
+
 You can use this command to retrieve a list of clients that match the specified attributes:
-- Name `n/KEYWORD_1 KEYWORD_2 ...` — lists all clients whose names contain any of the specified keywords.
-The search is case-insensitive.
-- Phone number `p/PHONE` - lists all clients whose phone numbers exactly match `PHONE`.
-- Email `e/EMAIL` - lists all clients whose email exactly match `EMAIL`.
-- Tag `t/TAG` - lists all clients whose tag contains `TAG`.
-- Rank `r/RANK` - lists all clients whose rank exactly match `RANK`.
 
 <div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
 The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
 </div>
 
-Example usage:
+##### Here's the list of attributes for client:
+* [Client name](#i-client-name-keyword)
+* [Client phone number](#ii-client-phone-number-phone)
+* [Client email](#iii-client-email-email)
+* [Client tag](#iv-client-tag-tag)
+* [Client rank](#v-client-rank-rank)
+* [Chaining attributes](#vi-chaining-client-attributes)
 
-You want to list all urgent clients whose name contains "John" or "Doe.
-```
-find n/John Doe r/urgent
-```
+[Back to List of Commands](#quick-links)
 
-You want to list all clients with tag patients and phone number 81234567.
-```
-find p/81234567 t/patient
-```
+#### i. Client name `KEYWORD`
 
-### Look up appointments by fields `find`
+Lists all clients whose names contain any of the specified keywords.
+The search is case-insensitive.
+Example:
+* You have a `Alex Yeoh` and a `Alex Tan` in Heartlink. <br>
+  Executing `find n/Alex` would list both `Alex Yeoh` and `Alex Tan` as they have `Alex` in their name.
 
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+#### ii. Client phone number `PHONE`
+Lists all clients whose phone numbers exactly match `PHONE`.
+
+Example:
+* `find p/98765432` lists the contacts that has they same phone number inputted.
+
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+#### iii. Client email `EMAIL`
+Lists all clients whose email exactly match `EMAIL`.
+
+Example:
+* `find e/johndoe@example.com` lists the contacts that has they same email inputted.
+
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+#### iv. Client tag `TAG`
+Lists all clients whose tag contains `TAG`.
+
+Example:
+* `find t/friend` lists the contacts that is tagged as `friend`.
+
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+#### v. Client rank `RANK`
+Lists all clients whose rank exactly match `RANK`.
+
+Example:
+* `find r/stable` lists the contacts that has the `stable` rank.
+
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+#### vi. Chaining client attributes
+You can also type different attributes at once
+
+Examples:
+* `find n/John Doe r/urgent` <br>
+  allows you to list all urgent clients whose name contains "John" or "Doe.
+* `find p/81234567 t/patient` <br>
+  allows you to list all clients with tag patients and phone number 81234567.
+
+[Back to attribute list](#heres-the-list-of-attributes-for-client)
+
+[Back to List of Commands](#quick-links)
+
+### 8. Look up appointments by fields `find`
+
+Here is the second part of `find` command specific for appointments.
+[Click here](#8-look-up-appointments-by-fields-find) to go back to the first part for finding by client!
+
+Format:
 ```
-find [appt/TIME] [status/STATUS] [type/TYPE]
+find [appt/DATE [TIME]] [status/STATUS] [type/TYPE]
 ```
 
 You can use this command to retrieve a list of appointments
 that match the specified attributes.
 
-#### Appointment meeting time `TIME`
+##### Here's the list of attributes for appointment:
+* [Appointment meeting time](#i-appointment-meeting-time-date-time)
+* [Appointment status](#ii-appointment-status-status)
+* [Appointment type](#iii-appointment-type-type)
+* [Chaining all attributes](#iv-chaining-commands)
 
-list all appointments that  overlap with the specified time. 
-Here are the example usages.
+[Back to List of Commands](#quick-links)
 
+#### i. Appointment meeting time `DATE [TIME]`
+
+List all appointments that  overlap with the specified time. 
+
+Examples:
+* `find appt/24-10-2025 1000 to 24-10-2025 1100` <br>
 List all appointments between 24th October 2025 10 - 11 am.
-```
-find appt/24-10-2025 1000 to 24-10-2025 1100
-```
+* `find appt/04-07-2025` <br>
 List all appointments on 4th July 2025.
-```
-find appt/04-07-2025
-```
+* `find appt/today` <br>
 List today's appointment.
-```
-find appt/today
-```
-
+* `find appt/+3`<br>
 List all appointments in the upcoming three days.
-```
-find appt/+3
-```
 
-#### Appointment status `STATUS`
-List all appointments with the given status. For example,
-you want to list all cancelled appointments, you can type
-```
-find status/cancelled
-```
+[Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
-#### Appointment type `TYPE`
-List all appointments with the given type. For example,
-you want to list all meetings with GIC. You can type
-```
-find type/GIC-Meeting
-```
+#### ii. Appointment status `STATUS`
+List all appointments with the given status. 
 
-#### Chaining commands
-It is possible to chain these fields with [client fields](#head1234).
-For example, if you want to find today's appointment for urgent clients, you can type
-```
-find r/urgent appt/today 
-```
+Example:
+* `find status/cancelled`<br>
+List all cancelled appointments for you
+
+[Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
+
+#### iii. Appointment type `TYPE`
+List all appointments with the given type. 
+
+Example:
+* `find type/GIC-Meeting` <br>
+List out all meetings with GIC for you.
+
+[Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
+
+#### iv. Chaining commands
+It is possible to chain these fields with [client fields](#6-look-up-clients-by-fields-find).
+
+Example:
+* `find r/urgent appt/today`
+This command allows you to find today's appointment for urgent clients
 
 > Although the leading command to list appointments and clients is the same, the behavior differs depending on the fields provided.
 If you include any appointment-related fields, such as `appt/`, `status/`, or `type/`, the system will list appointments.
@@ -216,174 +478,82 @@ For example,
 >
 > The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
 
-### Deleting a person : `delete`
+[Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
-Deletes the specified person from the address book.
+[Back to List of Commands](#quick-links)
 
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
-
-### Managing Appointments with Clients : `link`
-
-Adds, edits, or deletes appointments linked to clients.  
-This command allows social workers to record, track, and manage client appointments efficiently.
-
-#### Creating an Appointment : `link -c`
-
-Creates a new appointment and links it to a client.
-Each appointment automatically receives a unique `Appointment ID`.
-
-**Format:** `link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`
-
-**Acceptable Values:**
-- `n/NAME` — **(Required)** Name of an existing client to link the appointment to.
-- `appt/DATE [TIME]` — **(Required)** Appointment date and optional 24-hour time in the format `dd-MM-yyyy` or `dd-MM-yyyy HHmm`.
-    - Example: `04-07-2025` or `04-07-2025 0930`
-    - Must represent a valid calendar date/time.
-- `len/MINUTES` — **(Optional)** Appointment duration in positive integer minutes (e.g., `30`, `60`, `90`).
-    - Example: `45`
-- `loc/LOCATION` — **(Optional)** Appointment location.
-    - Can contain letters, numbers, and symbols `, . # - / ( ) ' ; & :`.
-    - Example: `Blk 10 Tampines Ave 3 #02-15`
-- `type/TYPE` — **(Optional)** Describes the appointment type.
-    - Example: `House Visit`, `Follow-up Call`, `Counselling Session`.
-- `msg/MESSAGE` — **(Optional)** A short note or reminder.
-    - Example: `Bring consent form and medical report`.
-- `status/STATUS` — **(Optional)** Current appointment status.
-    - Acceptable values: `planned`, `confirmed`, `completed`, `cancelled`.
-
-<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
-- Both date and time can be specified, or just the date for all-day appointments.
-- A random unique `Appointment ID` is generated automatically.
-- All unspecified optional fields default to empty values or `"planned"` status.
-</div>
-
-**Examples:**
-```
-link -c n/Alex appt/15-12-2025 2359 len/60 loc/Alex House type/House Visit msg/Bring Consent Form status/confirmed
-```
-Creates a **House Visit** appointment with Alex on **15 Dec 2025, 11:59PM**, lasting **60 minutes**, with a message **“Bring Consent Form”**, marked as **confirmed**.
-
-```
-link -c n/Ben appt/10-01-2026
-```
-Creates an appointment with Ben on **10 Jan 2026** with unspecified duration, location, type, message and status set to **planned** by default.
-
-#### Editing an Appointment : `link -e`
-
-Edits details of an existing appointment using its `Appointment ID`.
-
-**Format:** `link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`
-
-**Acceptable Values:**
-- `id/APPOINTMENT_ID` — **(Required)** Unique ID of the appointment to edit.
-- `appt/DATE [TIME]` — **(Optional)** Updates the appointment date and/or time.
-- `len/MINUTES` — **(Optional)** Updates the appointment duration.
-- `loc/LOCATION` — **(Optional)** Updates the appointment location.
-- `type/TYPE` — **(Optional)** Updates the appointment type.
-- `msg/MESSAGE` — **(Optional)** Updates the appointment message.
-- `status/STATUS` — **(Optional)** Updates the appointment’s current status (`planned`, `confirmed`, `completed`, or `cancelled`).
-
-<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
-- You can edit multiple fields at once or just one.
-- Only specified fields are updated, unspecified fields remain unchanged.
-- The appointment ID (`id/`) can be seen from the client card display.
-</div>
-
-**Examples:**
-```
-link -e id/107f3db status/completed
-```
-Marks appointment with id `107f3db` as **completed**.
-
-```
-link -e id/1b9a395 appt/18-12-2025 1500 loc/Office msg/Rescheduled meeting
-```
-Edits appointment `1b9a395` to reschedule the date and time to **18 Dec 2025, 3:00PM**, with the new location **Office** and message **“Rescheduled meeting”**.
-
-#### Deleting an Appointment : `link -d`
-
-Deletes an existing appointment from a client’s record.
-
-**Format:** `link -d id/APPOINTMENT_ID`
-
-**Acceptable Values:**
-- `id/APPOINTMENT_ID` — **(Required)** Unique ID of the appointment to delete.
-
-<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
-- Deleting an appointment cannot be undone.
-- Once deleted, it will be removed from both the client’s appointment list and the database.
-</div>
-
-**Examples:**
-```link -d id/1b9a395```
-Deletes the appointment with ID `1b9a395`.
-
-### Clearing all entries : `clear`
+### 9. Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
-Format: `clear`
+Format: 
+```
+clear
+```
 
-### Exiting the program : `exit`
+[Back to List of Commands](#quick-links)
+
+### 10. Exiting the program : `exit`
 
 Exits the program.
 
-Format: `exit`
+Format: 
+```
+exit
+```
+
+[Back to List of Commands](#quick-links)
+
+<br><br>
+### Other features:
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+HeartLink data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+HeartLink data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. 
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If you are familiar with JSON, you are welcome to update data directly by editing that data file! <br>
+However, do note that if the changes make the format invalid(e.g. values out of range, missing field), HeartLink will discard all data and start with an empty data file at the next run. 
+Hence, it is recommended to take a backup of the file before editing it.<br>
 </div>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Follow the steps below:
+1. Install the app in the other computer, say computer B.
+2. On both computers, navigate to the folder with HeartLink. 
+3. Navigate to a folder named `data` and you will see a file called `addressbook.json` <br> 
+(If you don't see it in computer B, you can either run HeartLink once or create the file manually)
+4. Copy the contents of `addressbook.json` file from computer A (where your data is) to computer B.
 
---------------------------------------------------------------------------------------------------------------------
-
-## Known issues
-
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
 
-| Action                 | Format, Examples |
-|------------------------|------------------|
-| **Add Client**         | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable` |
-| **Edit Client**        | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent` |
-| **Delete Client**      | `delete INDEX`<br>e.g. `delete 3` |
-| **List Client**        | `list` |
-| **Find Clients**       | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent` |
-| **Find Appointments**  | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today` |
-| **Edit Appointment**   | `link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift` |
-| **Delete Appointment** | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395` |
+| Action                 | Format, Examples                                                                                                                                                                                                     |
+|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Client**         | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                                   |
+| **Edit Client**        | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                             |
+| **Delete Client**      | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                              |
+| **List Client**        | `list`                                                                                                                                                                                                               |
+| **Find Clients**       | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent`                                                                                                                                  |
+| **Find Appointments**  | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today`                                                                                                                                             |
+| **Edit Appointment**   | `link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift`                        |
+| **Delete Appointment** | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395`                                                                                                                                                             |
 | **Add Appointment**    | `link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -c n/Alex appt/15-12-2025 2359 type/House Visit loc/Alex House len/60 msg/Bring Consent Form` |
-| **Clear All Entries**  | `clear` |
-| **Help**               | `help` |
-| **Exit Program**       | `exit` |
+| **Clear All Entries**  | `clear`                                                                                                                                                                                                              |
+| **Help**               | `help`                                                                                                                                                                                                               |
+| **Exit Program**       | `exit`                                                                                                                                                                                                               |
+
+[Back to table of contents](#table-of-contents)

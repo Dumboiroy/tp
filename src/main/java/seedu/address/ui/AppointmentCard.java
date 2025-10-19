@@ -66,7 +66,7 @@ public class AppointmentCard extends UiPart<Region> {
         // Set status with styling
         String apptStatus = appointment.getStatus().toString().toLowerCase();
         status.setText(apptStatus);
-        status.getStyleClass().addAll("status-pill", "status-" + apptStatus);
+        status.getStyleClass().addAll("pill", "status-" + apptStatus);
 
         // Set details
         id.setText("ID: " + appointment.getId());

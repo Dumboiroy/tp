@@ -378,7 +378,7 @@
     -fx-border-radius: 8;
     -fx-background-radius: 8;
 
-    -fx-alignment: top-center;   /* <-- stick contents to the top */
+    -fx-alignment: top-center;   /* stick contents to the top */
     -fx-spacing: 2;              /* tighter gaps */
     -fx-padding: 0 0 6 0;        /* reduce bottom padding */
 
@@ -389,7 +389,7 @@
 
 /* Month header always at top */
 .calendar-month {
-    -fx-background-color: #2c3e50 !important;
+    -fx-background-color: #596D8F !important;
     -fx-text-fill: white !important;
     -fx-font-weight: bold;
     -fx-font-size: 10pt;
@@ -404,23 +404,23 @@
 .calendar-day {
     -fx-font-size: 24pt;
     -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50 !important;
+    -fx-text-fill: #596D8F !important;
 }
 
 /* Year */
 .calendar-year {
     -fx-font-size: 11pt;
-    -fx-text-fill: #444444 !important;
+    -fx-text-fill: #6C7BA3 !important;
 }
 
 /* Time */
 .calendar-time {
     -fx-font-size: 10pt;
-    -fx-text-fill: #666666 !important;
+    -fx-text-fill: #8C98B3 !important;
 }
 
-/* Status pill */
-.status-pill {
+/* Base pill style */
+.pill {
     -fx-padding: 3 8;
     -fx-background-radius: 12;
     -fx-text-fill: white !important;
@@ -428,21 +428,36 @@
     -fx-font-size: 9pt;
 }
 
-/* Status colors */
-.status-planned    { -fx-background-color: #B8860B !important; }
-.status-confirmed  { -fx-background-color: #008000 !important; }
-.status-completed  { -fx-background-color: #FF8C00 !important; }
-.status-cancelled  { -fx-background-color: #BA110C !important; }
-
-.rank-label {
-    -fx-padding: 2 5 2 5;
-    -fx-background-radius: 8;
-    -fx-text-fill: #596D8F !important;
-    -fx-font-size: 9pt;
+/* Status pill colours */
+.status-planned {
+    -fx-background-color: #EAB308;
 }
 
-/* Rank colour */
-.rank-stable       { -fx-background-color: #ABFF6B !important; }
-.rank-vulnerable   { -fx-background-color: #FFF702 !important; }
-.rank-urgent       { -fx-background-color: #FFCC96 !important; }
-.rank-crisis       { -fx-background-color: #FF9E9E !important; }
+.status-confirmed {
+    -fx-background-color: #15803D;
+}
+
+.status-completed {
+    -fx-background-color: #EA580C;
+}
+
+.status-cancelled {
+    -fx-background-color: #B91C1C;
+}
+
+/* Rank pill colours */
+.rank-stable {
+    -fx-background-color: #15803D;
+}
+
+.rank-vulnerable {
+    -fx-background-color: #EAB308;
+}
+
+.rank-urgent {
+    -fx-background-color: #EA580C;
+}
+
+.rank-crisis {
+    -fx-background-color: #B91C1C;
+}
