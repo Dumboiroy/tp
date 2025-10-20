@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LENGTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MESSAGE;
@@ -50,7 +51,7 @@ public class CommandTestUtil {
     public static final String VALID_RANK_STABLE = RankType.STABLE.toString();
     public static final String VALID_RANK_URGENT = RankType.URGENT.toString();
     public static final String VALID_RANK_VULNERABLE = RankType.VULNERABLE.toString();
-    public static final String VALID_APPOINTMENT_ID = "1";
+    public static final String VALID_APPOINTMENT_ID = "3";
     public static final String VALID_APPOINTMENT_DATE_TIME = "20-10-2025 1400";
     public static final String VALID_APPOINTMENT_LENGTH = "60";
     public static final String VALID_APPOINTMENT_LOCATION = "Dental Clinic";
@@ -74,6 +75,7 @@ public class CommandTestUtil {
     public static final String RANK_DESC_VULNERABLE = " " + PREFIX_RANK + VALID_RANK_VULNERABLE;
 
     // Appointments
+    public static final String APPOINTMENT_ID_DESC_BOB = " " + PREFIX_ID + VALID_APPOINTMENT_ID;
     public static final String APPOINTMENT_DATE_TIME_DESC_BOB = " " + PREFIX_APPOINTMENT + VALID_APPOINTMENT_DATE_TIME;
     public static final String APPOINTMENT_LENGTH_DESC_BOB = " " + PREFIX_LENGTH + VALID_APPOINTMENT_LENGTH;
     public static final String APPOINTMENT_LOCATION_DESC_BOB = " " + PREFIX_LOCATION + VALID_APPOINTMENT_LOCATION;
