@@ -36,7 +36,6 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.LinkAppointmentCommand;
 import seedu.address.logic.commands.LinkAppointmentCreateCommand;
 import seedu.address.logic.commands.LinkAppointmentDeleteCommand;
 import seedu.address.logic.commands.LinkAppointmentEditCommand;
