@@ -33,7 +33,6 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.LinkAppointmentCommand;
 import seedu.address.logic.commands.LinkAppointmentCreateCommand;
 import seedu.address.logic.commands.LinkAppointmentEditCommand.EditAppointmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -78,21 +77,22 @@ public class LinkAppointmentCommandParserTest {
     @Test
     public void parse_compulsoryFieldsMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                LinkAppointmentCommand.MESSAGE_USAGE);
+                LinkAppointmentCreateCommand.MESSAGE_FAIL);
+
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + APPOINTMENT_DATE_TIME_DESC_BOB,
+        assertParseFailure(parser, " -c " + VALID_NAME_BOB + APPOINTMENT_DATE_TIME_DESC_BOB,
                 expectedMessage);
 
         // missing appointment prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_APPOINTMENT_DATE_TIME,
+        assertParseFailure(parser, " -c " + NAME_DESC_BOB + VALID_APPOINTMENT_DATE_TIME,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_APPOINTMENT_DATE_TIME,
+        assertParseFailure(parser, " -c " + VALID_NAME_BOB + VALID_APPOINTMENT_DATE_TIME,
                 expectedMessage);
 
         // Missing appointment timing
-        assertParseFailure(parser, NAME_DESC_BOB,
+        assertParseFailure(parser, " -c " + NAME_DESC_BOB,
                 expectedMessage);
     }
 

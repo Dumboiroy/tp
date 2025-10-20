@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
+
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -15,6 +17,12 @@ import seedu.address.model.person.Person;
  * Edits an appointment and links it directly to a client (person).
  */
 public class LinkAppointmentDeleteCommand extends LinkAppointmentCommand {
+    public static final String MESSAGE_FAIL =
+            "Delete flag: Deletes an existing appointment with a client. \nParameters: "
+                    + "link -d "
+                    + PREFIX_ID + "ID "
+                    + "Example: "
+                    + MESSAGE_DELETE_APPOINTMENT;
     public static final String MESSAGE_APPOINTMENT_NOT_FOUND = "The appointment with id %1$s could not be found.";
     public static final String MESSAGE_SUCCESS = "Appointment with %1$s deleted.";
 

@@ -1,6 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LENGTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MESSAGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.Optional;
 
@@ -16,6 +23,19 @@ import seedu.address.model.person.Person;
  * Creates an appointment and links it directly to a client (person).
  */
 public class LinkAppointmentCreateCommand extends LinkAppointmentCommand {
+    public static final String MESSAGE_FAIL =
+            "Create flag: Links a new appointment to a client. \nParameters: "
+                    + "link -c "
+                    + PREFIX_NAME + "NAME "
+                    + PREFIX_APPOINTMENT + "DATE [TIME] "
+                    + "[" + PREFIX_LENGTH + "MINUTES] "
+                    + "[" + PREFIX_LOCATION + "LOCATION] "
+                    + "[" + PREFIX_TYPE + "TYPE] "
+                    + "[" + PREFIX_MESSAGE + "NOTES] "
+                    + "[" + PREFIX_STATUS + "planned|confirmed|completed|cancelled]\n"
+                    + "Example: "
+                    + MESSAGE_ADD_APPOINTMENT;
+
     private final Name clientName;
     private Appointment appointment;
 

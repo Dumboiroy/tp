@@ -38,25 +38,32 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
 
     @Override
     public LinkAppointmentCommand parse(String args) throws ParseException {
-        Appointment appointment;
-        Name clientName;
-        LinkAppointmentEditCommand.EditAppointmentDescriptor editAppointmentDescriptor =
-                new LinkAppointmentEditCommand.EditAppointmentDescriptor();
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
                         PREFIX_FLAG, PREFIX_ID, PREFIX_NAME, PREFIX_APPOINTMENT, PREFIX_LENGTH,
                         PREFIX_LOCATION, PREFIX_TYPE, PREFIX_MESSAGE, PREFIX_STATUS);
 
-        if (args.trim().isEmpty() || !argMultimap.getValue(PREFIX_FLAG).isPresent()) {
+        if (args.trim().isEmpty()
+                || argMultimap.getValue(PREFIX_FLAG).isEmpty()
+                || argMultimap.getValue(PREFIX_FLAG).get().split(" ")[0].length() != 1) {
+            //if flag is empty, or if flag has more than 1 character
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    LinkAppointmentCommand.MESSAGE_USAGE));
+                    LinkAppointmentCommand.MESSAGE_INCLUDE_FLAG));
         }
 
         validateCommand(argMultimap);
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ID, PREFIX_NAME, PREFIX_APPOINTMENT,
                 PREFIX_LENGTH, PREFIX_LOCATION, PREFIX_TYPE, PREFIX_MESSAGE, PREFIX_STATUS);
+
+        return returnCommand(argMultimap);
+    }
+
+    private LinkAppointmentCommand returnCommand(ArgumentMultimap argMultimap) throws ParseException {
+        Appointment appointment;
+        Name clientName;
+        LinkAppointmentEditCommand.EditAppointmentDescriptor editAppointmentDescriptor =
+                new LinkAppointmentEditCommand.EditAppointmentDescriptor();
 
         AppointmentFlag flag = ParserUtil.parseAppointmentFlag(argMultimap.getValue(PREFIX_FLAG).get());
 
@@ -108,32 +115,38 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
     }
 
     private void validateCommand(ArgumentMultimap argMultimap) throws ParseException {
-        AppointmentFlag flag = ParserUtil.parseAppointmentFlag(argMultimap.getValue(PREFIX_FLAG).get());
+        AppointmentFlag flag =
+                ParserUtil.parseAppointmentFlag(
+                        argMultimap.getValue(PREFIX_FLAG).get().split(" ")[0]);
+        /*
+        if there is more than 1 word for flag, it would only take first, and it's guaranteed to be 1 digit due to
+        previous check.
+        */
         switch (flag.value) {
         case 'c':
             if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_NAME, PREFIX_APPOINTMENT)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        LinkAppointmentCommand.MESSAGE_USAGE));
+                        LinkAppointmentCreateCommand.MESSAGE_FAIL));
             }
             break;
         case 'd':
             if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_ID)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        "Wrong Syntax for flag -d"));
+                        LinkAppointmentDeleteCommand.MESSAGE_FAIL));
             }
             break;
         case 'e':
             if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_ID)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        "Wrong Syntax for flag -e"));
+                        LinkAppointmentEditCommand.MESSAGE_FAIL));
             }
             break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    LinkAppointmentCommand.MESSAGE_USAGE));
+                    LinkAppointmentCommand.MESSAGE_INCLUDE_FLAG));
         }
     }
 
