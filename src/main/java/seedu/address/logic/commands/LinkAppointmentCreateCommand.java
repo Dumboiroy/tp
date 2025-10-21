@@ -78,6 +78,6 @@ public class LinkAppointmentCreateCommand extends LinkAppointmentCommand {
         }
 
         LinkAppointmentCreateCommand otherCommand = (LinkAppointmentCreateCommand) other;
-        return otherCommand.clientName.equals(clientName) && otherCommand.appointment.equals(appointment);
+        return otherCommand.clientName.equals(clientName) && otherCommand.appointment.isSameAppointment(this.appointment);
     }
 }
