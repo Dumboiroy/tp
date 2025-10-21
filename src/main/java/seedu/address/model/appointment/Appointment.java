@@ -107,7 +107,6 @@ public class Appointment {
             return true;
         }
         return other != null
-                && other.getId().equals(getId())
                 && other.getClientName().equals(getClientName())
                 && other.getDateTime().equals(getDateTime());
     }
