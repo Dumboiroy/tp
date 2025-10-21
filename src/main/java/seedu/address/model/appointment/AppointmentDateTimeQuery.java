@@ -96,7 +96,7 @@ public class AppointmentDateTimeQuery {
     }
 
     public boolean isOverlapped(AppointmentDateTimeQuery query) {
-        return query != null && !start.isAfter(query.end) && !query.start.isAfter(end);
+        return query != null && start.isBefore(query.end) && query.start.isBefore(end);
     }
 
     /**

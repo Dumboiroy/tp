@@ -101,6 +101,12 @@ public interface Model {
     boolean hasAppointment(Appointment appointment);
 
     /**
+     * A weaker variant of {@code hasAppointment}.
+     * Returns true if a confirmed appointment overlaps with any of the appointments in the address book.
+     */
+    Appointment getClashedAppointment(Appointment appointment);
+
+    /**
      * Edits a given appointment
      *
      * @param target  Appointment to be replaced
