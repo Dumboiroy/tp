@@ -10,7 +10,7 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 2. [Features](#features)
     1. [List of commands](#list-of-commands)
     2. [Other features](#other-features)
-3. [Common Errors](#common-errors)
+3. [Common Errors](#warnings)
 4. [FAQ](#faq)
 5. [Command summary](#command-summary)
 
@@ -43,7 +43,7 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
    > 3. Type `java -jar HeartLink.jar` and HeartLink will open!
 
     A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-    ![Ui](images/Ui.png)
+    ![Ui](images/UI/Ui.png)
     
 
 5. Try typing some command in the command box and press Enter to execute it. <br> E.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -156,6 +156,7 @@ help
 > :bulb: **Tips:**
 > Any additional information after the command is being ignored.
 > e.g. `help [anything]` works.
+> e.g. `help [anything]` works.
 
 #### Expected output:
 ```
@@ -187,6 +188,8 @@ add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
 ```
 New person added: NAME; Phone: PHONE; Email: EMAIL; Address: ADDRESS; Tags: [TAG1][TAG2]…​; Rank: RANK
 ```
+
+![img.png](images/UI/AddPerson.png)
 
 [Back to List of Commands](#quick-links)
 
@@ -244,6 +247,8 @@ EDITED_NAME; Phone: EDITED_PHONE; Email: EDITED_MAIL; Address: EDITED_ADDRESS; T
 
 The contact is updated to the address book.
 
+![img.png](images/UI/EditPerson.png)
+
 [Back to List of Commands](#quick-links)
 
 ### 5. Deleting a person : `delete`
@@ -268,6 +273,8 @@ Example:
 Deleted Person: NAME; Phone: PHONE; Email: EMAIL; Address: ADDRESS; Tags: [TAGS]; Rank: RANK
 ```
 The contact is deleted from the address book.
+
+![img.png](images/UI/DeletePerson.png)
 
 [Back to List of Commands](#quick-links)
 
@@ -330,6 +337,8 @@ New appointment linked to NAME: Date/Time: DATE TIME; Length: LENGTH; Location: 
 ```
 The appointment is linked to the person specified in the command.
 
+![img.png](images/UI/CreateAppointment.png)
+
 [Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
 
 #### ii. Editing an Appointment : `link -e`
@@ -362,6 +371,8 @@ Appointment with NAME edited to:
 ```
 The appointment with the same ID specifed in the command, is edited with the new information.
 
+![img.png](images/UI/EditAppointment.png)
+
 [Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
 
 #### iii. Deleting an Appointment : `link -d`
@@ -387,6 +398,8 @@ Example:
 Appointment with NAME deleted.
 ```
 The appointment with the same ID specifed in the command, is deleted.
+
+![img.png](images/UI/DeleteAppointment.png)
 
 [Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
 
@@ -475,6 +488,8 @@ X persons listed!
 ```
 The address book lists all contacts that fits the specified constraints.
 
+![img.png](images/UI/FindPerson.png)
+
 [Back to attribute list](#heres-the-list-of-attributes-for-client)
 
 [Back to List of Commands](#quick-links)
@@ -556,6 +571,7 @@ X appointments listed!
 ```
 The address book lists all appointments that fits the specified constraints.
 
+![img.png](images/UI/FindAppointment.png)
 
 [Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
@@ -609,8 +625,19 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
 
 --------------------------------------------------------------------------------------------------------------------
 ## Warnings
+**List of types of errors**
+1. [Command-related errors](#command-related-errors)
+2. [Tag-related errors (General)](#tag-related-errors-general)
+3. [Tag-related errors (Appointment)](#tag-related-errors-appointment)
+4. [Other errors](#other-errors)
 
 ### Command-related errors
+**List of command-related errors**
+1. [add](#1-add)
+2. [edit](#2-edit)
+3. [delete](#3-delete)
+4. [link](#4-link)
+5. [find](#5-find)
 
 #### 1. `add`
 - Invalid syntax: `add` `add test` `add n/test` `add n/John Doe 12345678`
@@ -623,6 +650,7 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
    ```
    This person already exists in the address book
    ```
+[Back to List of command-related errors](#command-related-errors)
 
 #### 2. `edit`
 - Invalid syntax: `edit` `edit test` 
@@ -639,13 +667,15 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
     ```
    The person's name provided is invalid
    ```
+[Back to List of command-related errors](#command-related-errors)
   
 #### 3. `delete`
-- Invalid name of contact to delete: `delete` `delete `
+- Invalid name of contact to delete: `delete`
     ```
    Names should only contain alphanumeric characters and spaces, and it should not be blank
    ```
-  
+[Back to List of command-related errors](#command-related-errors) 
+ 
 #### 4. `link`
 - No flag: `link` `link n/john` `link n/john appt/12-12-2025`
   ```
@@ -689,6 +719,7 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
     ```
     The appointment with id ID could not be found.
     ```
+[Back to List of command-related errors](#command-related-errors)
 
 #### 5. `find`
 - Invalid Syntax: `find test` 
@@ -708,7 +739,9 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
     • 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range
     Note: Time (HHmm) is optional. All dates must be valid calendar dates.
     ```
+[Back to List of command-related errors](#command-related-errors)
 
+[Back to List of types of errors](#warnings)
 
 ### Tag-related errors (General)
 - Invalid name: `hello_world` `[empty space]`
@@ -742,6 +775,7 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
     ```
     Rank names should be one of the four: stable/vulnerable/urgent/crisis
     ```
+[Back to List of types of errors](#warnings)
 
 ### Tag-related errors (Appointment)
 - Invalid date/time for appointment: `test` `121024`
@@ -760,12 +794,16 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
     ```
     Status must be one of: planned, confirmed, completed, cancelled
     ```
+[Back to List of types of errors](#warnings)
 
 ### Other errors
 - Invalid command: `test`
     ```
     Unknown command
     ```
+[Back to List of types of errors](#warnings)
+
+[Back to table of contents](#table-of-contents)
 
 ---
 
