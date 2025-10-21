@@ -47,11 +47,11 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Person --> Name
+Person --> Phone
+Person --> Email
+Person --> Address
+Person --> "*" Tag
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
@@ -64,13 +64,13 @@ ModelManager --> "~* filtered" Person
 
 AddressBook *--> "1" UniqueAppointmentList
 UniqueAppointmentList --> "~* all" Appointment
-Appointment *--> AppointmentId
-Appointment *--> AppointmentDateTime
-Appointment *--> AppointmentLength
-Appointment *--> AppointmentLocation
-Appointment *--> AppointmentType
-Appointment *--> AppointmentMessage
-Appointment *--> AppointmentStatus
+Appointment --> AppointmentId
+Appointment --> AppointmentDateTime
+Appointment --> AppointmentLength
+Appointment --> AppointmentLocation
+Appointment --> AppointmentType
+Appointment --> AppointmentMessage
+Appointment --> AppointmentStatus
 
 AppointmentLocation -[hidden]up-> AppointmentId
 AppointmentMessage -[hidden]up-> AppointmentStatus

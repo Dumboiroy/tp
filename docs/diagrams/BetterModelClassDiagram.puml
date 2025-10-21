@@ -17,19 +17,19 @@ UniquePersonList -right-> Person
 
 Person -up-> "*" Tag
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Person --> Name
+Person --> Phone
+Person --> Email
+Person --> Address
 
 UniqueAppointmentList -down-> Appointment
-Appointment *--> AppointmentStatus
-Appointment *--> AppointmentDateTime
-Appointment *--> AppointmentLength
-Appointment *--> AppointmentId
-Appointment *--> AppointmentLocation
-Appointment *--> AppointmentType
-Appointment *--> AppointmentMessage
+Appointment --> AppointmentStatus
+Appointment --> AppointmentDateTime
+Appointment --> AppointmentLength
+Appointment --> AppointmentId
+Appointment --> AppointmentLocation
+Appointment --> AppointmentType
+Appointment --> AppointmentMessage
 
 AppointmentStatus -[hidden]up-> AppointmentId
 AppointmentDateTime -[hidden]up-> AppointmentLocation
