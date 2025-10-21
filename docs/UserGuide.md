@@ -550,7 +550,7 @@ List out all meetings with GIC for you.
 [Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
 #### iv. Chaining commands
-It is possible to chain these fields with [client fields](#6-look-up-clients-by-fields-find).
+It is possible to chain these fields with [client fields](#7-look-up-clients-by-fields-find).
 
 Example:
 * `find r/urgent appt/today`
