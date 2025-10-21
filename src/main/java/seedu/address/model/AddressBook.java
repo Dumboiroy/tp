@@ -111,10 +111,16 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Check whether the AddressBook contains the appointment or not
+     * Note that AppointmentId field is omitted for comparison
      */
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);
-        return appointments.contains(appointment);
+        return appointments.containsQuery(appt ->
+            appt.getClientName().equals(appointment.getClientName())
+            && appt.getDateTime().equals(appointment.getDateTime())
+            && appt.getLength().equals(appointment.getLength())
+            && appt.getStatus().equals(appointment.getStatus())
+        ) != null;
     }
 
     /**

@@ -168,6 +168,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Appointment getClashedAppointment(Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addAppointment(Appointment appointment) {
             throw new AssertionError("This method should not be called.");
         }
