@@ -608,31 +608,164 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
 [Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
-## Common Errors
+## Warnings
 
 ### Command-related errors
 
 #### 1. `add`
-1. Invalid syntax: `add` `add test` `add n/test` `add n/John Doe 12345678`
+- Invalid syntax: `add` `add test` `add n/test` `add n/John Doe 12345678`
     ```
     Invalid command format! 
     add: Adds a person to the address book. Parameters: n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK]
     Example: add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney r/stable
     ```
-2.  Invalid phone number: `add n/John Doe p/test` `add n/John Doe p/12345678` `add n/John Doe p/912 34567`
+- Duplicated person:
+   ```
+   This person already exists in the address book
+   ```
+
+#### 2. `edit`
+- Invalid syntax: `edit` `edit test` 
+   ```
+   Invalid command format. Please ensure that the command adheres to the following:
+   - Edit name: edit NAME n/NEW_NAME
+   - Edit tags (able to chain more than 1 tag): edit NAME t/TAG
+   - Edit home address: edit NAME a/ADDRESS
+   - Edit phone number: edit NAME p/PHONE
+   - Edit email address: edit NAME e/EMAIL
+   - Combinations: edit NAME t/TAG p/PHONE ...
+    ```
+- Invalid name of contact to edit: `edit John Doe n/newName` when the contact `John Doe` don't exist.
+    ```
+   The person's name provided is invalid
+   ```
+  
+#### 3. `delete`
+- Invalid name of contact to delete: `delete` `delete `
+    ```
+   Names should only contain alphanumeric characters and spaces, and it should not be blank
+   ```
+  
+#### 4. `link`
+- No flag: `link` `link n/john` `link n/john appt/12-12-2025`
+  ```
+  Invalid command format! 
+  Please include a flag after command.
+  i.e. To create an appointment: link -c [PARAMETERS], to delete an appointment: link -d [PARAMETERS], to edit an appointment: link -e [PARAMETERS]
+  ```
+- Invalid flag: `link -a ` `link -a n/john appt/12-12-2025`
+  ```
+  Invalid Flag!
+  ```
+- Invalid syntax for create appointment: `link -c` `link -c name`
+  ```
+  Invalid command format!
+  Create flag: Links a new appointment to a client. 
+  Parameters: link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
+  Example: link -c n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
+  ```
+- Invalid name to link the appointment to: `link -c n/John appt/12-12-2025 2359` when `John` is not in the address book.
+  ```
+  No client found with the name: john
+  ```
+- Invalid syntax for edit appointment: `link -e` `link -e id` `link -e id/1234567`
+  ```
+  Invalid command format!  
+  Edit flag: Updates an existing appointment for a client. 
+  Parameters: link -e id/ID [n/NAME ] [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
+  Example: link -e id/1234567 n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
+  ```
+- Invalid id for edit appointment: `link -e id/1234567 msg/Bring consent form` when id of `1234567` does not exist.
+    ```
+    Unable to find appointment with ID: ID
+    ```
+- Invalid syntax for delete appointment: `link -d` `link -d 1234567`
+  ```
+  Invalid command format! 
+  Delete flag: Deletes an existing appointment with a client.
+  Parameters: link -d id/ID Example: link -d id/1234567
+  ```
+- Invalid id for delete appointment: `link -d id/1234567` when id of `1234567` does not exist.
+    ```
+    The appointment with id ID could not be found.
+    ```
+
+#### 5. `find`
+- Invalid Syntax: `find test` 
+    ```
+    Invalid command format! 
+    find: Finds persons whose fields contain any of the given keywords.
+    Parameters: [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK][appt/APPOINTMENT DATE-TIME][status/APPOINTMENT STATUS][type/APPOINTMENT TYPES]
+    Example: find p/91234567 e/johndoe@example.com
+    find appt/ 24-10-2025 to 26-10-2025
+    ```
+- Invalid appointment found: `find appt/placeholder`
+    ```
+    Please enter a valid DateTime in one of the following formats:
+    • 'today' — for today's date
+    • '+N' or '-N' — where N is the number of days from today
+    • 'dd-MM-yyyy' — for a specific date
+    • 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range
+    Note: Time (HHmm) is optional. All dates must be valid calendar dates.
+    ```
+
+
+### Tag-related errors (General)
+- Invalid name: `hello_world` `[empty space]`
+    ```
+    Names should only contain alphanumeric characters and spaces, and it should not be blank
+    ```
+- Invalid phone number: `12345678` `912 89023` `6592343434` `+6512343434` `[empty space]`
     ```
     Phone numbers should only contain numbers, and it should be 8 digits long starting with 9, 8 or 6
     Spaces are only allowed after +65 and in the middle of the 8 digits
     ```
-3. Duplicated person:
-   ```
-   This person already exists in the address book
-   ```
----
-#### 2. `list`
+- Invalid email: `@gmail.com` `hello @gmail.com` `test` `test@a.c` `test'@a.com`
+    ```
+    Emails should be of the format local-part@domain and adhere to the following constraints:
+    1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
+    2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
+    The domain name must:
+        - end with a domain label at least 2 characters long
+        - have each domain label start and end with alphanumeric characters
+        - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+    ```
+- Invalid address: `Woodlands + Street`
+    ```
+    Addresses can take any values except some symbols. Address can be blank to represent no address
+    ```
+- Invalid tag: `hello world` `hello-world`
+    ```
+    Tags names should be alphanumeric
+    ```
+- Invalid rank: any input that is not `stable` `vulnerable` `urgent` `crisis`
+    ```
+    Rank names should be one of the four: stable/vulnerable/urgent/crisis
+    ```
 
+### Tag-related errors (Appointment)
+- Invalid date/time for appointment: `test` `121024`
+    ```
+    DateTime must be in the format dd-MM-yyyy or dd-MM-yyyy HHmm, and must be valid calendar date/time.
+    ```
+- Invalid length for appointment: `-10`
+    ```
+    Length must be a positive integer number of minutes (e.g. 30, 60, 90)
+    ```
+- Invalid location for appointment: `Woodlands + Street`
+    ```
+    Location can take any values but should not contain invalid symbols.
+    ```
+- Invalid status for appointment: any input that is not `planned` `confirmed` `completed` `cancelled`
+    ```
+    Status must be one of: planned, confirmed, completed, cancelled
+    ```
 
-### Tag-related errors
+### Other errors
+- Invalid command: `test`
+    ```
+    Unknown command
+    ```
 
 ---
 
