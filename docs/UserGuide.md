@@ -10,8 +10,9 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 2. [Features](#features)
     1. [List of commands](#list-of-commands)
     2. [Other features](#other-features)
-3. [FAQ](#faq)
-4. [Command summary](#command-summary)
+3. [Common Errors](#common-errors)
+4. [FAQ](#faq)
+5. [Command summary](#command-summary)
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -20,7 +21,8 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
-   > **How to check if you have Java `17` or above?**<br>
+   
+    > **How to check if you have Java `17` or above?**<br>
     Click on start and search for Command Prompt/Terminal. Type `java -version` and click enter. You will see the 
     java version installed on your computer. 
 
@@ -32,6 +34,7 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 3. Copy the file to the folder you want to use as the _home folder_ for HeartLink.
 
 4. Run HeartLink using the `java -jar HeartLink.jar` command.<br>
+
    > **How to run HeartLink?** (for beginners) <br>
    > 1. Open start and search for Command Prompt or Terminal.
    > 2. Type `cd [filename]` to navigate to the folder with your HeartLink jar. <br>
@@ -50,6 +53,8 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
+   * `edit John Doe n/John Doe p/91234567 e/johndd@example.com a/John Road, block 123, #01-01` : Edits a contact named `John Doe` in the Address Book.
+
    * `delete John Doe` : Deletes `John Doe` from the list of contacts.
 
    * `clear` : Deletes all contacts.
@@ -60,7 +65,7 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 [Back to table of contents](#table-of-contents)
 
---------------------------------------------------------------------------------------------------------------------
+---
 
 ## Features
 
@@ -87,7 +92,8 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
   as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-<br><br>
+---
+
 ### List of commands:
 
 #### Quick Links
@@ -137,18 +143,25 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 </div>
 
-
-
 ### 1. Viewing help : `help`
 
 Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: 
+#### Format: 
 ```
 help
 ```
+> :bulb: **Tips:**
+> Any additional information after the command is being ignored.
+> e.g. `help [anything]` works.
+
+#### Expected output:
+```
+Opened help window.
+```
+Additionally, a pop-up help window should appear with a link to our user guide.
 
 [Back to List of Commands](#quick-links)
 
@@ -156,18 +169,24 @@ help
 
 Adds a person to the address book.
 
-Format: 
+#### Format: 
 ```
 add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
 ```
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
+> :bulb: **Tips:**
+> 
+> * All required fields must be provided
+> * A person can have any number of tags (including 0)
 
-Examples:
+#### Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal`
+
+#### Expected output:
+```
+New person added: NAME; Phone: PHONE; Email: EMAIL; Address: ADDRESS; Tags: [TAG1][TAG2]…​; Rank: RANK
+```
 
 [Back to List of Commands](#quick-links)
 
@@ -175,10 +194,20 @@ Examples:
 
 Shows a list of all persons in the address book.
 
-Format: 
+#### Format: 
 ```
 list
 ```
+> :bulb: **Tips:**
+> 
+> Any additional information after the command is being ignored.
+> e.g. `list [anything]` works.
+
+#### Expected output:
+```
+Listed all persons
+```
+All contacts in address book should be listed.
 
 [Back to List of Commands](#quick-links)
 
@@ -191,12 +220,13 @@ Format:
 edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
 ```
 
-* Edits the person at the specified `OLD_NAME`. The old name refers to the person's name before editing.
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/ ` without specifying any tags after it.
-* You can use any combinations of the fields.
+> :bulb: **Tips:**
+> * Edits the person at the specified `OLD_NAME`. The old name refers to the person's name before editing.
+> * At least one of the optional fields must be provided.
+> * Existing values will be updated to the input values.
+> * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+> * You can remove all the person’s tags by typing `t/ ` without specifying any tags after it.
+> * You can use any combinations of the fields.
 
 Examples:
 *  `edit John Doe p/91234567 e/johndoe@example.com r/urgent`  
@@ -204,6 +234,15 @@ Edits the phone number and email address of John Doe to be `91234567`, `johndoe@
 and ranks the contact as `urgent`.
 *  `edit Betsy Crownerrr n/Betsy Crower t/`  
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+#### Expected output:
+```
+Successfully edited OLD_NAME's information to:
+EDITED_NAME; Phone: EDITED_PHONE; Email: EDITED_MAIL; Address: EDITED_ADDRESS; Tags: [EDITED_TAGS]; Rank: EDITED_RANK 
+```
+*EDITED_FIELD represents the old value if not specified in command, and represents new value if specified.
+
+The contact is updated to the address book.
 
 [Back to List of Commands](#quick-links)
 
@@ -216,12 +255,19 @@ Format:
 delete NAME
 ```
 
-* Deletes the person at the specified `NAME`.
-* The NAME must be the same as the name reflected in HeartLink.
+> :bulb: **Tips:**
+> * Deletes the person at the specified `NAME`.
+> * The NAME must be the same as the name reflected in HeartLink.
 
 Example:
 * You have a person named `Alex Yeoh` in HeartLink. <br>
   By executing `delete Alex Yeoh`, `Alex Yeoh` will be removed from HeartLink.
+
+#### Expected output:
+```
+Deleted Person: NAME; Phone: PHONE; Email: EMAIL; Address: ADDRESS; Tags: [TAGS]; Rank: RANK
+```
+The contact is deleted from the address book.
 
 [Back to List of Commands](#quick-links)
 
@@ -269,6 +315,7 @@ link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/ME
 - A random unique `Appointment ID` is generated automatically.
 - All unspecified optional fields default to empty values or `"planned"` status.
 - Note that fields in `[]` are optional!
+- Status can only be one of the words: status|planned|confirmed|completed
 </div>
 
 Examples:
@@ -277,7 +324,13 @@ Examples:
 * `link -c n/Ben appt/10-01-2026`
 <br> Creates an appointment with Ben on **10 Jan 2026** with unspecified duration, location, type, message and status set to **planned** by default.
 
-[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
+**Expected Output:**
+```
+New appointment linked to NAME: Date/Time: DATE TIME; Length: LENGTH; Location: LOCATION; Type: TYPE; Message: MESSAGE; Status: STATUS
+```
+The appointment is linked to the person specified in the command.
+
+[Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
 
 #### ii. Editing an Appointment : `link -e`
 
@@ -291,7 +344,7 @@ link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/
 <div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
 - You can edit multiple fields at once or just one.
 - Only specified fields are updated, unspecified fields remain unchanged.
-- The appointment ID (`id/`) can be seen from the client card display.
+- The appointment ID (`id/`) can be seen from the client card display and cannot be changed.
 - Note that fields in `[]` are optional!
 </div>
 
@@ -302,7 +355,14 @@ Marks appointment with id `107f3db` as **completed**.
 * `link -e id/1b9a395 appt/18-12-2025 1500 loc/Office msg/Rescheduled meeting` <br>
 Edits appointment `1b9a395` to reschedule the date and time to **18 Dec 2025, 3:00PM**, with the new location **Office** and message **“Rescheduled meeting”**.
 
-[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
+**Expected Output:**
+```
+Appointment with NAME edited to:
+ Date/Time: DATE TIME; Length: LENGTH; Location: LOCATION; Type: TYPE; Message: MESSAGE; Status: STATUS
+```
+The appointment with the same ID specifed in the command, is edited with the new information.
+
+[Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
 
 #### iii. Deleting an Appointment : `link -d`
 
@@ -322,7 +382,13 @@ Example:
 * `link -d id/1b9a395` <br>
   Deletes the appointment with ID `1b9a395`.
 
-[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
+**Expected Output:**
+```
+Appointment with NAME deleted.
+```
+The appointment with the same ID specifed in the command, is deleted.
+
+[Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
 
 [Back to List of Commands](#quick-links)
 
@@ -403,6 +469,12 @@ Examples:
 * `find p/81234567 t/patient` <br>
   allows you to list all clients with tag patients and phone number 81234567.
 
+**Expected Output:**
+```
+X persons listed!
+```
+The address book lists all contacts that fits the specified constraints.
+
 [Back to attribute list](#heres-the-list-of-attributes-for-client)
 
 [Back to List of Commands](#quick-links)
@@ -478,6 +550,13 @@ For example,
 >
 > The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
 
+**Expected Output:**
+```
+X appointments listed!
+```
+The address book lists all appointments that fits the specified constraints.
+
+
 [Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
 [Back to List of Commands](#quick-links)
@@ -490,6 +569,12 @@ Format:
 ```
 clear
 ```
+
+**Expected Output:**
+```
+Address book has been cleared!
+```
+All contacts on the address book will be deleted.
 
 [Back to List of Commands](#quick-links)
 
@@ -504,7 +589,6 @@ exit
 
 [Back to List of Commands](#quick-links)
 
-<br><br>
 ### Other features:
 
 ### Saving the data
@@ -524,6 +608,33 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
 [Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
+## Common Errors
+
+### Command-related errors
+
+#### 1. `add`
+1. Invalid syntax: `add` `add test` `add n/test` `add n/John Doe 12345678`
+    ```
+    Invalid command format! 
+    add: Adds a person to the address book. Parameters: n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK]
+    Example: add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney r/stable
+    ```
+2.  Invalid phone number: `add n/John Doe p/test` `add n/John Doe p/12345678` `add n/John Doe p/912 34567`
+    ```
+    Phone numbers should only contain numbers, and it should be 8 digits long starting with 9, 8 or 6
+    Spaces are only allowed after +65 and in the middle of the 8 digits
+    ```
+3. Duplicated person:
+   ```
+   This person already exists in the address book
+   ```
+---
+#### 2. `list`
+
+
+### Tag-related errors
+
+---
 
 ## FAQ
 
