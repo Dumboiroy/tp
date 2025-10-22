@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.LinkAppointmentCreateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.AppointmentDateTime;
 import seedu.address.model.appointment.AppointmentDateTimeQuery;
@@ -289,7 +291,8 @@ public class ParserUtil {
     public static AppointmentFlag parseAppointmentFlag(String flag) throws ParseException {
         if (flag == null || flag.trim().isEmpty() || flag.length() > 1
                 || !AppointmentFlag.isValidFlag(flag.charAt(0))) {
-            throw new ParseException("Invalid Flag!");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    LinkAppointmentCreateCommand.MESSAGE_INCLUDE_FLAG));
         }
 
         char charFlag = flag.toLowerCase().charAt(0);

@@ -10,8 +10,9 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 2. [Features](#features)
     1. [List of commands](#list-of-commands)
     2. [Other features](#other-features)
-3. [FAQ](#faq)
-4. [Command summary](#command-summary)
+3. [Common Errors](#warnings)
+4. [FAQ](#faq)
+5. [Command summary](#command-summary)
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -20,7 +21,8 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
-   > **How to check if you have Java `17` or above?**<br>
+   
+    > **How to check if you have Java `17` or above?**<br>
     Click on start and search for Command Prompt/Terminal. Type `java -version` and click enter. You will see the 
     java version installed on your computer. 
 
@@ -32,6 +34,7 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 3. Copy the file to the folder you want to use as the _home folder_ for HeartLink.
 
 4. Run HeartLink using the `java -jar HeartLink.jar` command.<br>
+
    > **How to run HeartLink?** (for beginners) <br>
    > 1. Open start and search for Command Prompt or Terminal.
    > 2. Type `cd [filename]` to navigate to the folder with your HeartLink jar. <br>
@@ -40,7 +43,7 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
    > 3. Type `java -jar HeartLink.jar` and HeartLink will open!
 
     A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-    ![Ui](images/Ui.png)
+    ![Ui](images/UI/Ui.png)
     
 
 5. Try typing some command in the command box and press Enter to execute it. <br> E.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -49,6 +52,8 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
    * `list` : Lists all contacts.
 
    * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+
+   * `edit John Doe n/John Doe p/91234567 e/johndd@example.com a/John Road, block 123, #01-01` : Edits a contact named `John Doe` in the Address Book.
 
    * `delete John Doe` : Deletes `John Doe` from the list of contacts.
 
@@ -60,7 +65,7 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 [Back to table of contents](#table-of-contents)
 
---------------------------------------------------------------------------------------------------------------------
+---
 
 ## Features
 
@@ -87,7 +92,8 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
   as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-<br><br>
+---
+
 ### List of commands:
 
 #### Quick Links
@@ -137,18 +143,26 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 </div>
 
-
-
 ### 1. Viewing help : `help`
 
 Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: 
+#### Format: 
 ```
 help
 ```
+> :bulb: **Tips:**
+> Any additional information after the command is being ignored.
+> e.g. `help [anything]` works.
+> e.g. `help [anything]` works.
+
+#### Expected output:
+```
+Opened help window.
+```
+Additionally, a pop-up help window should appear with a link to our user guide.
 
 [Back to List of Commands](#quick-links)
 
@@ -156,18 +170,26 @@ help
 
 Adds a person to the address book.
 
-Format: 
+#### Format: 
 ```
 add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
 ```
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
+> :bulb: **Tips:**
+> 
+> * All required fields must be provided
+> * A person can have any number of tags (including 0)
 
-Examples:
+#### Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal`
+
+#### Expected output:
+```
+New person added: NAME; Phone: PHONE; Email: EMAIL; Address: ADDRESS; Tags: [TAG1][TAG2]…​; Rank: RANK
+```
+
+![img.png](images/UI/AddPerson.png)
 
 [Back to List of Commands](#quick-links)
 
@@ -175,10 +197,20 @@ Examples:
 
 Shows a list of all persons in the address book.
 
-Format: 
+#### Format: 
 ```
 list
 ```
+> :bulb: **Tips:**
+> 
+> Any additional information after the command is being ignored.
+> e.g. `list [anything]` works.
+
+#### Expected output:
+```
+Listed all persons
+```
+All contacts in address book should be listed.
 
 [Back to List of Commands](#quick-links)
 
@@ -191,12 +223,13 @@ Format:
 edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
 ```
 
-* Edits the person at the specified `OLD_NAME`. The old name refers to the person's name before editing.
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/ ` without specifying any tags after it.
-* You can use any combinations of the fields.
+> :bulb: **Tips:**
+> * Edits the person at the specified `OLD_NAME`. The old name refers to the person's name before editing.
+> * At least one of the optional fields must be provided.
+> * Existing values will be updated to the input values.
+> * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+> * You can remove all the person’s tags by typing `t/ ` without specifying any tags after it.
+> * You can use any combinations of the fields.
 
 Examples:
 *  `edit John Doe p/91234567 e/johndoe@example.com r/urgent`  
@@ -204,6 +237,17 @@ Edits the phone number and email address of John Doe to be `91234567`, `johndoe@
 and ranks the contact as `urgent`.
 *  `edit Betsy Crownerrr n/Betsy Crower t/`  
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+#### Expected output:
+```
+Successfully edited OLD_NAME's information to:
+EDITED_NAME; Phone: EDITED_PHONE; Email: EDITED_MAIL; Address: EDITED_ADDRESS; Tags: [EDITED_TAGS]; Rank: EDITED_RANK 
+```
+*EDITED_FIELD represents the old value if not specified in command, and represents new value if specified.
+
+The contact is updated to the address book.
+
+![img.png](images/UI/EditPerson.png)
 
 [Back to List of Commands](#quick-links)
 
@@ -216,12 +260,21 @@ Format:
 delete NAME
 ```
 
-* Deletes the person at the specified `NAME`.
-* The NAME must be the same as the name reflected in HeartLink.
+> :bulb: **Tips:**
+> * Deletes the person at the specified `NAME`.
+> * The NAME must be the same as the name reflected in HeartLink.
 
 Example:
 * You have a person named `Alex Yeoh` in HeartLink. <br>
   By executing `delete Alex Yeoh`, `Alex Yeoh` will be removed from HeartLink.
+
+#### Expected output:
+```
+Deleted Person: NAME; Phone: PHONE; Email: EMAIL; Address: ADDRESS; Tags: [TAGS]; Rank: RANK
+```
+The contact is deleted from the address book.
+
+![img.png](images/UI/DeletePerson.png)
 
 [Back to List of Commands](#quick-links)
 
@@ -269,6 +322,7 @@ link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/ME
 - A random unique `Appointment ID` is generated automatically.
 - All unspecified optional fields default to empty values or `"planned"` status.
 - Note that fields in `[]` are optional!
+- Status can only be one of the words: status|planned|confirmed|completed
 </div>
 
 Examples:
@@ -277,7 +331,15 @@ Examples:
 * `link -c n/Ben appt/10-01-2026`
 <br> Creates an appointment with Ben on **10 Jan 2026** with unspecified duration, location, type, message and status set to **planned** by default.
 
-[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
+**Expected Output:**
+```
+New appointment linked to NAME: Date/Time: DATE TIME; Length: LENGTH; Location: LOCATION; Type: TYPE; Message: MESSAGE; Status: STATUS
+```
+The appointment is linked to the person specified in the command.
+
+![img.png](images/UI/CreateAppointment.png)
+
+[Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
 
 #### ii. Editing an Appointment : `link -e`
 
@@ -291,7 +353,7 @@ link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/
 <div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
 - You can edit multiple fields at once or just one.
 - Only specified fields are updated, unspecified fields remain unchanged.
-- The appointment ID (`id/`) can be seen from the client card display.
+- The appointment ID (`id/`) can be seen from the client card display and cannot be changed.
 - Note that fields in `[]` are optional!
 </div>
 
@@ -302,7 +364,16 @@ Marks appointment with id `107f3db` as **completed**.
 * `link -e id/1b9a395 appt/18-12-2025 1500 loc/Office msg/Rescheduled meeting` <br>
 Edits appointment `1b9a395` to reschedule the date and time to **18 Dec 2025, 3:00PM**, with the new location **Office** and message **“Rescheduled meeting”**.
 
-[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
+**Expected Output:**
+```
+Appointment with NAME edited to:
+ Date/Time: DATE TIME; Length: LENGTH; Location: LOCATION; Type: TYPE; Message: MESSAGE; Status: STATUS
+```
+The appointment with the same ID specifed in the command, is edited with the new information.
+
+![img.png](images/UI/EditAppointment.png)
+
+[Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
 
 #### iii. Deleting an Appointment : `link -d`
 
@@ -322,7 +393,15 @@ Example:
 * `link -d id/1b9a395` <br>
   Deletes the appointment with ID `1b9a395`.
 
-[Back to shortcut list](#heres-a-shortcut-link-to-the-three-commands)
+**Expected Output:**
+```
+Appointment with NAME deleted.
+```
+The appointment with the same ID specifed in the command, is deleted.
+
+![img.png](images/UI/DeleteAppointment.png)
+
+[Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
 
 [Back to List of Commands](#quick-links)
 
@@ -403,6 +482,14 @@ Examples:
 * `find p/81234567 t/patient` <br>
   allows you to list all clients with tag patients and phone number 81234567.
 
+**Expected Output:**
+```
+X persons listed!
+```
+The address book lists all contacts that fits the specified constraints.
+
+![img.png](images/UI/FindPerson.png)
+
 [Back to attribute list](#heres-the-list-of-attributes-for-client)
 
 [Back to List of Commands](#quick-links)
@@ -463,7 +550,7 @@ List out all meetings with GIC for you.
 [Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
 #### iv. Chaining commands
-It is possible to chain these fields with [client fields](#6-look-up-clients-by-fields-find).
+It is possible to chain these fields with [client fields](#7-look-up-clients-by-fields-find).
 
 Example:
 * `find r/urgent appt/today`
@@ -478,6 +565,14 @@ For example,
 >
 > The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
 
+**Expected Output:**
+```
+X appointments listed!
+```
+The address book lists all appointments that fits the specified constraints.
+
+![img.png](images/UI/FindAppointment.png)
+
 [Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
 [Back to List of Commands](#quick-links)
@@ -490,6 +585,12 @@ Format:
 ```
 clear
 ```
+
+**Expected Output:**
+```
+Address book has been cleared!
+```
+All contacts on the address book will be deleted.
 
 [Back to List of Commands](#quick-links)
 
@@ -504,7 +605,6 @@ exit
 
 [Back to List of Commands](#quick-links)
 
-<br><br>
 ### Other features:
 
 ### Saving the data
@@ -524,6 +624,188 @@ Hence, it is recommended to take a backup of the file before editing it.<br>
 [Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
+## Warnings
+**List of types of errors**
+1. [Command-related errors](#command-related-errors)
+2. [Tag-related errors (General)](#tag-related-errors-general)
+3. [Tag-related errors (Appointment)](#tag-related-errors-appointment)
+4. [Other errors](#other-errors)
+
+### Command-related errors
+**List of command-related errors**
+1. [add](#1-add)
+2. [edit](#2-edit)
+3. [delete](#3-delete)
+4. [link](#4-link)
+5. [find](#5-find)
+
+#### 1. `add`
+- Invalid syntax: `add` `add test` `add n/test` `add n/John Doe 12345678`
+    ```
+    Invalid command format! 
+    add: Adds a person to the address book. Parameters: n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK]
+    Example: add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney r/stable
+    ```
+- Duplicated person:
+   ```
+   This person already exists in the address book
+   ```
+[Back to List of command-related errors](#command-related-errors)
+
+#### 2. `edit`
+- Invalid syntax: `edit` `edit test` 
+   ```
+   Invalid command format. Please ensure that the command adheres to the following:
+   - Edit name: edit NAME n/NEW_NAME
+   - Edit tags (able to chain more than 1 tag): edit NAME t/TAG
+   - Edit home address: edit NAME a/ADDRESS
+   - Edit phone number: edit NAME p/PHONE
+   - Edit email address: edit NAME e/EMAIL
+   - Combinations: edit NAME t/TAG p/PHONE ...
+    ```
+- Invalid name of contact to edit: `edit John Doe n/newName` when the contact `John Doe` don't exist.
+    ```
+   The person's name provided is invalid
+   ```
+[Back to List of command-related errors](#command-related-errors)
+  
+#### 3. `delete`
+- Invalid name of contact to delete: `delete`
+    ```
+   Names should only contain alphanumeric characters and spaces, and it should not be blank
+   ```
+[Back to List of command-related errors](#command-related-errors) 
+ 
+#### 4. `link`
+- No flag: `link` `link n/john` `link n/john appt/12-12-2025`
+  ```
+  Invalid command format! 
+  Please include a flag after command.
+  i.e. To create an appointment: link -c [PARAMETERS], to delete an appointment: link -d [PARAMETERS], to edit an appointment: link -e [PARAMETERS]
+  ```
+- Invalid flag: `link -a ` `link -a n/john appt/12-12-2025`
+  ```
+  Invalid Flag!
+  ```
+- Invalid syntax for create appointment: `link -c` `link -c name`
+  ```
+  Invalid command format!
+  Create flag: Links a new appointment to a client. 
+  Parameters: link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
+  Example: link -c n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
+  ```
+- Invalid name to link the appointment to: `link -c n/John appt/12-12-2025 2359` when `John` is not in the address book.
+  ```
+  No client found with the name: john
+  ```
+- Invalid syntax for edit appointment: `link -e` `link -e id` `link -e id/1234567`
+  ```
+  Invalid command format!  
+  Edit flag: Updates an existing appointment for a client. 
+  Parameters: link -e id/ID [n/NAME ] [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
+  Example: link -e id/1234567 n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
+  ```
+- Invalid id for edit appointment: `link -e id/1234567 msg/Bring consent form` when id of `1234567` does not exist.
+    ```
+    Unable to find appointment with ID: ID
+    ```
+- Invalid syntax for delete appointment: `link -d` `link -d 1234567`
+  ```
+  Invalid command format! 
+  Delete flag: Deletes an existing appointment with a client.
+  Parameters: link -d id/ID Example: link -d id/1234567
+  ```
+- Invalid id for delete appointment: `link -d id/1234567` when id of `1234567` does not exist.
+    ```
+    The appointment with id ID could not be found.
+    ```
+[Back to List of command-related errors](#command-related-errors)
+
+#### 5. `find`
+- Invalid Syntax: `find test` 
+    ```
+    Invalid command format! 
+    find: Finds persons whose fields contain any of the given keywords.
+    Parameters: [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK][appt/APPOINTMENT DATE-TIME][status/APPOINTMENT STATUS][type/APPOINTMENT TYPES]
+    Example: find p/91234567 e/johndoe@example.com
+    find appt/ 24-10-2025 to 26-10-2025
+    ```
+- Invalid appointment found: `find appt/placeholder`
+    ```
+    Please enter a valid DateTime in one of the following formats:
+    • 'today' — for today's date
+    • '+N' or '-N' — where N is the number of days from today
+    • 'dd-MM-yyyy' — for a specific date
+    • 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range
+    Note: Time (HHmm) is optional. All dates must be valid calendar dates.
+    ```
+[Back to List of command-related errors](#command-related-errors)
+
+[Back to List of types of errors](#warnings)
+
+### Tag-related errors (General)
+- Invalid name: `hello_world` `[empty space]`
+    ```
+    Names should only contain alphanumeric characters and spaces, and it should not be blank
+    ```
+- Invalid phone number: `12345678` `912 89023` `6592343434` `+6512343434` `[empty space]`
+    ```
+    Phone numbers should only contain numbers, and it should be 8 digits long starting with 9, 8 or 6
+    Spaces are only allowed after +65 and in the middle of the 8 digits
+    ```
+- Invalid email: `@gmail.com` `hello @gmail.com` `test` `test@a.c` `test'@a.com`
+    ```
+    Emails should be of the format local-part@domain and adhere to the following constraints:
+    1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
+    2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
+    The domain name must:
+        - end with a domain label at least 2 characters long
+        - have each domain label start and end with alphanumeric characters
+        - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+    ```
+- Invalid address: `Woodlands + Street`
+    ```
+    Addresses can take any values except some symbols. Address can be blank to represent no address
+    ```
+- Invalid tag: `hello world` `hello-world`
+    ```
+    Tags names should be alphanumeric
+    ```
+- Invalid rank: any input that is not `stable` `vulnerable` `urgent` `crisis`
+    ```
+    Rank names should be one of the four: stable/vulnerable/urgent/crisis
+    ```
+[Back to List of types of errors](#warnings)
+
+### Tag-related errors (Appointment)
+- Invalid date/time for appointment: `test` `121024`
+    ```
+    DateTime must be in the format dd-MM-yyyy or dd-MM-yyyy HHmm, and must be valid calendar date/time.
+    ```
+- Invalid length for appointment: `-10`
+    ```
+    Length must be a positive integer number of minutes (e.g. 30, 60, 90)
+    ```
+- Invalid location for appointment: `Woodlands + Street`
+    ```
+    Location can take any values but should not contain invalid symbols.
+    ```
+- Invalid status for appointment: any input that is not `planned` `confirmed` `completed` `cancelled`
+    ```
+    Status must be one of: planned, confirmed, completed, cancelled
+    ```
+[Back to List of types of errors](#warnings)
+
+### Other errors
+- Invalid command: `test`
+    ```
+    Unknown command
+    ```
+[Back to List of types of errors](#warnings)
+
+[Back to table of contents](#table-of-contents)
+
+---
 
 ## FAQ
 
