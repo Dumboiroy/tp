@@ -58,7 +58,7 @@ public class LinkAppointmentCreateCommandTest {
     public void execute_onlyDateTimeSpecified_success() {
         Person client = new PersonBuilder(ALICE).build();
         Appointment appt = new Appointment(client.getName(),
-            new AppointmentDateTime("30-10-2025"), new AppointmentLength(""),
+            new AppointmentDateTime("30-10-2025 1800"), new AppointmentLength(""),
             new AppointmentLocation(""), new AppointmentType(""),
             new AppointmentMessage(""), new AppointmentStatus(AppointmentStatusType.PLANNED.toString()));
         LinkAppointmentCommand cmd = new LinkAppointmentCreateCommand(
