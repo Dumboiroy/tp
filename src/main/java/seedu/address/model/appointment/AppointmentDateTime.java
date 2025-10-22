@@ -11,12 +11,12 @@ import seedu.address.model.util.DateTimeUtil;
 
 /**
  * Represents the date and time of an appointment.
- * Format: dd-MM-yyyy or dd-MM-yyyy HHmm (24-hour time).
+ * Format: dd-MM-yyyy HHmm (24-hour time).
  */
 public class AppointmentDateTime {
 
     public static final String MESSAGE_CONSTRAINTS = "DateTime must be in the format dd-MM-yyyy HHmm, "
-            + "and must be valid calendar date and time.";
+            + "and must be valid calendar date/time.";
 
     private static final DateTimeFormatter FORMAT_DOUBLE_DATE_MONTH = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static final DateTimeFormatter FORMAT_SINGLE_DATE = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");

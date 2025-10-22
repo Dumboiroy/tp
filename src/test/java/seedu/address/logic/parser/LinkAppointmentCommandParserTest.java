@@ -92,12 +92,12 @@ public class LinkAppointmentCommandParserTest {
     @Test
     public void parse_mandatoryFieldsPresent_success() {
         Appointment expectedAppointment = new Appointment(BOB.getName(),
-                new AppointmentDateTime(VALID_APPOINTMENT_DATE_TIME), new AppointmentLength(""),
+                new AppointmentDateTime(VALID_APPOINTMENT_DATE_TIME), new AppointmentLength(VALID_APPOINTMENT_LENGTH),
                 new AppointmentLocation(""), new AppointmentType(""),
                 new AppointmentMessage(""), new AppointmentStatus(AppointmentStatusType.PLANNED.toString()));
         // whitespace only preamble
         assertParseSuccess(parser, CREATE_FLAG + NAME_DESC_BOB
-                        + APPOINTMENT_DATE_TIME_DESC_BOB,
+                        + APPOINTMENT_DATE_TIME_DESC_BOB + APPOINTMENT_LENGTH_DESC_BOB,
                 new LinkAppointmentCreateCommand(BOB.getName(), expectedAppointment));
     }
 
