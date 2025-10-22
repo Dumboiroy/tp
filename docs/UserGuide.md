@@ -318,9 +318,14 @@ link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/ME
 ```
 
 <div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+
 - Both date and time can be specified, or just the date for all-day appointments.
+Ensure that the appointment does not clash. Please refer to [this](#appointment-clashes) for more details.
+
 - A random unique `Appointment ID` is generated automatically.
+
 - All unspecified optional fields default to empty values or `"planned"` status.
+
 - Note that fields in `[]` are optional!
 - Status can only be one of the words: status|planned|confirmed|completed
 </div>
@@ -351,9 +356,15 @@ link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/
 ```
 
 <div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+
 - You can edit multiple fields at once or just one.
+
 - Only specified fields are updated, unspecified fields remain unchanged.
-- The appointment ID (`id/`) can be seen from the client card display and cannot be changed.
+
+- The appointment ID (`id/`) can be seen from the client card display.
+
+- Ensure that the appointment does not clash. Please refer to [this](#appointment-clashes) for more details.
+
 - Note that fields in `[]` are optional!
 </div>
 
@@ -620,6 +631,54 @@ If you are familiar with JSON, you are welcome to update data directly by editin
 However, do note that if the changes make the format invalid(e.g. values out of range, missing field), HeartLink will discard all data and start with an empty data file at the next run. 
 Hence, it is recommended to take a backup of the file before editing it.<br>
 </div>
+
+### Appointment clashes
+If you attempt to create or edit an appointment with a confirmed status, you may encounter appointment clashes. 
+Two appointments clash when:
+- Both appointments are set to the confirmed status. 
+- Both appointments are for the same client.
+- Both appointments have overlapping timings.
+
+HeartLink does not allow this to happen, and you will get an error message. 
+For example, suppose that your current address book is as follows.
+```json
+{
+  "persons" : [
+    {
+      "name": "Alex Yeoh",
+      "appointments": [
+        {
+          "id": "e271471",
+          "dateTime": "24-10-2025 1100",
+          "length": "30",
+          "status": "confirmed"
+        },
+        {
+          "id": "e125428",
+          "dateTime": "24-10-2025 1120",
+          "length": "30",
+          "status": "planned"
+        }
+      ]
+    }
+  ]
+}
+```
+Note that the appointment `e271471` and `e125428` do not clash because one of the appointments are
+not confirmed.
+If you execute the command:`link -c n/Alex Yeoh appt/24-10-2025 1030 len/30 status/confirmed`, 
+you will receive an error message because the time slot `1100 - 1130` overlaps with `1030-1100`.
+```
+Two confirmed appointments clash. 
+[old: e271471] 24-10-2025 1100
+[new] 24-10-2025 1030
+```
+Similarly, if you attempt to change appointment status in `e125428` to `confirmed`, you
+```
+Two confirmed appointments clash. 
+[old: e271471] 24-10-2025 1100
+[new: e125428] 24-10-2025 1120
+```
 
 [Back to table of contents](#table-of-contents)
 

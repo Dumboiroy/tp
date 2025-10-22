@@ -61,6 +61,14 @@ public class LinkAppointmentCreateCommand extends LinkAppointmentCommand {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENTS);
         }
 
+        Appointment clashedAppointment = model.getClashedAppointment(appointment);
+        if (clashedAppointment != null) {
+            throw new CommandException(
+                String.format(MESSAGE_CLASH_APPOINTMENTS_CREATE,
+                    clashedAppointment.getId(), clashedAppointment.getDateTime(),
+                        appointment.getDateTime()));
+        }
+
         // Find the client in the address book by name
         Optional<Person> clientOpt = model.getFilteredPersonList().stream()
                 .filter(p -> {

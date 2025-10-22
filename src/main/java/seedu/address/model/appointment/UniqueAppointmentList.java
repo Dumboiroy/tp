@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,6 +36,16 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     public boolean contains(Appointment toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameAppointment);
+    }
+
+    /**
+     * Returns {@code Appointment} instance based on the given {@code AppointmentQuery}
+     */
+    public Appointment containsQuery(Predicate<Appointment> toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().filter(toCheck)
+            .findFirst()
+            .orElse(null);
     }
 
     /**

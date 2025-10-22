@@ -14,7 +14,7 @@ public class AppointmentDateTimeQuery {
     public static final String MESSAGE_CONSTRAINTS =
         "Please enter a valid DateTime in one of the following formats:\n"
             + "• 'today' — for today's date\n"
-            + "• '+N' or '-N' — where N is the number of days from today\n"
+            + "• '+N' or '-N' — where N is the number of days from today (no more than 4 digits)\n"
             + "• 'dd-MM-yyyy' — for a specific date\n"
             + "• 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range\n"
             + "Note: Time (HHmm) is optional. All dates must be valid calendar dates.";
@@ -22,7 +22,7 @@ public class AppointmentDateTimeQuery {
     public static final String KEYWORD_TODAY = "today";
     private static final String VALIDATION_REGEX =
             "^(today|"
-            + "[+-]\\d+" + "|\\d{2}-\\d{2}-\\d{4}( \\d{4})?|"
+            + "[+-]\\d{1,4}" + "|\\d{2}-\\d{2}-\\d{4}( \\d{4})?|"
             + "\\d{2}-\\d{2}-\\d{4}( \\d{4})? to \\d{2}-\\d{2}-\\d{4}( \\d{4})?)$";
     private final LocalDateTime start;
     private final LocalDateTime end;
@@ -96,7 +96,7 @@ public class AppointmentDateTimeQuery {
     }
 
     public boolean isOverlapped(AppointmentDateTimeQuery query) {
-        return query != null && !start.isAfter(query.end) && !query.start.isAfter(end);
+        return query != null && start.isBefore(query.end) && query.start.isBefore(end);
     }
 
     /**

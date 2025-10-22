@@ -83,6 +83,14 @@ public class LinkAppointmentEditCommand extends LinkAppointmentCommand {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENTS);
         }
 
+        Appointment clashedAppointment = model.getClashedAppointment(editedAppt);
+        if (clashedAppointment != null) {
+            throw new CommandException(
+                String.format(MESSAGE_CLASH_APPOINTMENTS_EDIT,
+                    clashedAppointment.getId(), clashedAppointment.getDateTime(),
+                    editedAppt.getId(), editedAppt.getDateTime()));
+        }
+
         Person client = clientOpt.get();
         model.setAppointmentWithPerson(oldAppt, editedAppt, client);
         model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);

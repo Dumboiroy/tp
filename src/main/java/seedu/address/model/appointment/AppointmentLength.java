@@ -13,8 +13,8 @@ import seedu.address.model.util.DurationUtil;
 public class AppointmentLength {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Length must be a positive integer number of minutes (e.g. 30, 60, 90)";
-    public static final String VALIDATION_REGEX = "^[1-9]\\d*$";
+            "Length must be a positive integer number of minutes (e.g. 30, 60, 90) with no more than 4 digits";
+    public static final String VALIDATION_REGEX = "^[1-9]\\d{1,4}$";
     public static final String NO_LENGTH = "";
 
     public final Duration duration;
