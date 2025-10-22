@@ -107,7 +107,6 @@ public class Appointment {
             return true;
         }
         return other != null
-                && other.getId().equals(getId())
                 && other.getClientName().equals(getClientName())
                 && other.getDateTime().equals(getDateTime());
     }
@@ -122,7 +121,8 @@ public class Appointment {
         }
 
         Appointment otherAppointment = (Appointment) other;
-        return clientName.equals(otherAppointment.clientName)
+        return id.equals(otherAppointment.id)
+                && clientName.equals(otherAppointment.clientName)
                 && dateTime.equals(otherAppointment.dateTime)
                 && length.equals(otherAppointment.length)
                 && location.equals(otherAppointment.location)

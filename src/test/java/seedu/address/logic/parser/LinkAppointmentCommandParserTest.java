@@ -63,6 +63,7 @@ public class LinkAppointmentCommandParserTest {
                 + APPOINTMENT_LOCATION_DESC_BOB + APPOINTMENT_TYPE_DESC_BOB
                 + APPOINTMENT_MESSAGE_DESC_BOB
                 + APPOINTMENT_STATUS_DESC_BOB;
+
         assertParseSuccess(parser, input,
                 new LinkAppointmentCreateCommand(BOB.getName(), expectedAppointment));
 
