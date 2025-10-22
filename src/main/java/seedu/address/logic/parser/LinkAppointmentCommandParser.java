@@ -75,7 +75,8 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
             AppointmentId targetId = ParserUtil.parseAppointmentId(argMultimap.getValue(PREFIX_ID).get());
             setEditAppointmentDescriptor(editAppointmentDescriptor, argMultimap);
             if (!editAppointmentDescriptor.isAnyFieldEdited()) {
-                throw new ParseException(LinkAppointmentCommand.MESSAGE_INVALID_EDIT_SYNTAX);
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        LinkAppointmentEditCommand.MESSAGE_FAIL));
             }
             return new LinkAppointmentEditCommand(targetId, editAppointmentDescriptor);
         } else if (flag.value == 'd') {
