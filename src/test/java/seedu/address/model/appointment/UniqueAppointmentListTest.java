@@ -40,7 +40,7 @@ public class UniqueAppointmentListTest {
     public void contains_appointmentWithSameClient_returnsTrue() {
         uniqueAppointmentList.add(DENTIST_APPT);
         uniqueAppointmentList.add(new AppointmentBuilder(DENTIST_APPT)
-            .withDateTime("12-01-3000").build());
+            .withDateTime("12-01-3000 1200").build());
         assertTrue(uniqueAppointmentList.contains(DENTIST_APPT));
     }
 

@@ -673,7 +673,7 @@ Two confirmed appointments clash.
 [old: e271471] 24-10-2025 1100
 [new] 24-10-2025 1030
 ```
-Similarly, if you attempt to change appointment status in `e125428` to `confirmed`, you
+Similarly, if you attempt to change appointment status in `e125428` to `confirmed`, you still got the error.
 ```
 Two confirmed appointments clash. 
 [old: e271471] 24-10-2025 1100
