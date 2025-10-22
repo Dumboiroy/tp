@@ -125,7 +125,8 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
         */
         switch (flag.value) {
         case 'c':
-            if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_NAME, PREFIX_APPOINTMENT)
+            if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_NAME, PREFIX_APPOINTMENT,
+                    PREFIX_LENGTH)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         LinkAppointmentCreateCommand.MESSAGE_FAIL));

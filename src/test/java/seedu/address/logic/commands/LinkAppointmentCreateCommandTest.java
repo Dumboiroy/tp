@@ -24,7 +24,6 @@ import seedu.address.model.appointment.AppointmentLength;
 import seedu.address.model.appointment.AppointmentLocation;
 import seedu.address.model.appointment.AppointmentMessage;
 import seedu.address.model.appointment.AppointmentStatus;
-import seedu.address.model.appointment.AppointmentStatusType;
 import seedu.address.model.appointment.AppointmentType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -45,22 +44,6 @@ public class LinkAppointmentCreateCommandTest {
         Person client = new PersonBuilder(ALICE).build();
         Appointment appt = new AppointmentBuilder()
             .withName(client.getName().toString()).withDateTime("12-10-3099 1430").build();
-        LinkAppointmentCommand cmd = new LinkAppointmentCreateCommand(
-            client.getName(), appt);
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.addAppointmentWithPerson(appt, client);
-        assertCommandSuccess(cmd, model, String.format(
-            LinkAppointmentCommand.MESSAGE_SUCCESS, client.getName(),
-            Messages.format(appt)), expectedModel);
-    }
-
-    @Test
-    public void execute_onlyDateTimeSpecified_success() {
-        Person client = new PersonBuilder(ALICE).build();
-        Appointment appt = new Appointment(client.getName(),
-            new AppointmentDateTime("30-10-2025"), new AppointmentLength(""),
-            new AppointmentLocation(""), new AppointmentType(""),
-            new AppointmentMessage(""), new AppointmentStatus(AppointmentStatusType.PLANNED.toString()));
         LinkAppointmentCommand cmd = new LinkAppointmentCreateCommand(
             client.getName(), appt);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());

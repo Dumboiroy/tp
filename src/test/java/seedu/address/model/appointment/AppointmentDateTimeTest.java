@@ -23,8 +23,8 @@ public class AppointmentDateTimeTest {
         assertFalse(AppointmentDateTime.isValidDateTime("12-13-12345"));
         */
 
-        // correct dd-MM-yyyy
-        assertTrue(AppointmentDateTime.isValidDateTime("12-13-2024"));
+        // Missing HHmm
+        assertFalse(AppointmentDateTime.isValidDateTime("12-13-2024"));
         // correct dd-MM-yyyy but incorrect HHmm
         assertFalse(AppointmentDateTime.isValidDateTime("12-13-2024 12345"));
         // correct dd-MM-yyyy correct HHmm
@@ -39,10 +39,11 @@ public class AppointmentDateTimeTest {
 
     @Test
     public void equals() {
-        // Strict equality: HHmm must be the same
         AppointmentDateTime first = new AppointmentDateTime("24-12-2024 1200");
-        AppointmentDateTime second = new AppointmentDateTime("24-12-2024");
+        AppointmentDateTime second = new AppointmentDateTime("24-12-2024 1230");
+        AppointmentDateTime third = new AppointmentDateTime("24-12-2024 1200");
         assertFalse(first.equals(second));
+        assertTrue(first.equals(third));
     }
 
 }

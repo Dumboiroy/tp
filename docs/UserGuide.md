@@ -293,8 +293,8 @@ These commands allows social workers to record, track, and manage client appoint
 **:information_source: Here's the fields and their acceptable inputs relating to appointment:**<br>
 
 * **n/NAME**: This specifies the client the appointment is linking to. Your input must be alphanumeric and should be an existing name in contact list.
-* **appt/DATE [TIME]**: This specifies the date and time of the appointment. Your input must be a valid calendar date in the format `dd-MM-yyyy [HHmm]` or `d-MM-yyyy [HHmm]` where `HHmm` is optional in 24-hour time format
-  <br> E.g. `04-07-2025` or `04-07-2025 0930`
+* **appt/DATE TIME**: This specifies the date and time of the appointment. Your input must be a valid calendar date in the format `dd-MM-yyyy HHmm` or `d-MM-yyyy HHmm`.
+  <br> E.g. `04-07-2025 0930` or `4-07-2025 0930`
 * **id/APPOINTMENT_ID**: This is an unique ID of the appointment. You do NOT need to create an ID. It will be generated once the appointment is created.
 * **len/MINUTES**: This specifies the length of appointment. Your input must be a positive integer, in **minutes** <br> E.g. `45`
 * **loc/LOCATION**: This specifies the location of the appointment. Your input can contain letters, numbers, and symbols `, . # - / ( ) ' ; & :`. <br> E.g. `Blk 10 Tampines Ave 3 #02-15`
@@ -314,7 +314,7 @@ Each appointment automatically receives a unique `Appointment ID`.
 
 Format:
 ```
-link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]
+link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]
 ```
 
 <div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
@@ -333,8 +333,8 @@ Ensure that the appointment does not clash. Please refer to [this](#appointment-
 Examples:
 * `link -c n/Alex appt/15-12-2025 2359 len/60 loc/Alex House type/House Visit msg/Bring Consent Form status/confirmed`
 <br> Creates a **House Visit** appointment with Alex on **15 Dec 2025, 11:59PM**, lasting **60 minutes**, with a message **“Bring Consent Form”**, marked as **confirmed**.
-* `link -c n/Ben appt/10-01-2026`
-<br> Creates an appointment with Ben on **10 Jan 2026** with unspecified duration, location, type, message and status set to **planned** by default.
+* `link -c n/Ben appt/10-01-2026 1230 len/30`
+<br> Creates a 30-minute appointment with Ben on **10 Jan 2026, 12:30PM** with unspecified location, type, message and status set to **planned** by default.
 
 **Expected Output:**
 ```
@@ -352,7 +352,7 @@ Edits details of an existing appointment using its `Appointment ID`.
 
 Format:
 ```
-link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]
+link -e id/APPOINTMENT_ID [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]
 ```
 
 <div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
@@ -673,7 +673,7 @@ Two confirmed appointments clash.
 [old: e271471] 24-10-2025 1100
 [new] 24-10-2025 1030
 ```
-Similarly, if you attempt to change appointment status in `e125428` to `confirmed`, you
+Similarly, if you attempt to change appointment status in `e125428` to `confirmed`, you still got the error.
 ```
 Two confirmed appointments clash. 
 [old: e271471] 24-10-2025 1100
@@ -750,7 +750,7 @@ Two confirmed appointments clash.
   ```
   Invalid command format!
   Create flag: Links a new appointment to a client. 
-  Parameters: link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
+  Parameters: link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
   Example: link -c n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
   ```
 - Invalid name to link the appointment to: `link -c n/John appt/12-12-2025 2359` when `John` is not in the address book.
@@ -761,7 +761,7 @@ Two confirmed appointments clash.
   ```
   Invalid command format!  
   Edit flag: Updates an existing appointment for a client. 
-  Parameters: link -e id/ID [n/NAME ] [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
+  Parameters: link -e id/ID [n/NAME ] [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
   Example: link -e id/1234567 n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
   ```
 - Invalid id for edit appointment: `link -e id/1234567 msg/Bring consent form` when id of `1234567` does not exist.
