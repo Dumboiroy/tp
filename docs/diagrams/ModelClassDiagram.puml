@@ -66,13 +66,13 @@ ModelManager --> "~* filtered" Person
 
 AddressBook *--> "1" UniqueAppointmentList
 UniqueAppointmentList --> "~* all" Appointment
-Appointment --> AppointmentId
-Appointment --> AppointmentDateTime
-Appointment --> AppointmentLength
-Appointment --> AppointmentLocation
-Appointment --> AppointmentType
-Appointment --> AppointmentMessage
-Appointment --> AppointmentStatus
+Appointment --> "1"AppointmentStatus
+Appointment --> "1"AppointmentDateTime
+Appointment --> "1"AppointmentLength
+Appointment --> "1"AppointmentId
+Appointment --> "0..1"AppointmentLocation
+Appointment --> "0..1"AppointmentType
+Appointment --> "0..1"AppointmentMessage
 
 AppointmentLocation -[hidden]up-> AppointmentId
 AppointmentMessage -[hidden]up-> AppointmentStatus

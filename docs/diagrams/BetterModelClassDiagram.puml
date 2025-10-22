@@ -24,13 +24,13 @@ Person --> "0..1"Address
 Person --> "0..1"Rank
 
 UniqueAppointmentList -down-> Appointment
-Appointment --> AppointmentStatus
-Appointment --> AppointmentDateTime
-Appointment --> AppointmentLength
-Appointment --> AppointmentId
-Appointment --> AppointmentLocation
-Appointment --> AppointmentType
-Appointment --> AppointmentMessage
+Appointment --> "1"AppointmentStatus
+Appointment --> "1"AppointmentDateTime
+Appointment --> "1"AppointmentLength
+Appointment --> "1"AppointmentId
+Appointment --> "0..1"AppointmentLocation
+Appointment --> "0..1"AppointmentType
+Appointment --> "0..1"AppointmentMessage
 
 AppointmentStatus -[hidden]up-> AppointmentId
 AppointmentDateTime -[hidden]up-> AppointmentLocation
