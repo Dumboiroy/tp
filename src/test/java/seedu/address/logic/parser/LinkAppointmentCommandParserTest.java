@@ -3,15 +3,18 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_DATE_TIME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_ID_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_LENGTH_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_LOCATION_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_MESSAGE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_STATUS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_TYPE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.CREATE_FLAG;
+import static seedu.address.logic.commands.CommandTestUtil.DELETE_FLAG;
 import static seedu.address.logic.commands.CommandTestUtil.EDIT_FLAG;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATE_TIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_LENGTH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_LOCATION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_MESSAGE;
@@ -34,6 +37,8 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.LinkAppointmentCreateCommand;
+import seedu.address.logic.commands.LinkAppointmentDeleteCommand;
+import seedu.address.logic.commands.LinkAppointmentEditCommand;
 import seedu.address.logic.commands.LinkAppointmentEditCommand.EditAppointmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
@@ -60,6 +65,27 @@ public class LinkAppointmentCommandParserTest {
                 + APPOINTMENT_STATUS_DESC_BOB;
         assertParseSuccess(parser, input,
                 new LinkAppointmentCreateCommand(BOB.getName(), expectedAppointment));
+
+        String input1 = EDIT_FLAG + APPOINTMENT_ID_DESC_BOB + NAME_DESC_BOB + APPOINTMENT_DATE_TIME_DESC_BOB
+                + APPOINTMENT_LENGTH_DESC_BOB
+                + APPOINTMENT_LOCATION_DESC_BOB + APPOINTMENT_TYPE_DESC_BOB
+                + APPOINTMENT_MESSAGE_DESC_BOB
+                + APPOINTMENT_STATUS_DESC_BOB;
+
+        EditAppointmentDescriptor editInfo = new EditAppointmentDescriptorBuilder()
+                .withDateTime(VALID_APPOINTMENT_DATE_TIME)
+                .withLength(VALID_APPOINTMENT_LENGTH)
+                .withLocation(VALID_APPOINTMENT_LOCATION)
+                .withType(VALID_APPOINTMENT_TYPE)
+                .withMessage(VALID_APPOINTMENT_MESSAGE)
+                .withStatus(VALID_APPOINTMENT_STATUS)
+                .build();
+        assertParseSuccess(parser, input1,
+                new LinkAppointmentEditCommand(BOB.getAppointments().get(0).getId(), editInfo));
+
+        String input2 = DELETE_FLAG + APPOINTMENT_ID_DESC_BOB;
+        assertParseSuccess(parser, input2,
+                new LinkAppointmentDeleteCommand(BOB.getAppointments().get(0).getId()));
     }
 
     @Test
@@ -75,7 +101,7 @@ public class LinkAppointmentCommandParserTest {
     }
 
     @Test
-    public void parse_compulsoryFieldsMissing_failure() {
+    public void parseCreate_compulsoryFieldsMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 LinkAppointmentCreateCommand.MESSAGE_FAIL);
 
@@ -93,6 +119,31 @@ public class LinkAppointmentCommandParserTest {
 
         // Missing appointment timing
         assertParseFailure(parser, " -c " + NAME_DESC_BOB,
+                expectedMessage);
+    }
+
+    @Test
+    public void parseDelete_compulsoryFieldsMissing_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                LinkAppointmentDeleteCommand.MESSAGE_FAIL);
+
+        // missing id prefix
+        assertParseFailure(parser, " -d " + VALID_APPOINTMENT_ID,
+                expectedMessage);
+
+    }
+
+    @Test
+    public void parseEdit_compulsoryFieldsMissing_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                LinkAppointmentEditCommand.MESSAGE_FAIL);
+
+        // missing id prefix
+        assertParseFailure(parser, " -e " + VALID_APPOINTMENT_ID,
+                expectedMessage);
+
+        // missing fields to edit
+        assertParseFailure(parser, " -e " + APPOINTMENT_ID_DESC_BOB,
                 expectedMessage);
     }
 
@@ -123,5 +174,21 @@ public class LinkAppointmentCommandParserTest {
         new LinkAppointmentCommandParser().setEditAppointmentDescriptor(descriptor1, argMultimap);
 
         assertEquals(descriptor1, descriptor2);
+    }
+
+    @Test
+    public void parse_invalidFlag_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                LinkAppointmentCreateCommand.MESSAGE_INCLUDE_FLAG);
+
+        assertParseFailure(parser, " - " + NAME_DESC_BOB + APPOINTMENT_DATE_TIME_DESC_BOB,
+                expectedMessage);
+
+        assertParseFailure(parser, NAME_DESC_BOB + APPOINTMENT_DATE_TIME_DESC_BOB,
+                expectedMessage);
+
+
+        assertParseFailure(parser, " -x " + NAME_DESC_BOB + APPOINTMENT_DATE_TIME_DESC_BOB,
+                expectedMessage);
     }
 }
