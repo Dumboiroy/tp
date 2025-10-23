@@ -31,4 +31,7 @@ docs/_site/
 # npm packages
 /node_modules/
 
+#docs
+/docs/ReleaseNotes.md
+
 /htmlReport/

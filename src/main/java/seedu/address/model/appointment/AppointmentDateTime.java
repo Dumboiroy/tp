@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import seedu.address.model.util.DateTimeUtil;
 
@@ -18,10 +19,19 @@ public class AppointmentDateTime {
     public static final String MESSAGE_CONSTRAINTS = "DateTime must be in the format dd-MM-yyyy HHmm, "
             + "and must be valid calendar date/time.";
 
-    private static final DateTimeFormatter FORMAT_DOUBLE_DATE_MONTH = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
-    private static final DateTimeFormatter FORMAT_SINGLE_DATE = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
-    private static final DateTimeFormatter FORMAT_SINGLE_MONTH = DateTimeFormatter.ofPattern("dd-M-yyyy HHmm");
-    private static final DateTimeFormatter FORMAT_SINGLE_DATE_MONTH = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
+    private static final DateTimeFormatter FORMAT_DOUBLE_DATE_MONTH = DateTimeFormatter
+            .ofPattern("dd-MM-yyyy HHmm")
+            .withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter FORMAT_SINGLE_DATE = DateTimeFormatter
+            .ofPattern("d-MM-yyyy HHmm")
+            .withResolverStyle(ResolverStyle.STRICT);;
+    private static final DateTimeFormatter FORMAT_SINGLE_MONTH = DateTimeFormatter
+            .ofPattern("dd-M-yyyy HHmm")
+            .withResolverStyle(ResolverStyle.STRICT);;
+    private static final DateTimeFormatter FORMAT_SINGLE_DATE_MONTH = DateTimeFormatter
+            .ofPattern("d-M-yyyy HHmm")
+            .withResolverStyle(ResolverStyle.STRICT);
+    ;
     private static final DateTimeFormatter[] SUPPORTED_FORMATS = {
         FORMAT_DOUBLE_DATE_MONTH,
         FORMAT_SINGLE_DATE,
@@ -47,7 +57,7 @@ public class AppointmentDateTime {
     public static boolean isValidDateTime(String test) {
         //reject time 2400, not handled by parse
         String[] parts = test.split(" ");
-        if (parts.length == 2 && "2400".equals(parts[1])) {
+        if (parts.length == 2) {
             return false;
         }
 
