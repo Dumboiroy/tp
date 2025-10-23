@@ -62,8 +62,6 @@ The bulk of the app's work is done by the following four components:
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues
 the command `delete 1`.
 
-[//]: # (TODO: Update Sequence diagram for delete)
-
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
 Each of the four main components (also shown in the diagram above),
@@ -117,9 +115,7 @@ Here's a (partial) class diagram of the `Logic` component:
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API
 call as an example.
 
-[//]: # (TODO: Update Sequence diagram for delete)
-
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `delete Alice Pauline` Command](images/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </div>
@@ -224,7 +220,6 @@ initial address book state, and the `currentStatePointer` pointing to that singl
 Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls
 `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be
 saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-[//]: # (TODO: Update object Diagram for delete)
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
