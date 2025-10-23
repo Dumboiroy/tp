@@ -24,10 +24,10 @@ public class AppointmentDateTime {
             .withResolverStyle(ResolverStyle.STRICT);
     private static final DateTimeFormatter FORMAT_SINGLE_DATE = DateTimeFormatter
             .ofPattern("d-MM-yyyy HHmm")
-            .withResolverStyle(ResolverStyle.STRICT);;
+            .withResolverStyle(ResolverStyle.STRICT);
     private static final DateTimeFormatter FORMAT_SINGLE_MONTH = DateTimeFormatter
             .ofPattern("dd-M-yyyy HHmm")
-            .withResolverStyle(ResolverStyle.STRICT);;
+            .withResolverStyle(ResolverStyle.STRICT);
     private static final DateTimeFormatter FORMAT_SINGLE_DATE_MONTH = DateTimeFormatter
             .ofPattern("d-M-yyyy HHmm")
             .withResolverStyle(ResolverStyle.STRICT);
