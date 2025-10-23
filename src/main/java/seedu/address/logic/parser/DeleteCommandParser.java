@@ -3,12 +3,13 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.logging.Logger;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 
-import java.util.logging.Logger;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -42,7 +43,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             ArgumentMultimap argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
-            String nameString = argMultimap.getValue(PREFIX_NAME).orElseThrow(() -> new ParseException(Name.MESSAGE_CONSTRAINTS));
+            String nameString =
+                    argMultimap.getValue(PREFIX_NAME).orElseThrow(() -> new ParseException(Name.MESSAGE_CONSTRAINTS));
             logger.info("Parsed name string: " + nameString);
             checkNameStringEmpty(nameString);
             Name name = ParserUtil.parseName(nameString);
