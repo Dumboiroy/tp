@@ -293,8 +293,8 @@ These commands allows social workers to record, track, and manage client appoint
 **:information_source: Here's the fields and their acceptable inputs relating to appointment:**<br>
 
 * **n/NAME**: This specifies the client the appointment is linking to. Your input must be alphanumeric and should be an existing name in contact list.
-* **appt/DATE TIME**: This specifies the date and time of the appointment. Your input must be a valid calendar date in the format `dd-MM-yyyy HHmm` or `d-MM-yyyy HHmm`.
-  <br> E.g. `04-07-2025 0930` or `4-07-2025 0930`
+* **appt/DATE TIME**: This specifies the date and time of the appointment. Your input must be a valid calendar date in the format `dd-MM-yyyy HHmm`,`d-MM-yyyy HHmm`, `dd-M-yyyy HHmm` or `d-M-yyyy HHmm`.
+  <br> E.g. `04-07-2025 0930`, `4-07-2025 0930`, `04-7-2025 0930` or `4-7-2025 0930`
 * **id/APPOINTMENT_ID**: This is an unique ID of the appointment. You do NOT need to create an ID. It will be generated once the appointment is created.
 * **len/MINUTES**: This specifies the length of appointment. Your input must be a positive integer, in **minutes** <br> E.g. `45`
 * **loc/LOCATION**: This specifies the location of the appointment. Your input can contain letters, numbers, and symbols `, . # - / ( ) ' ; & :`. <br> E.g. `Blk 10 Tampines Ave 3 #02-15`
@@ -882,19 +882,19 @@ Two confirmed appointments clash.
 
 ## Command summary
 
-| Action                 | Format, Examples                                                                                                                                                                                                     |
-|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Client**         | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                                   |
-| **Edit Client**        | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                             |
-| **Delete Client**      | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                              |
-| **List Client**        | `list`                                                                                                                                                                                                               |
-| **Find Clients**       | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent`                                                                                                                                  |
-| **Find Appointments**  | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today`                                                                                                                                             |
-| **Edit Appointment**   | `link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift`                        |
-| **Delete Appointment** | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395`                                                                                                                                                             |
-| **Add Appointment**    | `link -c n/NAME appt/DATE [TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -c n/Alex appt/15-12-2025 2359 type/House Visit loc/Alex House len/60 msg/Bring Consent Form` |
-| **Clear All Entries**  | `clear`                                                                                                                                                                                                              |
-| **Help**               | `help`                                                                                                                                                                                                               |
-| **Exit Program**       | `exit`                                                                                                                                                                                                               |
+| Action                 | Format, Examples                                                                                                                                                                                                 |
+|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Client**         | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                               |
+| **Edit Client**        | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                         |
+| **Delete Client**      | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                          |
+| **List Client**        | `list`                                                                                                                                                                                                           |
+| **Find Clients**       | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent`                                                                                                                              |
+| **Find Appointments**  | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today`                                                                                                                                         |
+| **Edit Appointment**   | `link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift`                    |
+| **Delete Appointment** | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395`                                                                                                                                                         |
+| **Add Appointment**    | `link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -c n/Alex appt/15-12-2025 2359 type/House Visit loc/Alex House len/60 msg/Bring Consent Form` |
+| **Clear All Entries**  | `clear`                                                                                                                                                                                                          |
+| **Help**               | `help`                                                                                                                                                                                                           |
+| **Exit Program**       | `exit`                                                                                                                                                                                                           |
 
 [Back to table of contents](#table-of-contents)
