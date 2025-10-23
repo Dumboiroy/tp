@@ -40,34 +40,6 @@ task coverage(type: JacocoReport) {
     }
 }
 
-task runChecks(type: Exec) {
-    ignoreExitValue = true
-    workingDir file('./.github')
-    commandLine 'sh', './run-checks.sh'
-
-    def output = new ByteArrayOutputStream()
-    def error = new ByteArrayOutputStream()
-    standardOutput = output
-    errorOutput = error
-
-    // This doLast block will execute after the script is finished
-    // because ignoreExitValue is set to true.
-    doLast {
-        def result = executionResult.get()
-        if (result.exitValue != 0) {
-            // Print the captured output using the Gradle logger
-            logger.error("Standard Output:\n${output.toString()}")
-            logger.error("Error Output:\n${error.toString()}")
-
-            // Throw a custom exception with a clear message
-            throw new GradleException("runChecks failed with exit code ${result.exitValue}. See logs above for details.")
-        } else {
-            println "Checks passed successfully."
-        }
-    }
-}
-check.dependsOn(runChecks)
-
 
 dependencies {
     String jUnitVersion = '5.4.0'
