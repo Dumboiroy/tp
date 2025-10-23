@@ -44,3 +44,10 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Debug coverage files
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Listing build/reports/jacoco:"
+          ls -R build/reports/jacoco
+        
