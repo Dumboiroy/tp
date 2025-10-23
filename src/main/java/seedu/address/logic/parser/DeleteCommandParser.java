@@ -43,10 +43,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             ArgumentMultimap argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
-            String nameString =
-                    argMultimap.getValue(PREFIX_NAME).orElseThrow(() -> new ParseException(Name.MESSAGE_CONSTRAINTS));
+            String nameString = argMultimap.getPreamble();
             logger.info("Parsed name string: " + nameString);
-            checkNameStringEmpty(nameString);
+            requireNonEmptyName(nameString);
             Name name = ParserUtil.parseName(nameString);
             return new DeleteCommand(name);
         } catch (ParseException ps) {
@@ -55,7 +54,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
     }
 
-    private void checkNameStringEmpty(String nameString) throws ParseException {
+    private void requireNonEmptyName(String nameString) throws ParseException {
         if (nameString.isEmpty()) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
