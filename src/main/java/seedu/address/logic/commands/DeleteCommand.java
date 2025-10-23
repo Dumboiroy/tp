@@ -17,10 +17,7 @@ import seedu.address.model.person.Person;
  */
 public class DeleteCommand extends Command {
 
-    private static final Logger logger = Logger.getLogger(DeleteCommand.class.getName());
-
     public static final String COMMAND_WORD = "delete";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the name used in the displayed person list.\n"
             + "Parameters: NAME \n"
@@ -29,8 +26,13 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
+    private static final Logger logger = Logger.getLogger("DeleteCommand");
+
     private final Name targetName;
 
+    /**
+     * Creates a DeleteCommand to delete the specified {@code Person} by exact {@code Name}.
+     */
     public DeleteCommand(Name nameToDelete) {
         requireNonNull(nameToDelete);
         this.targetName = nameToDelete;
@@ -42,29 +44,18 @@ public class DeleteCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         // get person from nameQuery - i.e. get person from lastShownList whose name matches nameToDelete
-        List<Person> matchedPersons = lastShownList.stream()
-                .filter(person -> person.getName().containsName(targetName))
-                .toList();
-        if (matchedPersons.isEmpty()) {
-            throw new CommandException(Messages.MESSAGE_PERSON_DOES_NOT_EXIST);
-        }
+        List<Person> matchedPersons = getMatchedPersons(lastShownList, targetName);
+        requireNonEmptyPersonList(matchedPersons);
+        requireSinglePersonList(matchedPersons);
 
-        if (matchedPersons.size() > 1) {
-            String[] names = matchedPersons.stream()
-                    .map(person -> person.getName().fullName)
-                    .toArray(String[]::new);
-            throw new CommandException(Messages.MESSAGE_MULTIPLE_PERSONS_FOUND_NAME + String.join(", ", names));
-        }
+        // At this point, matchedPersons should have exactly one person.
+        assert matchedPersons.size() == 1;
 
-        assert matchedPersons.size() == 1 : "There should be exactly one matched person at this point.";
-        Person personToDelete = matchedPersons.get(0);
-        logger.info("Deleting person: " + matchedPersons.get(0));
-        // Only allow deletions of people who are in the filtered list, i.e. currently shown to the user.
-        if (!lastShownList.contains(matchedPersons.get(0))) {
-            throw new CommandException(Messages.MESSAGE_PERSON_DOES_NOT_EXIST);
-        }
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
+        // delete person
+        deletePersonsFromList(model, matchedPersons);
+        // for now, the message below supports a single deletion only.
+        Person deletedPerson = matchedPersons.get(0);
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(deletedPerson)));
     }
 
     @Override
@@ -86,5 +77,42 @@ public class DeleteCommand extends Command {
         return new ToStringBuilder(this)
                 .add("targetName", targetName)
                 .toString();
+    }
+
+    private static List<Person> getMatchedPersons(List<Person> personList, Name targetName) {
+        return personList.stream()
+                .filter(person -> person.getName().containsName(targetName))
+                .toList();
+    }
+
+    private static void requireNonEmptyPersonList(List<Person> personList) throws CommandException {
+        // Check for empty person list
+        if (personList.isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_PERSON_DOES_NOT_EXIST);
+        }
+    }
+
+    private static void requireSinglePersonList(List<Person> personList) throws CommandException {
+        if (personList.size() > 1) {
+            String[] names = personList.stream()
+                    .map(person -> person.getName().fullName)
+                    .toArray(String[]::new);
+            throw new CommandException(Messages.MESSAGE_MULTIPLE_PERSONS_FOUND_NAME + String.join(", ", names));
+        }
+    }
+
+    private static void requirePersonInModel(Model model, Person person) throws CommandException {
+        if (!model.hasPerson(person)) {
+            throw new CommandException(Messages.MESSAGE_PERSON_DOES_NOT_EXIST);
+        }
+    }
+
+    private static void deletePersonsFromList(Model model, List<Person> personList) throws CommandException {
+        for (Person personToDelete : personList) {
+            requireNonNull(personToDelete);
+            requirePersonInModel(model, personToDelete);
+            logger.info("Deleting person: " + personToDelete);
+            model.deletePerson(personToDelete);
+        }
     }
 }
