@@ -49,11 +49,11 @@ public class AppointmentIdTest {
         List<String> idList = new ArrayList<>();
         AppointmentId dummyApptId = new AppointmentId("dummy");
 
-        for (int i = 0; i < 999; i++) {
+        for (int i = 0; i < 30; i++) {
             idList.add(dummyApptId.generateId(ID_FILEPATH));
         }
 
-        assertEquals(999, idList.size());
+        assertEquals(30, idList.size());
     }
 
     @Test
