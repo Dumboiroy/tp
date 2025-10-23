@@ -3,14 +3,33 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
+
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(DeleteCommandParser.class);
+
+    static {
+        Logger logger = LogsCenter.getLogger(DeleteCommandParser.class);
+        System.out.println("Logger name: " + logger.getName());
+        System.out.println("Parent logger: " + logger.getParent().getName());
+        System.out.println("Handlers:");
+        for (java.util.logging.Handler h : logger.getHandlers()) {
+            System.out.println("Handler: " + h.getClass().getName() + ", Level: " + h.getLevel());
+        }
+        for (java.util.logging.Handler h : logger.getParent().getHandlers()) {
+            System.out.println("Parent Handler: " + h.getClass().getName() + ", Level: " + h.getLevel());
+        }
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
@@ -24,7 +43,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             ArgumentMultimap argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
-            String nameString = args.trim().split(" /", 2)[0];
+            String nameString = argMultimap.getPreamble();
+            logger.info("Parsed name string: " + nameString);
+            requireNonEmptyName(nameString);
             Name name = ParserUtil.parseName(nameString);
             return new DeleteCommand(name);
         } catch (ParseException ps) {
@@ -33,4 +54,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
     }
 
+    private void requireNonEmptyName(String nameString) throws ParseException {
+        if (nameString.isEmpty()) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+    }
 }

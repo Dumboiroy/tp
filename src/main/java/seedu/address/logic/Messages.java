@@ -24,6 +24,9 @@ public class Messages {
             "Multiple persons found with the same name! Please be more specific.\nNames found: ";
     public static final String MESSAGE_PERSON_DOES_NOT_EXIST =
             "The person is not in the list. Please filter again with 'find'.";
+    public static final String MESSAGE_PERSON_NOT_IN_FILTERED_LIST =
+            "The person is not in the current filtered list. Please type 'find' to see all person, or try to find the"
+                    + " person first.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
