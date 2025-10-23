@@ -31,7 +31,7 @@ public class AppointmentDateTimeTest {
         assertFalse(AppointmentDateTime.isValidDateTime("12-9-2025 1260"));
         //edge case HHmm
         assertFalse(AppointmentDateTime.isValidDateTime("12-12-2025 2460"));
-
+        assertFalse(AppointmentDateTime.isValidDateTime("30-2-2025 1200"));
         // Missing HHmm
         assertFalse(AppointmentDateTime.isValidDateTime("12-13-2024"));
 
