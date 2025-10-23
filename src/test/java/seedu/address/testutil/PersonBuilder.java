@@ -82,7 +82,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -126,6 +126,7 @@ public class PersonBuilder {
         this.appointments = new ArrayList<>(Arrays.asList(appointments));
         return this;
     }
+
 
     public Person build() {
         return new Person(name, phone, email, address, tags, rank, appointments);

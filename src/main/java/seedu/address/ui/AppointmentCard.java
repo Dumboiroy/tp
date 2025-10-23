@@ -24,6 +24,8 @@ public class AppointmentCard extends UiPart<Region> {
 
     @FXML private HBox appointmentCardRoot;
     @FXML private VBox calendarBox;
+    @FXML private Label id;
+    @FXML private Label clientName;
     @FXML private Label month;
     @FXML private Label day;
     @FXML private Label year;
@@ -38,7 +40,7 @@ public class AppointmentCard extends UiPart<Region> {
     /**
      * Represents an appointment card component
      */
-    public AppointmentCard(Appointment appointment) {
+    public AppointmentCard(Appointment appointment, boolean hasClientName) {
         super(FXML);
         this.appointment = appointment;
 
@@ -64,12 +66,22 @@ public class AppointmentCard extends UiPart<Region> {
         // Set status with styling
         String apptStatus = appointment.getStatus().toString().toLowerCase();
         status.setText(apptStatus);
-        status.getStyleClass().addAll("status-pill", "status-" + apptStatus);
+        status.getStyleClass().addAll("pill", "status-" + apptStatus);
 
         // Set details
+        id.setText("ID: " + appointment.getId());
         type.setText("Type: " + appointment.getType());
         appointmentLocation.setText("Location: " + appointment.getLocation());
         length.setText("Duration: " + appointment.getLength());
         message.setText("Message: " + appointment.getMessage());
+        // Set client name label
+        if (hasClientName) {
+            clientName.setManaged(true);
+            clientName.setVisible(true);
+            clientName.setText("Name: " + this.appointment.getClientName().toString());
+        } else {
+            clientName.setVisible(false);
+            clientName.setManaged(false);
+        }
     }
 }

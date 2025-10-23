@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -25,6 +28,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Appointment> filteredAppointments;
 
+    private final ObjectProperty<ViewMode> visibleViewMode;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -37,6 +42,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
+        visibleViewMode = new SimpleObjectProperty<>(ViewMode.PERSONS);
     }
 
     public ModelManager() {
@@ -138,6 +144,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Appointment getClashedAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return addressBook.getClashedAppointment(appointment);
+    }
+
+    @Override
     public void editAppointment(Appointment target, Appointment newAppt) {
         requireNonNull(target);
         requireNonNull(newAppt);
@@ -171,6 +183,21 @@ public class ModelManager implements Model {
         addressBook.setAppointment(target, editedAppointment);
     }
 
+    @Override
+    public void setAppointmentWithPerson(Appointment target, Appointment editedAppointment, Person client) {
+        Person updatedClient = client.withUpdatedAppointment(target, editedAppointment);
+        setPerson(client, updatedClient);
+        setAppointment(target, editedAppointment);
+    }
+
+    @Override
+    public void unsetAppointmentWithPerson(Appointment target, Person client) {
+        Person updatedClient = client.withoutAppointments(List.of(target));
+        setPerson(client, updatedClient);
+        deleteAppointment(target);
+    }
+
+
     //=========== Filtered Appointment List Accessors =======================================================
 
     @Override
@@ -181,7 +208,11 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
         requireNonNull(predicate);
-        filteredAppointments.setPredicate(predicate);
+        // It is important to check whether the client of the corresponding
+        // appointment is in the list or not
+        filteredAppointments.setPredicate(
+                appt -> getPerson(appt.getClientName().toString()) != null
+                        && predicate.test(appt));
     }
 
     @Override
@@ -196,9 +227,10 @@ public class ModelManager implements Model {
         }
 
         ModelManager otherModelManager = (ModelManager) other;
-        return addressBook.equals(otherModelManager.addressBook)
-                && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+        Boolean addressBookEqual = addressBook.equals(otherModelManager.addressBook);
+        Boolean userPrefsEqual = userPrefs.equals(otherModelManager.userPrefs);
+        Boolean filteredPersonsEqual = filteredPersons.equals(otherModelManager.filteredPersons);
+        return addressBookEqual && userPrefsEqual && filteredPersonsEqual;
     }
 
     public Person getPerson(String name) {
@@ -210,5 +242,15 @@ public class ModelManager implements Model {
             }
         }
         return null;
+    }
+
+    @Override
+    public void setViewMode(ViewMode mode) {
+        visibleViewMode.set(mode);
+    }
+
+    @Override
+    public ObjectProperty<ViewMode> getObservableViewMode() {
+        return visibleViewMode;
     }
 }

@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LENGTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MESSAGE;
@@ -13,14 +14,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.LinkAppointmentCommand;
+import seedu.address.logic.commands.LinkAppointmentCreateCommand;
+import seedu.address.logic.commands.LinkAppointmentDeleteCommand;
+import seedu.address.logic.commands.LinkAppointmentEditCommand;
+import seedu.address.logic.commands.LinkAppointmentEditCommand.EditAppointmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDateTime;
 import seedu.address.model.appointment.AppointmentFlag;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.AppointmentLength;
 import seedu.address.model.appointment.AppointmentLocation;
 import seedu.address.model.appointment.AppointmentMessage;
 import seedu.address.model.appointment.AppointmentStatus;
+import seedu.address.model.appointment.AppointmentStatusType;
 import seedu.address.model.appointment.AppointmentType;
 import seedu.address.model.person.Name;
 
@@ -32,28 +39,120 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
     @Override
     public LinkAppointmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args,
-                PREFIX_FLAG, PREFIX_NAME, PREFIX_APPOINTMENT, PREFIX_LENGTH,
-                PREFIX_LOCATION, PREFIX_TYPE, PREFIX_MESSAGE, PREFIX_STATUS);
+                ArgumentTokenizer.tokenize(args,
+                        PREFIX_FLAG, PREFIX_ID, PREFIX_NAME, PREFIX_APPOINTMENT, PREFIX_LENGTH,
+                        PREFIX_LOCATION, PREFIX_TYPE, PREFIX_MESSAGE, PREFIX_STATUS);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_NAME, PREFIX_APPOINTMENT)
-            || !argMultimap.getPreamble().isEmpty()) {
+        if (args.trim().isEmpty()
+                || argMultimap.getValue(PREFIX_FLAG).isEmpty()
+                || argMultimap.getValue(PREFIX_FLAG).get().split(" ")[0].length() != 1) {
+            //if flag is empty, or if flag has more than 1 character
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                LinkAppointmentCommand.MESSAGE_USAGE));
+                    LinkAppointmentCommand.MESSAGE_INCLUDE_FLAG));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_APPOINTMENT,
-            PREFIX_LENGTH, PREFIX_LOCATION, PREFIX_TYPE, PREFIX_MESSAGE, PREFIX_STATUS);
+        validateCommand(argMultimap);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ID, PREFIX_NAME, PREFIX_APPOINTMENT,
+                PREFIX_LENGTH, PREFIX_LOCATION, PREFIX_TYPE, PREFIX_MESSAGE, PREFIX_STATUS);
+
+        return returnCommand(argMultimap);
+    }
+
+    private LinkAppointmentCommand returnCommand(ArgumentMultimap argMultimap) throws ParseException {
+        Appointment appointment;
+        Name clientName;
+        LinkAppointmentEditCommand.EditAppointmentDescriptor editAppointmentDescriptor =
+                new LinkAppointmentEditCommand.EditAppointmentDescriptor();
 
         AppointmentFlag flag = ParserUtil.parseAppointmentFlag(argMultimap.getValue(PREFIX_FLAG).get());
 
-        Name clientName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Appointment appointment = getAppointment(clientName, argMultimap);
-
-        return new LinkAppointmentCommand(flag, clientName, appointment);
+        if (flag.value == 'c') {
+            clientName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            appointment = createAppointment(clientName, argMultimap);
+            return new LinkAppointmentCreateCommand(clientName, appointment);
+        } else if (flag.value == 'e') {
+            AppointmentId targetId = ParserUtil.parseAppointmentId(argMultimap.getValue(PREFIX_ID).get());
+            setEditAppointmentDescriptor(editAppointmentDescriptor, argMultimap);
+            if (!editAppointmentDescriptor.isAnyFieldEdited()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        LinkAppointmentEditCommand.MESSAGE_FAIL));
+            }
+            return new LinkAppointmentEditCommand(targetId, editAppointmentDescriptor);
+        } else if (flag.value == 'd') {
+            AppointmentId targetId = ParserUtil.parseAppointmentId(argMultimap.getValue(PREFIX_ID).get());
+            return new LinkAppointmentDeleteCommand(targetId);
+        }
+        return null;
     }
 
-    private Appointment getAppointment(Name clientName, ArgumentMultimap argMultimap) throws ParseException {
+    public void setEditAppointmentDescriptor(
+            EditAppointmentDescriptor editAppointmentDescriptor,
+            ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getValue(PREFIX_APPOINTMENT).isPresent()) {
+            editAppointmentDescriptor.setDateTime(
+                    ParserUtil.parseAppointmentDateTime(argMultimap.getValue(PREFIX_APPOINTMENT).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
+            editAppointmentDescriptor.setType(
+                    ParserUtil.parseAppointmentType(argMultimap.getValue(PREFIX_TYPE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_LENGTH).isPresent()) {
+            editAppointmentDescriptor.setLength(
+                    ParserUtil.parseAppointmentLength(argMultimap.getValue(PREFIX_LENGTH).get()));
+        }
+        if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
+            editAppointmentDescriptor.setLocation(
+                    ParserUtil.parseAppointmentLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
+        }
+        if (argMultimap.getValue(PREFIX_MESSAGE).isPresent()) {
+            editAppointmentDescriptor.setMessage(
+                    ParserUtil.parseAppointmentMessage(argMultimap.getValue(PREFIX_MESSAGE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            editAppointmentDescriptor.setStatus(
+                    ParserUtil.parseAppointmentStatus(argMultimap.getValue(PREFIX_STATUS).get()));
+        }
+    }
+
+    private void validateCommand(ArgumentMultimap argMultimap) throws ParseException {
+        AppointmentFlag flag =
+                ParserUtil.parseAppointmentFlag(
+                        argMultimap.getValue(PREFIX_FLAG).get().split(" ")[0]);
+        /*
+        if there is more than 1 word for flag, it would only take first, and it's guaranteed to be 1 digit due to
+        previous check.
+        */
+        switch (flag.value) {
+        case 'c':
+            if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_NAME, PREFIX_APPOINTMENT,
+                    PREFIX_LENGTH)
+                    || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        LinkAppointmentCreateCommand.MESSAGE_FAIL));
+            }
+            break;
+        case 'd':
+            if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_ID)
+                    || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        LinkAppointmentDeleteCommand.MESSAGE_FAIL));
+            }
+            break;
+        case 'e':
+            if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_ID)
+                    || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        LinkAppointmentEditCommand.MESSAGE_FAIL));
+            }
+            break;
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    LinkAppointmentCommand.MESSAGE_INCLUDE_FLAG));
+        }
+    }
+
+    private Appointment createAppointment(Name clientName, ArgumentMultimap argMultimap) throws ParseException {
         AppointmentDateTime dateTime =
                 ParserUtil.parseAppointmentDateTime(argMultimap.getValue(PREFIX_APPOINTMENT).get());
         AppointmentLength length = ParserUtil.parseAppointmentLength(
@@ -65,17 +164,9 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
         AppointmentMessage message = ParserUtil.parseAppointmentMessage(
                 argMultimap.getValue(PREFIX_MESSAGE).orElse(AppointmentMessage.NO_MESSAGE));
         AppointmentStatus status = ParserUtil.parseAppointmentStatus(
-                argMultimap.getValue(PREFIX_STATUS).orElse(AppointmentStatus.PLANNED));
+                argMultimap.getValue(PREFIX_STATUS).orElse(AppointmentStatusType.PLANNED.toString()));
 
-        return new Appointment(
-                clientName,
-                dateTime,
-                length,
-                location,
-                type,
-                message,
-                status
-        );
+        return new Appointment(clientName, dateTime, length, location, type, message, status);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

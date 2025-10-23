@@ -3,28 +3,32 @@ package seedu.address.model.appointment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDateTime;
+
+import seedu.address.model.util.DateTimeUtil;
+
 /**
  * Represents the date and time of an appointment.
- * Format: dd-MM-yyyy or dd-MM-yyyy HHmm (24-hour time).
+ * Format: dd-MM-yyyy HHmm (24-hour time).
  */
 public class AppointmentDateTime {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "DateTime must be in the format dd-MM-yyyy or dd-MM-yyyy HHmm, and must be valid calendar date/time.";
+            "DateTime must be in the format dd-MM-yyyy HHmm, and must be valid calendar date/time.";
     // Very simple regex: date part mandatory, optional time part
     public static final String VALIDATION_REGEX =
-            "^\\d{1,2}-\\d{1,2}-\\d{4}( \\d{4})?$";
+            "^\\d{1,2}-\\d{1,2}-\\d{4} \\d{4}$";
 
-    public final String value;
+    public final LocalDateTime dateTime;
 
     /**
      * Constructs an {@code AppointmentDateTime} with the specified date-time string.
      * The input must match the expected format.
      */
-    public AppointmentDateTime(String dateTime) {
-        requireNonNull(dateTime);
-        checkArgument(isValidDateTime(dateTime), MESSAGE_CONSTRAINTS);
-        this.value = dateTime;
+    public AppointmentDateTime(String dateTimeString) {
+        requireNonNull(dateTimeString);
+        checkArgument(isValidDateTime(dateTimeString), MESSAGE_CONSTRAINTS);
+        this.dateTime = DateTimeUtil.localDateTimeFromString(dateTimeString);
     }
 
     /**
@@ -37,18 +41,18 @@ public class AppointmentDateTime {
 
     @Override
     public String toString() {
-        return value;
+        return DateTimeUtil.stringFromLocalDateTime(dateTime);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof AppointmentDateTime
-                && value.equals(((AppointmentDateTime) other).value));
+                && dateTime.equals(((AppointmentDateTime) other).dateTime));
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return dateTime.hashCode();
     }
 }

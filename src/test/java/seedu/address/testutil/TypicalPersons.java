@@ -17,6 +17,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDateTime;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.AppointmentLength;
 import seedu.address.model.appointment.AppointmentLocation;
 import seedu.address.model.appointment.AppointmentMessage;
@@ -31,7 +32,22 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     // Sample appointments
+    /*
+    Use this in test cases
+     */
+    public static final Appointment DUMMY_APPT = new Appointment(
+            new AppointmentId("0"),
+            new Name("Dummy"),
+            new AppointmentDateTime("20-10-2025 1400"),
+            new AppointmentLength("30"),
+            new AppointmentLocation("Dummy"),
+            new AppointmentType("Dummy"),
+            new AppointmentMessage("Dummy"),
+            new AppointmentStatus("planned")
+    );
+
     public static final Appointment DENTIST_APPT = new Appointment(
+            new AppointmentId("1"),
             new Name("Benson Meier"),
             new AppointmentDateTime("20-10-2025 1400"),
             new AppointmentLength("60"),
@@ -42,6 +58,7 @@ public class TypicalPersons {
     );
 
     public static final Appointment MEETING_APPT = new Appointment(
+            new AppointmentId("2"),
             new Name("Alice Pauline"),
             new AppointmentDateTime("21-10-2025 1030"),
             new AppointmentLength("90"),
@@ -52,13 +69,14 @@ public class TypicalPersons {
     );
 
     public static final Appointment MEETING_BOB = new Appointment(
-        new Name("Bob Choo"),
-        new AppointmentDateTime("20-10-2025 1400"),
-        new AppointmentLength("60"),
-        new AppointmentLocation("Dental Clinic"),
-        new AppointmentType("Health"),
-        new AppointmentMessage("Routine checkup"),
-        new AppointmentStatus("planned")
+            new AppointmentId("3"),
+            new Name("Bob Choo"),
+            new AppointmentDateTime("20-10-2025 1400"),
+            new AppointmentLength("60"),
+            new AppointmentLocation("Dental Clinic"),
+            new AppointmentType("Health"),
+            new AppointmentMessage("Routine checkup"),
+            new AppointmentStatus("planned")
     );
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
@@ -97,18 +115,23 @@ public class TypicalPersons {
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .withRank(VALID_RANK_STABLE).withAppointments(MEETING_BOB).build();
+    public static final Person ALICE_WITH_SUBSTRING_NAME = new PersonBuilder().withName("Alice Paul")
+            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withPhone("94351253").withTags("friends").withRank("stable")
+            .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalPersons() {
+    } // prevents instantiation
 
     /**
      * Extract list of appointments from the given persons array
      */
     public static List<Appointment> extractAppointmentsFromPersons(List<Person> persons) {
         return persons.stream()
-            .flatMap(person -> person.getAppointments().stream())
-            .toList();
+                .flatMap(person -> person.getAppointments().stream())
+                .toList();
     }
 
     /**
@@ -121,11 +144,12 @@ public class TypicalPersons {
             ab.addPerson(person);
         }
         extractAppointmentsFromPersons(samplePersons)
-            .forEach(ab::addAppointment);
+                .forEach(ab::addAppointment);
         return ab;
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE,
+                ALICE_WITH_SUBSTRING_NAME));
     }
 }

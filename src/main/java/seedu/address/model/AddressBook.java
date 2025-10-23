@@ -7,6 +7,9 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDateTimeQuery;
+import seedu.address.model.appointment.AppointmentQuery;
+import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -108,10 +111,35 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Check whether the AddressBook contains the appointment or not
+     * Note that AppointmentId field is omitted for comparison
      */
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);
-        return appointments.contains(appointment);
+        return appointments.containsQuery(appt ->
+            appt.getClientName().equals(appointment.getClientName())
+            && appt.getDateTime().equals(appointment.getDateTime())
+            && appt.getLength().equals(appointment.getLength())
+            && appt.getStatus().equals(appointment.getStatus())
+        ) != null;
+    }
+
+    /**
+     * Check whether the AddressBook clashes with other appointment or not.
+     * Only confirmed appointment is checked.
+     */
+    public Appointment getClashedAppointment(Appointment appointment) {
+        // Construct an appointment query
+        if (!appointment.getStatus().equals(new AppointmentStatus("confirmed"))) {
+            return null;
+        }
+        AppointmentQuery query = AppointmentQuery.build()
+            .setDateTime(AppointmentDateTimeQuery.interval(appointment.getDateTime().dateTime,
+                appointment.getLength().duration))
+            .setStatus(new AppointmentStatus("confirmed"));
+        return appointments.containsQuery(appt ->
+                query.filter(appt)
+                    && appt.getClientName().equals(appointment.getClientName())
+                    && !appt.getId().equals(appointment.getId()));
     }
 
     /**

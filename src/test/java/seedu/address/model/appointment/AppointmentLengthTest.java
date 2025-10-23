@@ -37,7 +37,7 @@ public class AppointmentLengthTest {
     public void toStringMethod() {
         AppointmentLength first = new AppointmentLength("");
         AppointmentLength second = new AppointmentLength("20");
-        assertTrue(first.toString().equals(""));
+        assertTrue(first.toString().equals("0"));
         assertTrue(second.toString().equals("20"));
     }
 }

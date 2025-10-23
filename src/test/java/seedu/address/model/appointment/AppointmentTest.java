@@ -98,7 +98,9 @@ public class AppointmentTest {
     @Test
     public void toStringMethod() {
         String expected = Appointment.class.getCanonicalName()
-            + "{dateTime=" + DENTIST_APPT.getDateTime()
+            + "{id=" + DENTIST_APPT.getId()
+            + ", clientName=" + DENTIST_APPT.getClientName()
+            + ", dateTime=" + DENTIST_APPT.getDateTime()
             + ", length=" + DENTIST_APPT.getLength()
             + ", location=" + DENTIST_APPT.getLocation()
             + ", type=" + DENTIST_APPT.getType()

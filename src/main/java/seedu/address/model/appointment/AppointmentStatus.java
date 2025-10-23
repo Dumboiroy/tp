@@ -11,24 +11,50 @@ public class AppointmentStatus {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Status must be one of: planned, confirmed, completed, cancelled";
-    public static final String VALIDATION_REGEX = "planned|confirmed|completed|cancelled";
 
-    public static final String PLANNED = "planned";
-
-    public final String value;
+    public final AppointmentStatusType value;
 
     /**
-     * Create an appointment status
+     * Constructs an {@code AppointmentStatus}.
+     * If the given string is empty, defaults to PLANNED.
      */
     public AppointmentStatus(String status) {
         requireNonNull(status);
-        String normalized = status.toLowerCase();
-        checkArgument(isValidStatus(normalized), MESSAGE_CONSTRAINTS);
-        this.value = normalized;
+        String trimmedStatus = status.trim().toLowerCase();
+        if (trimmedStatus.isEmpty()) {
+            trimmedStatus = "planned";
+        }
+        checkArgument(isValidStatus(trimmedStatus), MESSAGE_CONSTRAINTS);
+        this.value = stringToStatus(trimmedStatus);
     }
 
+    /**
+     * Converts a string to the corresponding enum type.
+     */
+    public static AppointmentStatusType stringToStatus(String input) {
+        switch (input) {
+        case "planned":
+            return AppointmentStatusType.PLANNED;
+        case "confirmed":
+            return AppointmentStatusType.CONFIRMED;
+        case "completed":
+            return AppointmentStatusType.COMPLETED;
+        case "cancelled":
+            return AppointmentStatusType.CANCELLED;
+        default:
+            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Returns true if a given string is a valid appointment status.
+     */
     public static boolean isValidStatus(String test) {
-        return test.matches(VALIDATION_REGEX);
+        String trimmed = test.trim().toLowerCase();
+        return trimmed.equals("planned")
+                || trimmed.equals("confirmed")
+                || trimmed.equals("completed")
+                || trimmed.equals("cancelled");
     }
 
     @Override
@@ -43,7 +69,8 @@ public class AppointmentStatus {
         return value.hashCode();
     }
 
+    @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 }

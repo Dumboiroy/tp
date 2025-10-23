@@ -19,6 +19,17 @@ Class Email
 Class Name
 Class Phone
 Class Tag
+Class Rank
+
+Class UniqueAppointmentList
+Class Appointment
+Class AppointmentId
+Class AppointmentDateTime
+Class AppointmentLength
+Class AppointmentLocation
+Class AppointmentType
+Class AppointmentMessage
+Class AppointmentStatus
 
 Class I #FFFFFF
 }
@@ -35,13 +46,14 @@ ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
+AddressBook --> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Person --> "1"Name
+Person --> "1"Phone
+Person --> "0..1"Email
+Person --> "0..1"Address
+Person --> "*" Tag
+Person --> "0..1"Rank
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
@@ -51,4 +63,20 @@ Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager --> "~* filtered" Person
+
+AddressBook *--> "1" UniqueAppointmentList
+UniqueAppointmentList --> "~* all" Appointment
+Appointment --> "1"AppointmentStatus
+Appointment --> "1"AppointmentDateTime
+Appointment --> "1"AppointmentLength
+Appointment --> "1"AppointmentId
+Appointment --> "0..1"AppointmentLocation
+Appointment --> "0..1"AppointmentType
+Appointment --> "0..1"AppointmentMessage
+
+AppointmentLocation -[hidden]up-> AppointmentId
+AppointmentMessage -[hidden]up-> AppointmentStatus
+AppointmentLength -[hidden]up-> AppointmentType
+AppointmentDateTime -[hidden]left-> AppointmentStatus
+ModelManager --> "~* filtered" Appointment
 @enduml

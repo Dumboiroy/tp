@@ -3,27 +3,36 @@ package seedu.address.model.appointment;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.Duration;
+
+import seedu.address.model.util.DurationUtil;
+
 /**
  * Represents the length of an appointment in minutes.
  */
 public class AppointmentLength {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Length must be a positive integer number of minutes (e.g. 30, 60, 90)";
-    public static final String VALIDATION_REGEX = "^[1-9]\\d*$";
+            "Length must be a positive integer number of minutes (e.g. 30, 60, 90) with no more than 4 digits";
+    public static final String VALIDATION_REGEX = "^[1-9]\\d{1,4}$";
     public static final String NO_LENGTH = "";
 
-    public final String value;
+    public final Duration duration;
 
     /**
      * Construct an appointment length (duration)
      */
-    public AppointmentLength(String length) {
-        requireNonNull(length);
-        checkArgument(isValidLength(length), MESSAGE_CONSTRAINTS);
-        this.value = length;
+    public AppointmentLength(String durationString) {
+        requireNonNull(durationString);
+        checkArgument(isValidLength(durationString), MESSAGE_CONSTRAINTS);
+        this.duration = DurationUtil.durationFromString(durationString);
     }
 
+    /**
+     * Checks if string is a valid length (0 is unacceptable)
+     * @param test String to be checked
+     * @return A boolean stating whether string is valid or not
+     */
     public static boolean isValidLength(String test) {
         return test.equals(NO_LENGTH) || test.matches(VALIDATION_REGEX);
     }
@@ -32,15 +41,15 @@ public class AppointmentLength {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof AppointmentLength
-                && value.equals(((AppointmentLength) other).value));
+                && duration.equals(((AppointmentLength) other).duration));
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return duration.hashCode();
     }
 
     public String toString() {
-        return value.equals("") ? "" : value;
+        return DurationUtil.stringFromDuration(duration);
     }
 }

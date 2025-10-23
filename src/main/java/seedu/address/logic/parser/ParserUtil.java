@@ -1,16 +1,22 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.LinkAppointmentCreateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.AppointmentDateTime;
+import seedu.address.model.appointment.AppointmentDateTimeQuery;
 import seedu.address.model.appointment.AppointmentFlag;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.AppointmentLength;
 import seedu.address.model.appointment.AppointmentLocation;
 import seedu.address.model.appointment.AppointmentMessage;
@@ -22,6 +28,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.rank.Rank;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.DateTimeUtil;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -159,6 +166,56 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code keyword} into an {@code AppointmentDateTimeQuery}.
+     * Format:
+     * key
+     */
+    public static AppointmentDateTimeQuery parseAppointmentDateTimeQuery(String keyword)
+            throws ParseException {
+        if (keyword == null) {
+            return AppointmentDateTimeQuery.empty();
+        }
+        String trimmed = keyword.trim();
+        if (!AppointmentDateTimeQuery.isValidDateTimeQuery(trimmed)) {
+            throw new ParseException(AppointmentDateTimeQuery.MESSAGE_CONSTRAINTS);
+        }
+        if (trimmed.equals(AppointmentDateTimeQuery.KEYWORD_TODAY)) {
+            return AppointmentDateTimeQuery.today();
+        }
+        if (trimmed.charAt(0) == '+') {
+            String numberPart = trimmed.substring(1);
+            long value = Long.parseLong(numberPart);
+            return AppointmentDateTimeQuery.withinRelativeDays(value);
+        }
+        if (trimmed.charAt(0) == '-') {
+            String numberPart = trimmed.substring(1);
+            long value = (-1) * Long.parseLong(numberPart);
+            return AppointmentDateTimeQuery.withinRelativeDays(value);
+        }
+        if (!trimmed.contains(" to ")) {
+            LocalDateTime current;
+            try {
+                current = DateTimeUtil.localDateTimeFromString(trimmed);
+            } catch (DateTimeException err) {
+                throw new ParseException(AppointmentDateTimeQuery.MESSAGE_CONSTRAINTS);
+            }
+            return new AppointmentDateTimeQuery(current);
+        }
+        String[] parts = trimmed.split(" to ");
+        String startStr = parts[0].trim();
+        String endStr = parts[1].trim();
+        LocalDateTime start;
+        LocalDateTime end;
+        try {
+            start = DateTimeUtil.localDateTimeFromString(startStr);
+            end = DateTimeUtil.localDateTimeFromStringEnd(endStr);
+        } catch (DateTimeException err) {
+            throw new ParseException(AppointmentDateTimeQuery.MESSAGE_CONSTRAINTS);
+        }
+        return new AppointmentDateTimeQuery(start, end);
+    }
+
+    /**
      * Parses a {@code String length} into an {@code AppointmentLength}.
      * Optional; empty string means unspecified.
      */
@@ -216,7 +273,7 @@ public class ParserUtil {
      */
     public static AppointmentStatus parseAppointmentStatus(String status) throws ParseException {
         if (status == null || status.trim().isEmpty()) {
-            return new AppointmentStatus(AppointmentStatus.PLANNED);
+            return new AppointmentStatus("planned");
         }
         String trimmed = status.trim().toLowerCase();
         if (!AppointmentStatus.isValidStatus(trimmed)) {
@@ -232,9 +289,28 @@ public class ParserUtil {
      * @throws ParseException
      */
     public static AppointmentFlag parseAppointmentFlag(String flag) throws ParseException {
-        if (flag == null || flag.trim().isEmpty()) {
-            throw new ParseException("Invalid Flag!");
+        if (flag == null || flag.trim().isEmpty() || flag.length() > 1
+                || !AppointmentFlag.isValidFlag(flag.charAt(0))) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    LinkAppointmentCreateCommand.MESSAGE_INCLUDE_FLAG));
         }
-        return new AppointmentFlag(flag);
+
+        char charFlag = flag.toLowerCase().charAt(0);
+
+        return new AppointmentFlag(charFlag);
+    }
+
+    /**
+     * Parses a {@code String flag} into an {@code AppointmentId}.
+     * @param id String to parse
+     * @return An appointment ID
+     * @throws ParseException
+     */
+    public static AppointmentId parseAppointmentId(String id) throws ParseException {
+        if (id.trim().isEmpty() || id == null) {
+            throw new ParseException("Invalid ID!");
+        }
+
+        return new AppointmentId(id);
     }
 }

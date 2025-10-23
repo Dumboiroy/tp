@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
@@ -12,7 +13,9 @@ import seedu.address.model.person.Person;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
@@ -51,7 +54,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -78,11 +83,14 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
@@ -93,8 +101,15 @@ public interface Model {
     boolean hasAppointment(Appointment appointment);
 
     /**
+     * A weaker variant of {@code hasAppointment}.
+     * Returns true if a confirmed appointment overlaps with any of the appointments in the address book.
+     */
+    Appointment getClashedAppointment(Appointment appointment);
+
+    /**
      * Edits a given appointment
-     * @param target Appointment to be replaced
+     *
+     * @param target  Appointment to be replaced
      * @param newAppt Appointment to replace old appointment
      */
     void editAppointment(Appointment target, Appointment newAppt);
@@ -125,6 +140,10 @@ public interface Model {
      */
     void setAppointment(Appointment target, Appointment editedAppointment);
 
+    void setAppointmentWithPerson(Appointment target, Appointment editedAppointment, Person client);
+
+    void unsetAppointmentWithPerson(Appointment target, Person client);
+
     /**
      * Returns an unmodifiable view of the filtered appointment list.
      */
@@ -132,7 +151,19 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
+
+    /**
+     * Updates the view mode of the list shown in the MainWindow.
+     */
+    void setViewMode(ViewMode mode);
+
+    /**
+     * Returns an observable object for binding with FXML components
+     */
+    ObjectProperty<ViewMode> getObservableViewMode();
 }
