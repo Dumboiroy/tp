@@ -51,6 +51,9 @@ public class DeleteCommand extends Command {
         // At this point, matchedPersons should have exactly one person.
         assert matchedPersons.size() == 1;
 
+        // Require person to be in filtered list
+        requirePersonInFilteredList(model, matchedPersons.get(0));
+
         // delete person
         deletePersonsFromList(model, matchedPersons);
         // for now, the message below supports a single deletion only.
@@ -104,6 +107,13 @@ public class DeleteCommand extends Command {
     private static void requirePersonInModel(Model model, Person person) throws CommandException {
         if (!model.hasPerson(person)) {
             throw new CommandException(Messages.MESSAGE_PERSON_DOES_NOT_EXIST);
+        }
+    }
+
+    private static void requirePersonInFilteredList(Model model, Person person) throws CommandException {
+        List<Person> filteredList = model.getFilteredPersonList();
+        if (!filteredList.contains(person)) {
+            throw new CommandException(Messages.MESSAGE_PERSON_NOT_IN_FILTERED_LIST);
         }
     }
 
