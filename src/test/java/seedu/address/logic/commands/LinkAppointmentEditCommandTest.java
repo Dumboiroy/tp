@@ -68,7 +68,7 @@ public class LinkAppointmentEditCommandTest {
         AppointmentId id = appt.getId();
 
         EditAppointmentDescriptor descriptor2 = new EditAppointmentDescriptorBuilder()
-                .withDateTime("12-10-3099 0000")
+                .withDateTime("12-10-3099 1800")
                 .build();
 
         Appointment newAppt2 = new Appointment(
