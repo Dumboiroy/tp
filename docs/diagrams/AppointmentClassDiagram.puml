@@ -1,0 +1,19 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Appointment --> "1"AppointmentStatus
+Appointment --> "1"AppointmentDateTime
+Appointment --> "1"AppointmentLength
+Appointment --> "1"AppointmentId
+Appointment --> "1"AppointmentLocation
+Appointment --> "1"AppointmentType
+Appointment --> "1"AppointmentMessage
+Appointment --> "1"Name
+
+AppointmentStatus -[hidden]up-> AppointmentId
+AppointmentDateTime -[hidden]up-> AppointmentLocation
+AppointmentLength -[hidden]up-> AppointmentType
+@enduml
