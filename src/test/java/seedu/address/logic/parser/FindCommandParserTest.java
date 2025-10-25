@@ -158,7 +158,7 @@ public class FindCommandParserTest {
         // both days specified
         String dateTimeStart = "12-10-2025 1200";
         String dateTimeEnd = "13-10-2025 1300";
-        userInput = " " + PREFIX_APPOINTMENT + " " + dateTimeStr;
+        userInput = " " + PREFIX_APPOINTMENT + " " + dateTimeStr + " to " + dateTimeEnd;
         formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         query = AppointmentQuery.build().setDateTime(new AppointmentDateTimeQuery(
                 LocalDateTime.parse(dateTimeStart, formatter),
