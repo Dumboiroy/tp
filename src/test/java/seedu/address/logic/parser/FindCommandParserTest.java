@@ -62,8 +62,9 @@ public class FindCommandParserTest {
     @Test
     public void parse_emptyArg_success() {
         String userInput = "    ";
-        FindCommand expectedFindCommand = new FindCommand(PersonQuery.build());
-        assertParseSuccess(parser, userInput, expectedFindCommand);
+        assertParseFailure(parser, userInput,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                FindCommand.MESSAGE_USAGE));
     }
 
     // Parse some field shows success
