@@ -177,8 +177,8 @@ add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
 
 > :bulb: **Tips:**
 > 
-> * All required fields must be provided
-> * A person can have any number of tags (including 0)
+> * All required fields must be provided.
+> * A person can have any number of tags (including 0).
 
 #### Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
@@ -547,7 +547,7 @@ List all appointments with the given status.
 
 Example:
 * `find status/cancelled`<br>
-List all cancelled appointments for you
+List all cancelled appointments for you.
 
 [Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
@@ -565,7 +565,7 @@ It is possible to chain these fields with [client fields](#7-look-up-clients-by-
 
 Example:
 * `find r/urgent appt/today`
-This command allows you to find today's appointment for urgent clients
+This command allows you to find today's appointment for urgent clients.
 
 > Although the leading command to list appointments and clients is the same, the behavior differs depending on the fields provided.
 If you include any appointment-related fields, such as `appt/`, `status/`, or `type/`, the system will list appointments.
