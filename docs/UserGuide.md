@@ -123,26 +123,6 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 [Back to table of contents](#table-of-contents)
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the acceptable inputs:**<br>
-
-* **n/NAME**: This specifies the name of the client. Your input must be alphanumeric. <br> 
-  E.g. `John Doe`  
-* **p/PHONE_NUMBER**: This specifies the phone number of the client. Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
-  You may choose to include spaces but they are only allowed after +65 and in the middle of the 8 digits <br>
-  E.g. `+6598765432`, `+65 98765432`, `+65 9876 5432`, `98765432` or `9876 5432`.
-* **e/EMAIL**: This specifies the email address of the client. Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
-  The local and domain parts should be alphanumeric characters. <br> 
-  E.g. `johndoe@example.com`
-* **a/ADDRESS**: This specifies the address of the client. Your input must be alphanumeric. Special characters like `# - , . ( ) / ; : &` are accepted. <br>
-  E.g. `John street, block 123, #01-01`
-* **t/TAG**: This specifies the tag(s) of the client. Your input must be alphanumeric. <br>
-  E.g. `friend` or `patient`
-* **r/RANK**: This specifies the priority rank of the client. You can only input four types of priority, `stable` , `vulnerable` , `urgent` and `crisis` (all case-insensitive). <br>
-
-</div>
-
 ### 1. Viewing help : `help`
 
 Shows a message explaining how to access the help page.
@@ -180,9 +160,31 @@ add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
 > * All required fields must be provided.
 > * A person can have any number of tags (including 0).
 
+<div markdown="block" class="alert alert-info" id="client-acceptable-inputs">
+
+**:information_source: Here’s the fields and their acceptable inputs relating to clients:**<br>
+
+* **n/NAME**: This specifies the name of the client. Your input must be alphanumeric. <br>
+  E.g. `John Doe`
+* **p/PHONE_NUMBER**: This specifies the phone number of the client. Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
+  You may choose to include spaces but they are only allowed after +65 and in the middle of the 8 digits <br>
+  E.g. `+6598765432`, `+65 98765432`, `+65 9876 5432`, `98765432` or `9876 5432`.
+* **e/EMAIL**: This specifies the email address of the client. Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
+  The local and domain parts should be alphanumeric characters. <br>
+  E.g. `johndoe@example.com`
+* **a/ADDRESS**: This specifies the address of the client. Your input must be alphanumeric. Special characters like `# - , . ( ) / ; : &` are accepted. <br>
+  E.g. `John street, block 123, #01-01`
+* **t/TAG**: This specifies the tag(s) of the client. Your input must be alphanumeric. <br>
+  E.g. `friend` or `patient`
+* **r/RANK**: This specifies the priority rank of the client. You can only input four types of priority, `stable` , `vulnerable` , `urgent` and `crisis` (all case-insensitive). <br>
+
+</div>
+
 #### Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal`
+Adds a new client named John Doe with phone number 98765432, email address johnd@example.com, address John street, block 123, #01-01, and ranks the client as stable.
+* `add n/Betsy Crowe e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal t/friend`
+Adds a new client named Betsy Crowe with email address betsycrowe@example.com, phone number 91234567, address Newgate Prison, and assigns two tags criminal and friend to the client.
 
 #### Expected output:
 ```
@@ -230,6 +232,7 @@ edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…�
 > * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 > * You can remove all the person’s tags by typing `t/ ` without specifying any tags after it.
 > * You can use any combinations of the fields.
+> * You may refer to the above acceptable inputs [here](#client-acceptable-inputs).
 
 Examples:
 *  `edit John Doe p/91234567 e/johndoe@example.com r/urgent`  
