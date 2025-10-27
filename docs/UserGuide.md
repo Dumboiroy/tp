@@ -3,31 +3,61 @@ layout: page
 title: User Guide
 ---
 
-HeartLink is a **desktop app for managing contact details for Social Workers in Singapore. It is optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
+HeartLink is a desktop app for **managing clients' contacts and appointment ** for **Social Workers in Singapore**. It is optimized for use via a **Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
 
 ## Table of Contents
-1. [Quick start](#quick-start)
+1. [About this guide](#about-this-guide)
+2. [Quick start](#quick-start)
 2. [Features](#features)
     1. [List of commands](#list-of-commands)
     2. [Other features](#other-features)
-3. [Common Errors](#warnings)
+3. [Common errors](#warnings)
 4. [FAQ](#faq)
 5. [Command summary](#command-summary)
 
 
 --------------------------------------------------------------------------------------------------------------------
 
+## About this guide
+
+This guide provides instructions for Social Workers in Singapore on how to efficiently *manage client contacts and appointments* through program functions, including adding, editing, deleting, and searching entries using HeartLink.
+
+**Assumed Prior Knowledge:**
+
+* Knowledge of whether your operating system (OS) is running Windows, macOS, or Linux.
+* Comfortable using a command-line interface on Windows, macOS, or Linux.
+* Familiar with basic command-line actions like copying, pasting commands, and editing plain text files.
+* Knowledge of your role and responsibilities as a social worker in managing client contacts and appointments.
+
+**How to Use This Guide:**
+
+* Quick Start: Learn how to launch the app and get familiar with basic commands.
+* Features: In-depth explanations of each command, with syntax, usage steps, examples, and helpful tips.
+* Troubleshooting & FAQ: Solutions to common problems and answers to frequently asked questions.
+
+[Back to table of contents](#table-of-contents)
+
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
-   
-    > **How to check if you have Java `17` or above?**<br>
-    Click on start and search for Command Prompt/Terminal. Type `java -version` and click enter. You will see the 
-    java version installed on your computer. 
 
-    > **Don't have Java 17?** <br>
-    Install it [here](https://www.openlogic.com/openjdk-downloads)!
+   > **How to check if you have Java `17` or above?**
+   >
+   > 1. Open a command terminal.
+        - **Windows users**: Press `Windows + R`, type `cmd`, and press Enter.<br>
+        - **Mac users**: Open **Terminal** from Spotlight (press `⌘ + Space`, type `Terminal`).<br>
+        - **Linux users**: Open **Terminal** from your applications menu.
+   > 2. Type `java -version` and press Enter.
+   > 3. If Java is installed, you’ll see the version number (e.g., `java version "17.0.1"`).
+   > 4. The first number should be `17`.
+
+   > **If Java is not installed or the version is below 17:**
+   > 
+   > 1. Download and install Java 17 by following the guide:
+        - For **Windows users**: [Windows installation guide](#https://se-education.org/guides/tutorials/javaInstallationWindows.html).<br>
+        - For **Mac users**: [Mac installation guide](#https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
+        - For **Linux users**: [Linux installation guide](#https://se-education.org/guides/tutorials/javaInstallationLinux.html)<br>
+   > 2. After installation, restart your terminal and repeat the above steps to verify the version again.
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-T09-1/tp/releases).
 
