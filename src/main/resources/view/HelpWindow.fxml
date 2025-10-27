@@ -45,7 +45,7 @@
                 </HBox>
 
                 <TextArea fx:id="commandSummary" editable="false" styleClass="command_summary"
-                      text="$commandSummary" wrapText="true"/>
+                      text="$commandSummary" wrapText="true" prefRowCount="18"/>
             </VBox>
         </Scene>
     </scene>
