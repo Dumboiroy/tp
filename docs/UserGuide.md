@@ -882,19 +882,19 @@ Two confirmed appointments clash.
 
 ## Command summary
 
-| Action                 | Format, Examples                                                                                                                                                                                                 |
-|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Client**         | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                               |
-| **Edit Client**        | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                         |
-| **Delete Client**      | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                          |
-| **List Client**        | `list`                                                                                                                                                                                                           |
-| **Find Clients**       | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent`                                                                                                                              |
-| **Find Appointments**  | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today`                                                                                                                                         |
-| **Edit Appointment**   | `link -e id/APPOINTMENT_ID [appt/DATE [TIME]] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift`                    |
-| **Delete Appointment** | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395`                                                                                                                                                         |
+| Action                 | Format, Examples                                                                                                                                                                                               |
+|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Client**         | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                             |
+| **Edit Client**        | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                       |
+| **Delete Client**      | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                        |
+| **List Client**        | `list`                                                                                                                                                                                                         |
+| **Find Clients**       | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent`                                                                                                                            |
+| **Find Appointments**  | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today`                                                                                                                                       |
+| **Edit Appointment**   | `link -e id/APPOINTMENT_ID [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift`                    |
+| **Delete Appointment** | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395`                                                                                                                                                       |
 | **Add Appointment**    | `link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -c n/Alex appt/15-12-2025 2359 type/House Visit loc/Alex House len/60 msg/Bring Consent Form` |
-| **Clear All Entries**  | `clear`                                                                                                                                                                                                          |
-| **Help**               | `help`                                                                                                                                                                                                           |
-| **Exit Program**       | `exit`                                                                                                                                                                                                           |
+| **Clear All Entries**  | `clear`                                                                                                                                                                                                        |
+| **Help**               | `help`                                                                                                                                                                                                         |
+| **Exit Program**       | `exit`                                                                                                                                                                                                         |
 
 [Back to table of contents](#table-of-contents)
