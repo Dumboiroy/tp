@@ -69,7 +69,7 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-info" id="command-format">
 
 **:information_source: Notes about the command format:**<br>
 
@@ -158,7 +158,7 @@ add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
 > :bulb: **Tips:**
 > 
 > * All required fields must be provided.
-> * A person can have any number of tags (including 0).
+> * A person can have any number of tags (including 0). Unsure how? Refer [here](#command-format).
 
 <div markdown="block" class="alert alert-info" id="client-acceptable-inputs">
 
