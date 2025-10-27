@@ -4,7 +4,32 @@ title: Developer Guide
 ---
 
 * Table of Contents
-  {:toc}
+    1. [Acknowledgements](#acknowledgements)
+    2. [Setting up, getting started](#setting-up-getting-started)
+    3. [Design](#design)
+        1. [Architecture](#architecture)
+        2. [UI component](#ui-component)
+        3. [Logic component](#logic-component)
+        4. [Model component](#model-component)
+        5. [Storage component](#storage-component)
+        6. [Common classes](#common-classes)
+    4. [Implementation](#implementation)
+        1. [Proposed Undo/redo feature](#proposed-undoredo-feature)
+        2. [Proposed Data archiving](#proposed-data-archiving)
+    5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+        1. [Documentation guide](Documentation.md)
+        2. [Testing guide](Testing.md)
+        3. [Logging guide](Logging.md)
+        4. [Configuration guide](Configuration.md)
+        5. [DevOps guide](DevOps.md)
+    6. [Appendix: Requirements](#appendix-requirements)
+        1. [Product scope](#product-scope)
+        2. [User stories](#user-stories)
+        3. [Use cases](#use-cases)
+    7. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+        1. [Launch and shutdown](#launch-and-shutdown)
+        2. [Deleting a person](#deleting-a-person)
+        3. [Saving data](#saving-data)
 
 --------------------------------------------------------------------------------------------------------------------
 
