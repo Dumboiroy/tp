@@ -690,6 +690,8 @@ Two confirmed appointments clash.
 3. [Tag-related errors (Appointment)](#tag-related-errors-appointment)
 4. [Other errors](#other-errors)
 
+[Back to table of contents](#table-of-contents)
+
 ### Command-related errors
 **List of command-related errors**
 1. [add](#1-add)
@@ -697,6 +699,8 @@ Two confirmed appointments clash.
 3. [delete](#3-delete)
 4. [link](#4-link)
 5. [find](#5-find)
+
+[Back to table of contents](#table-of-contents)
 
 #### 1. `add`
 - Invalid syntax: `add` `add test` `add n/test` `add n/John Doe 12345678`
