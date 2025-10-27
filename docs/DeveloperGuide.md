@@ -506,7 +506,7 @@ Use case ends.
 
       Use case resumes at step 2.
 
-* 3b. Appointment details are invalid (date, time, duration, or status)
+* 3b. Appointment details are invalid (incorrect date, time, duration, or status)
     * 3b1. HeartLink shows an error message.
 
       Use case resumes at step 2.
@@ -520,6 +520,73 @@ Use case ends.
     * 3d1. HeartLink shows a duplicate appointment error.
 
       Use case resumes at step 2.
+
+**U6: Edit an Appointment**
+
+**MSS**
+
+1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
+2. HeartLink shows a list of clients with their appointment details.
+3. User selects a specific client and requests to edit an existing appointment using its Appointment ID.
+4. User provides updated details for the appointment (date, time, duration, location, type, message, or status).
+5. HeartLink updates the appointment with the provided details, ensuring that no scheduling conflict occurs.
+
+Use case ends.
+
+**Extensions**
+
+* 2a. No clients available
+  * 2a1. HeartLink shows an empty list.
+
+    Use case ends.
+
+* 3a. The given appointment ID does not exist
+  * 3a1. HeartLink shows an error message.
+
+    Use case resumes at step 2.
+
+* 3b. The provided details are invalid (incorrect date, time, duration, or status)
+  * 3b1. HeartLink shows an error message.
+
+    Use case resumes at step 2.
+
+* 3c. The appointment details clash with an existing appointment
+  * 3c1. HeartLink shows a scheduling conflict message.
+
+    Use case resumes at step 2.
+
+* 3d. The appointment ID is not found
+  * 3d1. HeartLink shows an error message.
+
+    Use case resumes at step 2.
+
+**U7: Delete an Appointment**
+
+**MSS**
+
+1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
+2. HeartLink shows a list of clients with their appointment details.
+3. User selects a specific client and requests to delete an existing appointment using its Appointment ID.
+4. HeartLink deletes the specified appointment from the client’s record and removes it from the database.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No clients available. 
+  * 2a1. HeartLink shows an empty list.
+
+    Use case ends.
+
+* 3a. The given appointment ID does not exist.
+  * 3a1. HeartLink shows an error message.
+
+    Use case resumes at step 2.
+
+* 3b. The appointment ID is invalid. 
+  * 3b1. HeartLink shows an error message.
+
+    Use case resumes at step 2.
 
 ### Non-Functional Requirements
 
