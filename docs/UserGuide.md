@@ -574,7 +574,7 @@ For example,
 > - `find r/urgent` will show list of all clients with their respective appointments.
 > - `find r/urgent appt/today` will only show list of appointments.
 >
-> The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
+> The order of the attributes does not matter.
 
 **Expected Output:**
 ```
