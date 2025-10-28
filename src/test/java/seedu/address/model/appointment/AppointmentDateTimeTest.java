@@ -44,6 +44,10 @@ public class AppointmentDateTimeTest {
         assertTrue(AppointmentDateTime.isValidDateTime("2-11-2024 1900"));
         //correct d-M-yyyy correct HHmm
         assertTrue(AppointmentDateTime.isValidDateTime("2-3-2024 1900"));
+        //edge case: 2100 is not a leap year
+        assertFalse(AppointmentDateTime.isValidDateTime("29-2-2100 1200"));
+        //edge case: 2400 is a leap year
+        assertTrue(AppointmentDateTime.isValidDateTime("29-2-2400 1200"));
     }
 
     @Test
