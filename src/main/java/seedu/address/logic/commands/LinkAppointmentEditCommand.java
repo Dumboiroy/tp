@@ -37,7 +37,6 @@ public class LinkAppointmentEditCommand extends LinkAppointmentCommand {
             "Edit flag: Updates an existing appointment for a client. \nParameters: "
                     + "link -e "
                     + PREFIX_ID + "ID "
-                    + "[" + PREFIX_NAME + "NAME] "
                     + "[" + PREFIX_APPOINTMENT + "DATE TIME] "
                     + "[" + PREFIX_LENGTH + "MINUTES] "
                     + "[" + PREFIX_LOCATION + "LOCATION] "
