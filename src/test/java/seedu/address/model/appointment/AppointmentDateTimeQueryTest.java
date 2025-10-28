@@ -31,4 +31,36 @@ public class AppointmentDateTimeQueryTest {
         // null -> returns false
         assertFalse(first.equals(null));
     }
+
+    @Test
+    public void isValidDateTimeQuery() {
+        // null -> false
+        assertFalse(AppointmentDateTimeQuery.isValidDateTimeQuery(null));
+        // empty string -> false
+        assertFalse(AppointmentDateTimeQuery.isValidDateTimeQuery(""));
+        // "today" is the only keyword -> true
+        assertTrue(AppointmentDateTimeQuery.isValidDateTimeQuery("today"));
+        // other keywords -> false
+        assertFalse(AppointmentDateTimeQuery.isValidDateTimeQuery("tomorrow"));
+        // +days (<= 4 characters) -> true
+        assertTrue(AppointmentDateTimeQuery.isValidDateTimeQuery("+234"));
+        // +days (> 4 characters) -> false
+        assertFalse(AppointmentDateTimeQuery.isValidDateTimeQuery("+23456"));
+        // -days (<= 4 characters) -> true
+        assertTrue(AppointmentDateTimeQuery.isValidDateTimeQuery("-234"));
+        // -days (> 4 characters) -> false
+        assertFalse(AppointmentDateTimeQuery.isValidDateTimeQuery("-23456"));
+        // single date valid format without HHmm -> true
+        assertTrue(AppointmentDateTimeQuery.isValidDateTimeQuery("4-10-2025"));
+        // single date invalid format without HHmm -> true
+        assertFalse(AppointmentDateTimeQuery.isValidDateTimeQuery("24-103-2025"));
+        // single date valid format with HHmm -> true
+        assertTrue(AppointmentDateTimeQuery.isValidDateTimeQuery("4-10-2025 1200"));
+        // single date valid format with invalid HHmm -> true
+        assertFalse(AppointmentDateTimeQuery.isValidDateTimeQuery("4-10-2025 12000"));
+        // "to" without date -> false
+        assertFalse(AppointmentDateTimeQuery.isValidDateTimeQuery("24-10-2025 1000 to"));
+        // "to" with date -> true
+        assertTrue(AppointmentDateTimeQuery.isValidDateTimeQuery("24-10-2025 1000 to 25-10-2025 1200"));
+    }
 }

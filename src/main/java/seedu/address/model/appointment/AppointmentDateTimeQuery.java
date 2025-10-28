@@ -22,8 +22,8 @@ public class AppointmentDateTimeQuery {
     public static final String KEYWORD_TODAY = "today";
     private static final String VALIDATION_REGEX =
             "^(today|"
-            + "[+-]\\d{1,4}" + "|\\d{2}-\\d{2}-\\d{4}( \\d{4})?|"
-            + "\\d{2}-\\d{2}-\\d{4}( \\d{4})? to \\d{2}-\\d{2}-\\d{4}( \\d{4})?)$";
+            + "[+-]\\d{1,4}" + "|\\d{1,2}-\\d{1,2}-\\d{4}( \\d{4})?|"
+            + "\\d{1,2}-\\d{1,2}-\\d{4}( \\d{4})? to \\d{1,2}-\\d{1,2}-\\d{4}( \\d{4})?)$";
     private final LocalDateTime start;
     private final LocalDateTime end;
 
@@ -60,7 +60,7 @@ public class AppointmentDateTimeQuery {
     }
 
     public static boolean isValidDateTimeQuery(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test != null && test.matches(VALIDATION_REGEX);
     }
 
     /**
