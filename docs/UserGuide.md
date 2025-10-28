@@ -6,45 +6,68 @@ title: User Guide
 HeartLink is a **desktop app for managing contact details for Social Workers in Singapore. It is optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
 
 ## Table of Contents
-1. [Quick start](#quick-start)
-2. [Features](#features)
-   1. [Command summary](#command-summary)
-   2. [List of commands](#list-of-commands)
-      1. [Viewing help](#1-viewing-help--help)
-      2. [Adding a person](#2-adding-a-person-add)
-      3. [Listing all persons](#3-listing-all-persons--list)
-      4. [Editing a person](#4-editing-a-person--edit)
-      5. [Deleting a person](#5-deleting-a-person--delete)
-      6. [Managing Appointments with Clients](#6-managing-appointments-with-clients--link)
-         1. [Linking appointments](#i-creating-an-appointment-link--c)
-         2. [Editing appointments](#ii-editing-an-appointment--link--e)
-         3. [Deleting appointments](#iii-deleting-an-appointment--link--d)
-      7. [Look up clients by fields](#7-look-up-clients-by-fields-find)
-         1. [Client name](#i-client-name-keyword)
-         2. [Client phone number](#ii-client-phone-number-phone)
-         3. [Client email](#iii-client-email-email)
-         4. [Client tag](#iv-client-tag-tag)
-         5. [Client rank](#v-client-rank-rank)
-         6. [Chaining attributes](#vi-chaining-client-attributes)
-      8. [Look up appointments by fields](#8-look-up-appointments-by-fields-find)
-         1. [Appointment meeting time](#i-appointment-meeting-time-date-time)
-         2. [Appointment status](#ii-appointment-status-status)
-         3. [Appointment type](#iii-appointment-type-type)
-         4. [Chaining all attributes](#iv-chaining-commands)
-      9. [Clearing all entries](#9-clearing-all-entries--clear)
-      10. [Exiting the program](#10-exiting-the-program--exit)
-   3. [Other features](#other-features)
-3. [Common Errors](#warnings)
-   1. [Command-related errors](#command-related-errors)
-      1. [add](#1-add)
-      2. [edit](#2-edit)
-      3. [delete](#3-delete)
-      4. [link](#4-link)
-      5. [find](#5-find)
-   2. [Tag-related errors (General)](#tag-related-errors-general)
-   3. [Tag-related errors (Appointment)](#tag-related-errors-appointment)
-   4. [Other errors](#other-errors)
-4. [FAQ](#faq)
+<ol>
+  <li><a href="#quick-start">Quick start</a></li>
+  <li><a href="#features">Features</a>
+    <ol type="a">
+      <li><a href="#command-summary">Command summary</a></li>
+      <li><a href="#list-of-commands">List of commands</a>
+        <ol type="i">
+          <li><a href="#1-viewing-help--help">Viewing help</a></li>
+          <li><a href="#2-adding-a-person-add">Adding a person</a></li>
+          <li><a href="#3-listing-all-persons--list">Listing all persons</a></li>
+          <li><a href="#4-editing-a-person--edit">Editing a person</a></li>
+          <li><a href="#5-deleting-a-person--delete">Deleting a person</a></li>
+          <li><a href="#6-managing-appointments-with-clients--link">Managing Appointments with Clients</a>
+            <ol type="1">
+              <li><a href="#i-creating-an-appointment-link--c">Linking appointments</a></li>
+              <li><a href="#ii-editing-an-appointment--link--e">Editing appointments</a></li>
+              <li><a href="#iii-deleting-an-appointment--link--d">Deleting appointments</a></li>
+            </ol>
+          </li>
+          <li><a href="#7-looking-up-clients-by-fields-find">Looking up clients by fields</a>
+            <ol type="1">
+              <li><a href="#i-client-name-keyword">Client name</a></li>
+              <li><a href="#ii-client-phone-number-phone">Client phone number</a></li>
+              <li><a href="#iii-client-email-email">Client email</a></li>
+              <li><a href="#iv-client-tag-tag">Client tag</a></li>
+              <li><a href="#v-client-rank-rank">Client rank</a></li>
+              <li><a href="#vi-chaining-client-attributes">Chaining attributes</a></li>
+            </ol>
+          </li>
+          <li><a href="#8-looking-up-appointments-by-fields-find">Looking up appointments by fields</a>
+            <ol type="1">
+              <li><a href="#i-appointment-meeting-time-date-time">Appointment meeting time</a></li>
+              <li><a href="#ii-appointment-status-status">Appointment status</a></li>
+              <li><a href="#iii-appointment-type-type">Appointment type</a></li>
+              <li><a href="#iv-chaining-commands">Chaining all attributes</a></li>
+            </ol>
+          </li>
+          <li><a href="#9-clearing-all-entries--clear">Clearing all entries</a></li>
+          <li><a href="#10-exiting-the-program--exit">Exiting the program</a></li>
+        </ol>
+      </li>
+      <li><a href="#other-features">Other features</a></li>
+    </ol>
+  </li>
+  <li><a href="#warnings">Common Errors</a>
+    <ol type="1">
+      <li><a href="#command-related-errors">Command-related errors</a>
+        <ol type="1">
+          <li><a href="#1-add">add</a></li>
+          <li><a href="#2-edit">edit</a></li>
+          <li><a href="#3-delete">delete</a></li>
+          <li><a href="#4-link">link</a></li>
+          <li><a href="#5-find">find</a></li>
+        </ol>
+      </li>
+      <li><a href="#tag-related-errors-general">Tag-related errors (General)</a></li>
+      <li><a href="#tag-related-errors-appointment">Tag-related errors (Appointment)</a></li>
+      <li><a href="#other-errors">Other errors</a></li>
+    </ol>
+  </li>
+  <li><a href="#faq">FAQ</a></li>
+</ol>
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -126,20 +149,20 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 ### Command summary
 
-| Action                                                          | Format, Examples                                                                                                                                                                                               |
-|-----------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **[Add Client](#2-adding-a-person-add)**                        | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                             |
-| **[Edit Client](#4-editing-a-person--edit)**                    | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                       |
-| **[Delete Client](#5-deleting-a-person--delete)**               | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                        |
-| **[List Client](#3-listing-all-persons--list)**                 | `list`                                                                                                                                                                                                         |
-| **[Add Appointment](#i-creating-an-appointment-link--c)**       | `link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -c n/Alex appt/15-12-2025 2359 type/House Visit loc/Alex House len/60 msg/Bring Consent Form` |
-| **[Edit Appointment](#ii-editing-an-appointment--link--e)**     | `link -e id/APPOINTMENT_ID [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift`                    |
-| **[Delete Appointment](#iii-deleting-an-appointment--link--d)** | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395`                                                                                                                                                       |
-| **[Find Clients](#7-look-up-clients-by-fields-find)**           | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent`                                                                                                                            |
-| **[Find Appointments](#8-look-up-appointments-by-fields-find)** | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today`                                                                                                                                       |
-| **[Clear All Entries](#9-clearing-all-entries--clear)**         | `clear`                                                                                                                                                                                                        |
-| **[Help](#1-viewing-help--help)**                               | `help`                                                                                                                                                                                                         |
-| **[Exit Program](#10-exiting-the-program--exit)**                                               | `exit`                                                                                                                                                                                                         |
+| Action                                                             | Format, Examples                                                                                                                                                                                               |
+|--------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **[Add Client](#2-adding-a-person-add)**                           | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                             |
+| **[Edit Client](#4-editing-a-person--edit)**                       | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                       |
+| **[Delete Client](#5-deleting-a-person--delete)**                  | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                        |
+| **[List Client](#3-listing-all-persons--list)**                    | `list`                                                                                                                                                                                                         |
+| **[Add Appointment](#i-creating-an-appointment-link--c)**          | `link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -c n/Alex appt/15-12-2025 2359 type/House Visit loc/Alex House len/60 msg/Bring Consent Form` |
+| **[Edit Appointment](#ii-editing-an-appointment--link--e)**        | `link -e id/APPOINTMENT_ID [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift`                    |
+| **[Delete Appointment](#iii-deleting-an-appointment--link--d)**    | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395`                                                                                                                                                       |
+| **[Find Clients](#7-looking-up-clients-by-fields-find)**           | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent`                                                                                                                            |
+| **[Find Appointments](#8-looking-up-appointments-by-fields-find)** | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today`                                                                                                                                       |
+| **[Clear All Entries](#9-clearing-all-entries--clear)**            | `clear`                                                                                                                                                                                                        |
+| **[Help](#1-viewing-help--help)**                                  | `help`                                                                                                                                                                                                         |
+| **[Exit Program](#10-exiting-the-program--exit)**                  | `exit`                                                                                                                                                                                                         |
 
 [Back to table of contents](#table-of-contents)
 
@@ -439,10 +462,10 @@ The appointment with the same ID specifed in the command, is deleted.
 
 [Back to table of contents](#table-of-contents)
 
-### 7. Look up clients by fields: `find`
+### 7. Looking up clients by fields: `find`
 
 Here is the first part of `find` command specific for clients.
-[Click here](#8-look-up-appointments-by-fields-find) to go to the second part for finding by appointment!
+[Click here](#8-looking-up-appointments-by-fields-find) to go to the second part for finding by appointment!
 
 Format:
 ```
@@ -528,10 +551,10 @@ The address book lists all contacts that fits the specified constraints.
 
 [Back to table of contents](#table-of-contents)
 
-### 8. Look up appointments by fields `find`
+### 8. Looking up appointments by fields `find`
 
 Here is the second part of `find` command specific for appointments.
-[Click here](#7-look-up-clients-by-fields-find) to go back to the first part for finding by client!
+[Click here](#7-looking-up-clients-by-fields-find) to go back to the first part for finding by client!
 
 Format:
 ```
