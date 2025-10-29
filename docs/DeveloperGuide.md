@@ -3,8 +3,33 @@ layout: page
 title: Developer Guide
 ---
 
-* Table of Contents
-  {:toc}
+## Table of Contents
+1. [Acknowledgements](#acknowledgements)
+2. [Setting up, getting started](#setting-up-getting-started)
+3. [Design](#design)
+    1. [Architecture](#architecture)
+    2. [UI component](#ui-component)
+    3. [Logic component](#logic-component)
+    4. [Model component](#model-component)
+    5. [Storage component](#storage-component)
+    6. [Common classes](#common-classes)
+4. [Implementation](#implementation)
+    1. [Proposed Undo/redo feature](#proposed-undoredo-feature)
+    2. [Proposed Data archiving](#proposed-data-archiving)
+5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+    1. [Documentation guide](Documentation.md)
+    2. [Testing guide](Testing.md)
+    3. [Logging guide](Logging.md)
+    4. [Configuration guide](Configuration.md)
+    5. [DevOps guide](DevOps.md)
+6. [Appendix: Requirements](#appendix-requirements)
+    1. [Product scope](#product-scope)
+    2. [User stories](#user-stories)
+    3. [Use cases](#use-cases)
+7. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+    1. [Launch and shutdown](#launch-and-shutdown)
+    2. [Deleting a person](#deleting-a-person)
+    3. [Saving data](#saving-data)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -13,11 +38,15 @@ title: Developer Guide
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
   original source as well}
 
+[Back to table of contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
+
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -79,6 +108,8 @@ implementation of a component), as illustrated in the (partial) class diagram be
 
 The sections below give more details of each component.
 
+[Back to table of contents](#table-of-contents)
+
 ### UI component
 
 The **API** of this component is specified in [
@@ -103,6 +134,8 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
 
+[Back to table of contents](#table-of-contents)
+
 ### Logic component
 
 **API** : [
@@ -112,7 +145,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete Alice Pauline")` API
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API
 call as an example.
 
 ![Interactions Inside the Logic Component for the `delete Alice Pauline` Command](images/DeleteSequenceDiagram.png)
@@ -144,6 +177,8 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser`
   interface so that they can be treated similarly where possible e.g, during testing.
 
+[Back to table of contents](#table-of-contents)
+
 ### Model component
 
 **API** : [
@@ -169,6 +204,8 @@ The `Model` component,
 
 </div>
 
+[Back to table of contents](#table-of-contents)
+
 ### Storage component
 
 **API** : [
@@ -185,9 +222,13 @@ The `Storage` component,
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects
   that belong to the `Model`)
 
+[Back to table of contents](#table-of-contents)
+
 ### Common classes
 
 Classes used by multiple components are in the `seedu.address.commons` package.
+
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -195,109 +236,12 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo
-history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the
-following operations:
-
-* `VersionedAddressBook#commit()`— Saves the current address book state in its history.
-* `VersionedAddressBook#undo()`— Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()`— Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and
-`Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the
-initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete Alice Pauline` command to delete a person named Alice Pauline in the address book. The `delete` command calls
-`Model#commitAddressBook()`, causing the modified state of the address book after the `delete Alice Pauline` command executes to be
-saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls
-`Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the
-`undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once
-to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once
-to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as
-`list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus,
-the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not
-pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be
-purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern
-desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-    * Pros: Easy to implement.
-    * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
 
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
 
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -308,6 +252,8 @@ _{Explain here how the data archiving feature will be implemented}_
 * [Logging guide](Logging.md)
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
+
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -330,6 +276,8 @@ HeartLink provides fast and convenient access to client contact details while he
 By reducing the burden of administrative tasks, remembering check-ins, and organizing deadlines across scattered
 records, our address book minimizes paperwork stress and allows social workers to focus on
 supporting the people who need them.
+
+[Back to table of contents](#table-of-contents)
 
 ### User stories
 
@@ -369,6 +317,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | social worker               | have a system that works reliably               | ensure wrong commands don’t destroy the address book                  |
 
 *{More to be added}*
+
+[Back to table of contents](#table-of-contents)
 
 ### Use cases
 
@@ -506,7 +456,7 @@ Use case ends.
 
       Use case resumes at step 2.
 
-* 3b. Appointment details are invalid (date, time, duration, or status)
+* 3b. Appointment details are invalid (incorrect date, time, duration, or status)
     * 3b1. HeartLink shows an error message.
 
       Use case resumes at step 2.
@@ -520,6 +470,75 @@ Use case ends.
     * 3d1. HeartLink shows a duplicate appointment error.
 
       Use case resumes at step 2.
+
+**U6: Edit an Appointment**
+
+**MSS**
+
+1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
+2. HeartLink shows a list of clients with their appointment details.
+3. User selects a specific client and requests to edit an existing appointment using its Appointment ID.
+4. User provides updated details for the appointment (date, time, duration, location, type, message, or status).
+5. HeartLink updates the appointment with the provided details, ensuring that no scheduling conflict occurs.
+
+Use case ends.
+
+**Extensions**
+
+* 2a. No clients available
+  * 2a1. HeartLink shows an empty list.
+
+    Use case ends.
+
+* 3a. The given appointment ID does not exist
+  * 3a1. HeartLink shows an error message.
+
+    Use case resumes at step 2.
+
+* 3b. The provided details are invalid (incorrect date, time, duration, or status)
+  * 3b1. HeartLink shows an error message.
+
+    Use case resumes at step 2.
+
+* 3c. The appointment details clash with an existing appointment
+  * 3c1. HeartLink shows a scheduling conflict message.
+
+    Use case resumes at step 2.
+
+* 3d. The appointment ID is not found
+  * 3d1. HeartLink shows an error message.
+
+    Use case resumes at step 2.
+
+**U7: Delete an Appointment**
+
+**MSS**
+
+1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
+2. HeartLink shows a list of clients with their appointment details.
+3. User selects a specific client and requests to delete an existing appointment using its Appointment ID.
+4. HeartLink deletes the specified appointment from the client’s record and removes it from the database.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. No clients available. 
+  * 2a1. HeartLink shows an empty list.
+
+    Use case ends.
+
+* 3a. The given appointment ID does not exist.
+  * 3a1. HeartLink shows an error message.
+
+    Use case resumes at step 2.
+
+* 3b. The appointment ID is invalid. 
+  * 3b1. HeartLink shows an error message.
+
+    Use case resumes at step 2.
+
+[Back to table of contents](#table-of-contents)
 
 ### Non-Functional Requirements
 
@@ -535,6 +554,8 @@ Use case ends.
 6. **Process Requirement** Our project is expected to adhere to a schedule that delivers a feature set every week
    throughout the second half of the semester.
 7. **Quality Assurance** All source code shall achieve a minimum of 80% unit test coverage.
+
+[Back to table of contents](#table-of-contents)
 
 ### Glossary
 
@@ -552,6 +573,8 @@ Use case ends.
 * **Scheduling conflict**: A clash where two appointments for the same client overlap in time.
 * **Validation rule**: A constraint that ensures inputs (e.g., date, phone number, email) are correct before the system
   accepts them.
+
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -584,23 +607,27 @@ testers are expected to do more *exploratory* testing.
 
 [//]: # (TODO: Update test cases for delete command)
 
+[Back to table of contents](#table-of-contents)
+
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
 
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-    1. Test case: `delete Hary`<br>
-       Expected: The contact for a person named Hary is deleted from the list. Details of the deleted contact shown in the status message.
+    1. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
        Timestamp in the status bar is updated.
 
-    1. Test case: `delete Joe` where Joe does not exist in the list<br>
+    1. Test case: `delete 0`<br>
        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is a name that is not in the list)<br>
+    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+[Back to table of contents](#table-of-contents)
 
 ### Saving data
 
@@ -609,3 +636,5 @@ testers are expected to do more *exploratory* testing.
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+[Back to table of contents](#table-of-contents)
