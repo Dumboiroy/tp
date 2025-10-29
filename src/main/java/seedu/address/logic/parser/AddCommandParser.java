@@ -50,9 +50,19 @@ public class AddCommandParser implements Parser<AddCommand> {
         Rank rank = ParserUtil.parseRank(argMultimap.getValue(PREFIX_RANK).orElse(RankType.NONE.toString()));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
+        validateTags(tagList);
+
         Person person = new Person(name, phone, email, address, tagList, rank);
 
         return new AddCommand(person);
+    }
+
+    private void validateTags(Set<Tag> tagList) throws ParseException {
+        for (Tag tag : tagList) {
+            if (tag.tagName.length() > 30) {
+                throw new ParseException("Tag cannot be greater than 30 characters!");
+            }
+        }
     }
 
     /**
