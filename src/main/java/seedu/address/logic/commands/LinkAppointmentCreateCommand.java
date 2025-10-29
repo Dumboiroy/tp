@@ -16,6 +16,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
@@ -55,6 +56,12 @@ public class LinkAppointmentCreateCommand extends LinkAppointmentCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        AppointmentId newId = model.generateId();
+
+        this.appointment = new Appointment(newId, this.appointment.getClientName(), this.appointment.getDateTime(),
+                this.appointment.getLength(), this.appointment.getLocation(), this.appointment.getType(),
+                this.appointment.getMessage(), this.appointment.getStatus());
 
         // Attach appointment to the model (global list)
         if (model.hasAppointment(appointment)) {

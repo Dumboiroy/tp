@@ -7,6 +7,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.person.Person;
 
 /**
@@ -166,4 +167,9 @@ public interface Model {
      * Returns an observable object for binding with FXML components
      */
     ObjectProperty<ViewMode> getObservableViewMode();
+
+    /**
+     * Generates a random AppointmentId
+     */
+    AppointmentId generateId();
 }

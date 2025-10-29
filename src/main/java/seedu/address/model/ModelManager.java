@@ -15,6 +15,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.person.Person;
 
 /**
@@ -197,7 +198,6 @@ public class ModelManager implements Model {
         deleteAppointment(target);
     }
 
-
     //=========== Filtered Appointment List Accessors =======================================================
 
     @Override
@@ -252,5 +252,12 @@ public class ModelManager implements Model {
     @Override
     public ObjectProperty<ViewMode> getObservableViewMode() {
         return visibleViewMode;
+    }
+
+    //=========== ID List Accessors =======================================================]
+
+    @Override
+    public AppointmentId generateId() {
+        return addressBook.generateId();
     }
 }

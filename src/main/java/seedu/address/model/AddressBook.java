@@ -2,12 +2,15 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDateTimeQuery;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.AppointmentQuery;
 import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.appointment.UniqueAppointmentList;
@@ -22,6 +25,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueAppointmentList appointments;
+    private final List<AppointmentId> idList;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -33,6 +37,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         appointments = new UniqueAppointmentList();
+        idList = new ArrayList<>();
     }
 
     public AddressBook() {}
@@ -57,6 +62,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void setAppointments(List<Appointment> appointments) {
         this.appointments.setAppointments(appointments);
+
+        for (Appointment appt : appointments) {
+            idList.add(appt.getId());
+        }
     }
 
     /**
@@ -143,23 +152,40 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Add appointment to the {@code AddressBook} and update the
+     * Adds an appointment to the {@code AddressBook} and update the
      * {@code persons} list if applicable.
      */
     public void addAppointment(Appointment a) {
         appointments.add(a);
+        idList.add(a.getId());
     }
 
+    /**
+     * Removes an appointment from the {@code AddressBook} and update the
+     * {@code persons} list if applicable.
+     */
     public void removeAppointment(Appointment a) {
         appointments.remove(a);
+        idList.remove(a.getId());
     }
 
+    /**
+     * Updates an appointment to the {@code AddressBook} and update the
+     * {@code persons} list if applicable.
+     */
     public void setAppointment(Appointment target, Appointment editedAppointment) {
         requireNonNull(editedAppointment);
-        /*
-        TODO: If the client name is edited from A to B, the target must be removed from A.
-        */
         appointments.setAppointment(target, editedAppointment);
+        idList.remove(target.getId());
+        idList.add(editedAppointment.getId());
+    }
+
+    public AppointmentId generateId() {
+        AppointmentId tempId = new AppointmentId(UUID.randomUUID().toString().substring(0, 7));
+        while (idList.contains(tempId)) {
+            tempId = new AppointmentId(UUID.randomUUID().toString().substring(0, 7));
+        }
+        return tempId;
     }
 
     //// util methods
@@ -195,7 +221,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         AddressBook otherAddressBook = (AddressBook) other;
         return persons.equals(otherAddressBook.persons)
-                && appointments.equals(otherAddressBook.appointments);
+                && appointments.equals(otherAddressBook.appointments)
+                && idList.equals(otherAddressBook.idList);
     }
 
     @Override

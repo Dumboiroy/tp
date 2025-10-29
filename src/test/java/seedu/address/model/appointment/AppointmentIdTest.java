@@ -31,13 +31,6 @@ public class AppointmentIdTest {
     }
 
     @Test
-    public void random_id_constructor() {
-        AppointmentId id = new AppointmentId();
-        assertNotNull(id.toString());
-        assertEquals(7, id.toString().length());
-    }
-
-    @Test
     public void fixed_id_constructor() {
         String idStr = "testing";
         AppointmentId id = new AppointmentId(idStr);
@@ -45,33 +38,16 @@ public class AppointmentIdTest {
     }
 
     @Test
-    public void generateId() {
-        List<String> idList = new ArrayList<>();
-        AppointmentId dummyApptId = new AppointmentId("dummy");
-
-        for (int i = 0; i < 30; i++) {
-            idList.add(dummyApptId.generateId(ID_FILEPATH));
-        }
-
-        assertEquals(30, idList.size());
-    }
-
-    @Test
     public void correct_toString() {
         AppointmentId dummyApptId = new AppointmentId("dummy");
-        AppointmentId randomApptId = new AppointmentId();
         assertEquals("dummy", dummyApptId.toString());
-        assertEquals(7, randomApptId.toString().length());
     }
 
     @Test
     public void equals() {
-        AppointmentId random1 = new AppointmentId();
-        AppointmentId random2 = new AppointmentId();
         AppointmentId dummy1 = new AppointmentId("dummy");
         AppointmentId dummy2 = new AppointmentId("dummy");
 
         assertEquals(dummy1, dummy2);
-        assertNotEquals(random1, random2);
     }
 }
