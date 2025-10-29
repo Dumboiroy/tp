@@ -3,31 +3,61 @@ layout: page
 title: User Guide
 ---
 
-HeartLink is a **desktop app for managing contact details for Social Workers in Singapore. It is optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
+HeartLink is a desktop app for **managing clients' contacts and appointment** for **social workers in Singapore**. It is optimized for use via a **Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
 
 ## Table of Contents
-1. [Quick start](#quick-start)
+1. [About this guide](#about-this-guide)
+2. [Quick start](#quick-start)
 2. [Features](#features)
     1. [List of commands](#list-of-commands)
     2. [Other features](#other-features)
-3. [Common Errors](#warnings)
+3. [Common errors](#warnings)
 4. [FAQ](#faq)
 5. [Command summary](#command-summary)
 
 
 --------------------------------------------------------------------------------------------------------------------
 
+## About this guide
+
+This guide provides instructions for Social Workers in Singapore on how to efficiently *manage client contacts and appointments* through program functions, including adding, editing, deleting, and searching entries using HeartLink.
+
+**Assumed Prior Knowledge:**
+
+* Knowledge of whether your operating system (OS) is running Windows, macOS, or Linux.
+* Comfortable using a command-line interface on Windows, macOS, or Linux.
+* Familiar with basic command-line actions like copying, pasting commands, and editing plain text files.
+* Knowledge of your role and responsibilities as a social worker in managing client contacts and appointments.
+
+**How to Use This Guide:**
+
+* Quick Start: Learn how to launch the app and get familiar with basic commands.
+* Features: In-depth explanations of each command, with syntax, usage steps, examples, and helpful tips.
+* Troubleshooting & FAQ: Solutions to common problems and answers to frequently asked questions.
+
+[Back to table of contents](#table-of-contents)
+
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
-   
-    > **How to check if you have Java `17` or above?**<br>
-    Click on start and search for Command Prompt/Terminal. Type `java -version` and click enter. You will see the 
-    java version installed on your computer. 
 
-    > **Don't have Java 17?** <br>
-    Install it [here](https://www.openlogic.com/openjdk-downloads)!
+   > **How to check if you have Java `17` or above?**
+   >
+   > 1. Open a command terminal.<br>
+        - **Windows users**: Press `Windows + R`, type `cmd`, and press Enter.<br>
+        - **Mac users**: Open **Terminal** from Spotlight (press `⌘ + Space`, type `Terminal`).<br>
+        - **Linux users**: Open **Terminal** from your applications menu.
+   > 2. Type `java -version` and press Enter.
+   > 3. If Java is installed, you’ll see the version number (e.g., `java version "17.0.1"`).
+   > 4. The first number should be `17`.
+
+   > **If Java is not installed or the version is below 17:**
+   > 
+   > 1. Download and install Java 17 by following the guide:<br>
+        - For **Windows users**: [Windows installation guide](#https://se-education.org/guides/tutorials/javaInstallationWindows.html).<br>
+        - For **Mac users**: [Mac installation guide](#https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
+        - For **Linux users**: [Linux installation guide](#https://se-education.org/guides/tutorials/javaInstallationLinux.html)<br>
+   > 2. After installation, restart your terminal and repeat the above steps to verify the version again.
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-T09-1/tp/releases).
 
@@ -39,7 +69,7 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
    > 1. Open start and search for Command Prompt or Terminal.
    > 2. Type `cd [filename]` to navigate to the folder with your HeartLink jar. <br>
    >  E.g. If your jar is in `Users\(name)\Downloads` and you are currently
-   >  in `Users\(name)`, you will type `cd Downloads` in the terminal)
+   >  in `Users\(name)`, you will type `cd Downloads` in the terminal).
    > 3. Type `java -jar HeartLink.jar` and HeartLink will open!
 
     A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -69,7 +99,7 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-info" id="command-format">
 
 **:information_source: Notes about the command format:**<br>
 
@@ -123,26 +153,6 @@ HeartLink is a **desktop app for managing contact details for Social Workers in 
 
 [Back to table of contents](#table-of-contents)
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the acceptable inputs:**<br>
-
-* **n/NAME**: This specifies the name of the client. Your input must be alphanumeric. <br> 
-  E.g. `John Doe`  
-* **p/PHONE_NUMBER**: This specifies the phone number of the client. Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
-  You may choose to include spaces but they are only allowed after +65 and in the middle of the 8 digits <br>
-  E.g. `+6598765432`, `+65 98765432`, `+65 9876 5432`, `98765432` or `9876 5432`.
-* **e/EMAIL**: This specifies the email address of the client. Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
-  The local and domain parts should be alphanumeric characters. <br> 
-  E.g. `johndoe@example.com`
-* **a/ADDRESS**: This specifies the address of the client. Your input must be alphanumeric. Special characters like `# - , . ( ) / ; : &` are accepted. <br>
-  E.g. `John street, block 123, #01-01`
-* **t/TAG**: This specifies the tag(s) of the client. Your input must be alphanumeric. <br>
-  E.g. `friend` or `patient`
-* **r/RANK**: This specifies the priority rank of the client. You can only input four types of priority, `stable` , `vulnerable` , `urgent` and `crisis` (all case-insensitive). <br>
-
-</div>
-
 ### 1. Viewing help : `help`
 
 Shows a message explaining how to access the help page.
@@ -177,12 +187,34 @@ add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
 
 > :bulb: **Tips:**
 > 
-> * All required fields must be provided
-> * A person can have any number of tags (including 0)
+> * All required fields must be provided.
+> * A person can have any number of tags (including 0). Unsure how? Refer [here](#command-format).
+
+<div markdown="block" class="alert alert-info" id="client-acceptable-inputs">
+
+**:information_source: Here’s the fields and their acceptable inputs relating to clients:**<br>
+
+* **n/NAME**: This specifies the name of the client. Your input must be alphanumeric. <br>
+  E.g. `John Doe`
+* **p/PHONE_NUMBER**: This specifies the phone number of the client. Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
+  You may choose to include spaces but they are only allowed after +65 and in the middle of the 8 digits <br>
+  E.g. `+6598765432`, `+65 98765432`, `+65 9876 5432`, `98765432` or `9876 5432`.
+* **e/EMAIL**: This specifies the email address of the client. Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
+  The local and domain parts should be alphanumeric characters. <br>
+  E.g. `johndoe@example.com`
+* **a/ADDRESS**: This specifies the address of the client. Your input must be alphanumeric. Special characters like `# - , . ( ) / ; : &` are accepted. <br>
+  E.g. `John street, block 123, #01-01`
+* **t/TAG**: This specifies the tag(s) of the client. Your input must be alphanumeric. <br>
+  E.g. `friend` or `patient`
+* **r/RANK**: This specifies the priority rank of the client. You can only input four types of priority, `stable` , `vulnerable` , `urgent` and `crisis` (all case-insensitive). <br>
+
+</div>
 
 #### Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal`
+Adds a new client named John Doe with phone number 98765432, email address johnd@example.com, address John street, block 123, #01-01, and ranks the client as stable.
+* `add n/Betsy Crowe e/betsycrowe@example.com a/Newgate Prison p/91234567 t/criminal t/friend`
+Adds a new client named Betsy Crowe with email address betsycrowe@example.com, phone number 91234567, address Newgate Prison, and assigns two tags criminal and friend to the client.
 
 #### Expected output:
 ```
@@ -230,6 +262,7 @@ edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…�
 > * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 > * You can remove all the person’s tags by typing `t/ ` without specifying any tags after it.
 > * You can use any combinations of the fields.
+> * You may refer to the above acceptable inputs [here](#client-acceptable-inputs).
 
 Examples:
 *  `edit John Doe p/91234567 e/johndoe@example.com r/urgent`  
@@ -547,7 +580,7 @@ List all appointments with the given status.
 
 Example:
 * `find status/cancelled`<br>
-List all cancelled appointments for you
+List all cancelled appointments for you.
 
 [Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
@@ -565,7 +598,7 @@ It is possible to chain these fields with [client fields](#7-look-up-clients-by-
 
 Example:
 * `find r/urgent appt/today`
-This command allows you to find today's appointment for urgent clients
+This command allows you to find today's appointment for urgent clients.
 
 > Although the leading command to list appointments and clients is the same, the behavior differs depending on the fields provided.
 If you include any appointment-related fields, such as `appt/`, `status/`, or `type/`, the system will list appointments.
