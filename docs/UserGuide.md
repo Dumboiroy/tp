@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-HeartLink is a desktop app for **managing clients' contacts and appointment ** for **Social Workers in Singapore**. It is optimized for use via a **Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
+HeartLink is a desktop app for **managing clients' contacts and appointment** for **social workers in Singapore**. It is optimized for use via a **Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
 
 ## Table of Contents
 1. [About this guide](#about-this-guide)
@@ -43,7 +43,7 @@ This guide provides instructions for Social Workers in Singapore on how to effic
 
    > **How to check if you have Java `17` or above?**
    >
-   > 1. Open a command terminal.
+   > 1. Open a command terminal.<br>
         - **Windows users**: Press `Windows + R`, type `cmd`, and press Enter.<br>
         - **Mac users**: Open **Terminal** from Spotlight (press `⌘ + Space`, type `Terminal`).<br>
         - **Linux users**: Open **Terminal** from your applications menu.
@@ -53,7 +53,7 @@ This guide provides instructions for Social Workers in Singapore on how to effic
 
    > **If Java is not installed or the version is below 17:**
    > 
-   > 1. Download and install Java 17 by following the guide:
+   > 1. Download and install Java 17 by following the guide:<br>
         - For **Windows users**: [Windows installation guide](#https://se-education.org/guides/tutorials/javaInstallationWindows.html).<br>
         - For **Mac users**: [Mac installation guide](#https://se-education.org/guides/tutorials/javaInstallationMac.html).<br>
         - For **Linux users**: [Linux installation guide](#https://se-education.org/guides/tutorials/javaInstallationLinux.html)<br>
@@ -69,7 +69,7 @@ This guide provides instructions for Social Workers in Singapore on how to effic
    > 1. Open start and search for Command Prompt or Terminal.
    > 2. Type `cd [filename]` to navigate to the folder with your HeartLink jar. <br>
    >  E.g. If your jar is in `Users\(name)\Downloads` and you are currently
-   >  in `Users\(name)`, you will type `cd Downloads` in the terminal)
+   >  in `Users\(name)`, you will type `cd Downloads` in the terminal).
    > 3. Type `java -jar HeartLink.jar` and HeartLink will open!
 
     A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>

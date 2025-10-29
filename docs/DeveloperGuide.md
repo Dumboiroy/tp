@@ -3,33 +3,33 @@ layout: page
 title: Developer Guide
 ---
 
-* Table of Contents
-    1. [Acknowledgements](#acknowledgements)
-    2. [Setting up, getting started](#setting-up-getting-started)
-    3. [Design](#design)
-        1. [Architecture](#architecture)
-        2. [UI component](#ui-component)
-        3. [Logic component](#logic-component)
-        4. [Model component](#model-component)
-        5. [Storage component](#storage-component)
-        6. [Common classes](#common-classes)
-    4. [Implementation](#implementation)
-        1. [Proposed Undo/redo feature](#proposed-undoredo-feature)
-        2. [Proposed Data archiving](#proposed-data-archiving)
-    5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
-        1. [Documentation guide](Documentation.md)
-        2. [Testing guide](Testing.md)
-        3. [Logging guide](Logging.md)
-        4. [Configuration guide](Configuration.md)
-        5. [DevOps guide](DevOps.md)
-    6. [Appendix: Requirements](#appendix-requirements)
-        1. [Product scope](#product-scope)
-        2. [User stories](#user-stories)
-        3. [Use cases](#use-cases)
-    7. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
-        1. [Launch and shutdown](#launch-and-shutdown)
-        2. [Deleting a person](#deleting-a-person)
-        3. [Saving data](#saving-data)
+## Table of Contents
+1. [Acknowledgements](#acknowledgements)
+2. [Setting up, getting started](#setting-up-getting-started)
+3. [Design](#design)
+    1. [Architecture](#architecture)
+    2. [UI component](#ui-component)
+    3. [Logic component](#logic-component)
+    4. [Model component](#model-component)
+    5. [Storage component](#storage-component)
+    6. [Common classes](#common-classes)
+4. [Implementation](#implementation)
+    1. [Proposed Undo/redo feature](#proposed-undoredo-feature)
+    2. [Proposed Data archiving](#proposed-data-archiving)
+5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+    1. [Documentation guide](Documentation.md)
+    2. [Testing guide](Testing.md)
+    3. [Logging guide](Logging.md)
+    4. [Configuration guide](Configuration.md)
+    5. [DevOps guide](DevOps.md)
+6. [Appendix: Requirements](#appendix-requirements)
+    1. [Product scope](#product-scope)
+    2. [User stories](#user-stories)
+    3. [Use cases](#use-cases)
+7. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+    1. [Launch and shutdown](#launch-and-shutdown)
+    2. [Deleting a person](#deleting-a-person)
+    3. [Saving data](#saving-data)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -38,11 +38,15 @@ title: Developer Guide
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
   original source as well}
 
+[Back to table of contents](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
+
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -104,6 +108,8 @@ implementation of a component), as illustrated in the (partial) class diagram be
 
 The sections below give more details of each component.
 
+[Back to table of contents](#table-of-contents)
+
 ### UI component
 
 The **API** of this component is specified in [
@@ -127,6 +133,8 @@ The `UI` component,
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+
+[Back to table of contents](#table-of-contents)
 
 ### Logic component
 
@@ -169,6 +177,8 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser`
   interface so that they can be treated similarly where possible e.g, during testing.
 
+[Back to table of contents](#table-of-contents)
+
 ### Model component
 
 **API** : [
@@ -194,6 +204,8 @@ The `Model` component,
 
 </div>
 
+[Back to table of contents](#table-of-contents)
+
 ### Storage component
 
 **API** : [
@@ -210,9 +222,13 @@ The `Storage` component,
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects
   that belong to the `Model`)
 
+[Back to table of contents](#table-of-contents)
+
 ### Common classes
 
 Classes used by multiple components are in the `seedu.address.commons` package.
+
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -225,6 +241,7 @@ This section describes some noteworthy details on how certain features are imple
 
 _{Explain here how the data archiving feature will be implemented}_
 
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -235,6 +252,8 @@ _{Explain here how the data archiving feature will be implemented}_
 * [Logging guide](Logging.md)
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
+
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -257,6 +276,8 @@ HeartLink provides fast and convenient access to client contact details while he
 By reducing the burden of administrative tasks, remembering check-ins, and organizing deadlines across scattered
 records, our address book minimizes paperwork stress and allows social workers to focus on
 supporting the people who need them.
+
+[Back to table of contents](#table-of-contents)
 
 ### User stories
 
@@ -296,6 +317,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | social worker               | have a system that works reliably               | ensure wrong commands don’t destroy the address book                  |
 
 *{More to be added}*
+
+[Back to table of contents](#table-of-contents)
 
 ### Use cases
 
@@ -515,6 +538,8 @@ Use case ends.
 
     Use case resumes at step 2.
 
+[Back to table of contents](#table-of-contents)
+
 ### Non-Functional Requirements
 
 1. **Compatibility** Our system should work on any _mainstream OS_ as long as it has Java `17` or above installed.
@@ -529,6 +554,8 @@ Use case ends.
 6. **Process Requirement** Our project is expected to adhere to a schedule that delivers a feature set every week
    throughout the second half of the semester.
 7. **Quality Assurance** All source code shall achieve a minimum of 80% unit test coverage.
+
+[Back to table of contents](#table-of-contents)
 
 ### Glossary
 
@@ -546,6 +573,8 @@ Use case ends.
 * **Scheduling conflict**: A clash where two appointments for the same client overlap in time.
 * **Validation rule**: A constraint that ensures inputs (e.g., date, phone number, email) are correct before the system
   accepts them.
+
+[Back to table of contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -578,6 +607,8 @@ testers are expected to do more *exploratory* testing.
 
 [//]: # (TODO: Update test cases for delete command)
 
+[Back to table of contents](#table-of-contents)
+
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
@@ -596,6 +627,8 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+[Back to table of contents](#table-of-contents)
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -603,3 +636,5 @@ testers are expected to do more *exploratory* testing.
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+[Back to table of contents](#table-of-contents)
