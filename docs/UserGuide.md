@@ -3,12 +3,12 @@ layout: page
 title: User Guide
 ---
 
-HeartLink is a ***desktop application** designed for **social workers in Singapore** to **efficiently manage** client contact details and appointment schedules. 
-With HeartLink, you can **easily store** essential client information—such as names, phone numbers, and notes—and **link them directly** to appointment details.
+HeartLink is a **desktop app** made for **social workers in Singapore** to help you **stay organized and work efficiently**. 
+If you type fast, HeartLink lets you **efficiently store** your clients’ details—names, phone numbers, and notes—and **link them directly** to appointments 
+so you **never miss** an important meeting.
 
-HeartLink is optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). 
-
-If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
+Optimized for use via a Command Line Interface (CLI) while still offering the benefits of a Graphical User Interface (GUI), 
+HeartLink helps you **spend less time navigating** menus and **more time focusing** on what matters: ***your clients***.
 
 ## Table of Contents
 <ol>
