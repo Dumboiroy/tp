@@ -230,7 +230,8 @@ public class ModelManager implements Model {
         Boolean addressBookEqual = addressBook.equals(otherModelManager.addressBook);
         Boolean userPrefsEqual = userPrefs.equals(otherModelManager.userPrefs);
         Boolean filteredPersonsEqual = filteredPersons.equals(otherModelManager.filteredPersons);
-        return addressBookEqual && userPrefsEqual && filteredPersonsEqual;
+        Boolean filteredAppointmentsEqual = filteredAppointments.equals(otherModelManager.filteredAppointments);
+        return addressBookEqual && userPrefsEqual && filteredPersonsEqual && filteredAppointmentsEqual;
     }
 
     public Person getPerson(String name) {

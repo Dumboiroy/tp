@@ -25,7 +25,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueAppointmentList appointments;
-    private final List<AppointmentId> idList;
+    private List<AppointmentId> idList;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -73,7 +73,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
+        idList = new ArrayList<>();
         setPersons(newData.getPersonList());
         setAppointments(newData.getAppointmentList());
     }
@@ -112,7 +112,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         // remove associated appointments
-        key.getAppointments().forEach(appointments::remove);
+        key.getAppointments().forEach(appt -> {
+                    appointments.remove(appt);
+                    idList.remove(appt.getId());});
         persons.remove(key);
     }
 
