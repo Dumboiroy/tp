@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,9 +20,12 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class AddressBookTest {
 
@@ -92,12 +96,43 @@ public class AddressBookTest {
         assertEquals(expected, addressBook.toString());
     }
 
+    @Test
+    public void generateId_success() {
+        assertEquals(7, addressBook.generateId().toString().length());
+    }
+
+    @Test
+    public void updateIdList_success() {
+        assertEquals(0, addressBook.getIdList().size());
+
+        //add new appt with id
+        Appointment tempAppt = new AppointmentBuilder(TypicalPersons.DUMMY_APPT)
+                .withId(addressBook.generateId().toString()).build();
+
+        addressBook.addAppointment(tempAppt);
+
+        assertEquals(1, addressBook.getIdList().size());
+
+        //edit an appointment
+        Appointment updatedAppt = new AppointmentBuilder(tempAppt).withLength("60").build();
+
+        addressBook.setAppointment(tempAppt, updatedAppt);
+
+        assertEquals(1, addressBook.getIdList().size());
+
+        //delete appointment
+        addressBook.removeAppointment(updatedAppt);
+
+        assertEquals(0, addressBook.getIdList().size());
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+        private List<AppointmentId> idList = new ArrayList<>();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -111,6 +146,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Appointment> getAppointmentList() {
             return appointments;
+        }
+
+        @Override
+        public List<AppointmentId> getIdList() {
+            return idList;
         }
     }
 }
