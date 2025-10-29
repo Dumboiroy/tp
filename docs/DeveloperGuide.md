@@ -112,7 +112,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete Alice Pauline")` API
 call as an example.
 
 ![Interactions Inside the Logic Component for the `delete Alice Pauline` Command](images/DeleteSequenceDiagram.png)
@@ -217,8 +217,8 @@ initial address book state, and the `currentStatePointer` pointing to that singl
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls
-`Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be
+Step 2. The user executes `delete Alice Pauline` command to delete a person named Alice Pauline in the address book. The `delete` command calls
+`Model#commitAddressBook()`, causing the modified state of the address book after the `delete Alice Pauline` command executes to be
 saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
@@ -590,14 +590,14 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-    1. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+    1. Test case: `delete Hary`<br>
+       Expected: The contact for a person named Hary is deleted from the list. Details of the deleted contact shown in the status message.
        Timestamp in the status bar is updated.
 
-    1. Test case: `delete 0`<br>
+    1. Test case: `delete Joe` where Joe does not exist in the list<br>
        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is a name that is not in the list)<br>
        Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
