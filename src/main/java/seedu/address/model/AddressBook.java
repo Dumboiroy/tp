@@ -113,8 +113,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         // remove associated appointments
         key.getAppointments().forEach(appt -> {
-                    appointments.remove(appt);
-                    idList.remove(appt.getId());});
+            appointments.remove(appt);
+            idList.remove(appt.getId());
+        });
         persons.remove(key);
     }
 
@@ -182,6 +183,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         idList.add(editedAppointment.getId());
     }
 
+    /**
+     * Generates a random and unique {@code AppointmentID}
+     */
     public AppointmentId generateId() {
         AppointmentId tempId = new AppointmentId(UUID.randomUUID().toString().substring(0, 7));
         while (idList.contains(tempId)) {
@@ -208,6 +212,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Appointment> getAppointmentList() {
         return appointments.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public List<AppointmentId> getIdList() {
+        return this.idList;
     }
 
     @Override

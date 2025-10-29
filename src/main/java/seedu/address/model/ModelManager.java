@@ -151,14 +151,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void editAppointment(Appointment target, Appointment newAppt) {
-        requireNonNull(target);
-        requireNonNull(newAppt);
-        deleteAppointment(target);
-        addAppointment(newAppt);
-    }
-
-    @Override
     public void deleteAppointment(Appointment target) {
         requireNonNull(target);
         addressBook.removeAppointment(target);
@@ -255,7 +247,7 @@ public class ModelManager implements Model {
         return visibleViewMode;
     }
 
-    //=========== ID List Accessors =======================================================]
+    //=========== ID List Accessor =======================================================]
 
     @Override
     public AppointmentId generateId() {
