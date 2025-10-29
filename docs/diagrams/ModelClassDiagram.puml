@@ -54,6 +54,7 @@ Person --> "1"Email
 Person --> "1"Address
 Person --> "*" Tag
 Person --> "1"Rank
+Appointment "*" <-- Person
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
