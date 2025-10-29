@@ -3,8 +3,11 @@ layout: page
 title: User Guide
 ---
 
-HeartLink is a **desktop app** for **social workers in Singapore** to manage client's contact details with appointment information. 
-It is optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). 
+HeartLink is a ***desktop application** designed for **social workers in Singapore** to **efficiently manage** client contact details and appointment schedules. 
+With HeartLink, you can **easily store** essential client information—such as names, phone numbers, and notes—and **link them directly** to appointment details.
+
+HeartLink is optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). 
+
 If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
 
 ## Table of Contents
@@ -15,19 +18,19 @@ If you can type fast, HeartLink can get your contact management tasks done faste
       <li><a href="#command-summary">Command summary</a></li>
       <li><a href="#list-of-commands">List of commands</a>
         <ol type="i">
-          <li><a href="#1-viewing-help--help">Viewing help</a></li>
-          <li><a href="#2-adding-a-person-add">Adding a person</a></li>
-          <li><a href="#3-listing-all-persons--list">Listing all persons</a></li>
-          <li><a href="#4-editing-a-person--edit">Editing a person</a></li>
-          <li><a href="#5-deleting-a-person--delete">Deleting a person</a></li>
+          <li><a href="#1-viewing-help--help">Viewing help [help]</a></li>
+          <li><a href="#2-adding-a-person-add">Adding a person [add]</a></li>
+          <li><a href="#3-listing-all-persons--list">Listing all persons [list]</a></li>
+          <li><a href="#4-editing-a-person--edit">Editing a person [edit]</a></li>
+          <li><a href="#5-deleting-a-person--delete">Deleting a person [delete]</a></li>
           <li><a href="#6-managing-appointments-with-clients--link">Managing Appointments with Clients</a>
             <ol type="1">
-              <li><a href="#i-creating-an-appointment-link--c">Linking appointments</a></li>
-              <li><a href="#ii-editing-an-appointment--link--e">Editing appointments</a></li>
-              <li><a href="#iii-deleting-an-appointment--link--d">Deleting appointments</a></li>
+              <li><a href="#i-creating-an-appointment-link--c">Linking appointments [link -c]</a></li>
+              <li><a href="#ii-editing-an-appointment--link--e">Editing appointments [link -e]</a></li>
+              <li><a href="#iii-deleting-an-appointment--link--d">Deleting appointments [link -d]</a></li>
             </ol>
           </li>
-          <li><a href="#7-looking-up-clients-by-fields-find">Looking up clients by fields</a>
+          <li><a href="#7-looking-up-clients-by-fields-find">Looking up clients by fields [find]</a>
             <ol type="1">
               <li><a href="#i-client-name-keyword">Client name</a></li>
               <li><a href="#ii-client-phone-number-phone">Client phone number</a></li>
@@ -37,7 +40,7 @@ If you can type fast, HeartLink can get your contact management tasks done faste
               <li><a href="#vi-chaining-client-attributes">Chaining attributes</a></li>
             </ol>
           </li>
-          <li><a href="#8-looking-up-appointments-by-fields-find">Looking up appointments by fields</a>
+          <li><a href="#8-looking-up-appointments-by-fields-find">Looking up appointments by fields [find]</a>
             <ol type="1">
               <li><a href="#i-appointment-meeting-time-date-time">Appointment meeting time</a></li>
               <li><a href="#ii-appointment-status-status">Appointment status</a></li>
@@ -45,8 +48,8 @@ If you can type fast, HeartLink can get your contact management tasks done faste
               <li><a href="#iv-chaining-commands">Chaining all attributes</a></li>
             </ol>
           </li>
-          <li><a href="#9-clearing-all-entries--clear">Clearing all entries</a></li>
-          <li><a href="#10-exiting-the-program--exit">Exiting the program</a></li>
+          <li><a href="#9-clearing-all-entries--clear">Clearing all entries [clear]</a></li>
+          <li><a href="#10-exiting-the-program--exit">Exiting the program [exit]</a></li>
         </ol>
       </li>
       <li><a href="#other-features">Other features</a></li>
