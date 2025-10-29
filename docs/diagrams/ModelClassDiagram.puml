@@ -53,7 +53,8 @@ Person --> "1"Phone
 Person --> "1"Email
 Person --> "1"Address
 Person --> "*" Tag
-Person --> "1"Rank
+Person --> "1" Rank
+Person --> "*" Appointment
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
