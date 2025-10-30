@@ -20,6 +20,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDateTime;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.AppointmentLength;
 import seedu.address.model.appointment.AppointmentLocation;
 import seedu.address.model.appointment.AppointmentMessage;
@@ -43,9 +44,9 @@ public class LinkAppointmentCreateCommandTest {
     public void execute_allFieldsSpecified_success() {
         Person client = new PersonBuilder(ALICE).build();
         Appointment appt = new AppointmentBuilder()
-                .withName(client.getName().toString()).withDateTime("12-10-3099 1430").build();
+                .withName(client.getName().toString()).withDateTime("12-10-3099 1430").withId("testing").build();
         LinkAppointmentCommand cmd = new LinkAppointmentCreateCommand(
-                client.getName(), appt);
+                client.getName(), appt).setAppointmentId(new AppointmentId("testing"));
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.addAppointmentWithPerson(appt, client);
         assertCommandSuccess(cmd, model, String.format(
@@ -57,9 +58,10 @@ public class LinkAppointmentCreateCommandTest {
     public void execute_duplicateAppointmentDifferentLength_failure() {
         Person client = new PersonBuilder(ALICE).build();
         Appointment appt = new AppointmentBuilder()
-                .withName(client.getName().toString()).withDateTime("12-10-3099 1430").withLength("90").build();
+                .withName(client.getName().toString()).withDateTime("12-10-3099 1430")
+                .withLength("90").withId("testing").build();
         LinkAppointmentCommand cmd = new LinkAppointmentCreateCommand(
-                client.getName(), appt);
+                client.getName(), appt).setAppointmentId(new AppointmentId("testing"));
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.addAppointmentWithPerson(appt, client);
         assertCommandSuccess(cmd, model, String.format(
@@ -127,7 +129,7 @@ public class LinkAppointmentCreateCommandTest {
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         LinkAppointmentCommand firstCmd = new LinkAppointmentCreateCommand(
-                client.getName(), firstAliceAppointment);
+                client.getName(), firstAliceAppointment).setAppointmentId(new AppointmentId("testing"));
         expectedModel.addAppointmentWithPerson(firstAliceAppointment, client);
         assertCommandSuccess(firstCmd, model, String.format(
                 LinkAppointmentCommand.MESSAGE_SUCCESS, client.getName(),
@@ -158,14 +160,14 @@ public class LinkAppointmentCreateCommandTest {
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         LinkAppointmentCommand firstCmd = new LinkAppointmentCreateCommand(
-                client.getName(), firstAliceAppointment);
+                client.getName(), firstAliceAppointment).setAppointmentId(new AppointmentId("testing"));
         expectedModel.addAppointmentWithPerson(firstAliceAppointment, client);
         assertCommandSuccess(firstCmd, model, String.format(
                 LinkAppointmentCommand.MESSAGE_SUCCESS, client.getName(),
                 Messages.format(firstAliceAppointment)), expectedModel);
 
         LinkAppointmentCommand secondCmd = new LinkAppointmentCreateCommand(
-                client.getName(), secondAliceAppointment);
+                client.getName(), secondAliceAppointment).setAppointmentId(new AppointmentId("testing II"));
         expectedModel.addAppointmentWithPerson(secondAliceAppointment,
                 client.withAddedAppointment(firstAliceAppointment));
         assertCommandSuccess(secondCmd, model, String.format(
