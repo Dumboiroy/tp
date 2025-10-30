@@ -635,8 +635,8 @@ Expected: All clients with their corresponding appointments are shown in the lis
    Expected: All clients whose names contain any of the specified keywords
    are listed.
 3. Find client by phone number.
-   1. Test case: `find p/PHOE_NUMBER` <br/>
-         Expected: All clients whose phone numbers exactly match `PHONE`
+   1. Test case: `find p/PHONE_NUMBER` <br/>
+         Expected: All clients whose phone numbers exactly match `PHONE_NUMBER`
          are listed.
 4. Find client by email.
     1. Test case: `find e/EMAIL` <br/>
@@ -662,7 +662,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
 
 ### Adding new client
 1. Adding a new client to HeartLink
-   1. Prerequisites: The client to add is not already existed in the client list
+   1. Prerequisites: The client's name does not exist in the client list
       (You can use `list` to show the list of all clients).
    2. Test cases: `add n/NAME p/PHONE_NUMBER` <br/>
    Expected: The client with name `NAME` and phone number `PHONE_NUMBER` is appended
@@ -755,6 +755,17 @@ Expected: All clients with their corresponding appointments are shown in the lis
 [Back to table of contents](#table-of-contents)
 
 ### Create an appointment
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+
+In a live environment, HeartLink enforces a strict no-overlap policy for a client's confirmed appointments.
+An overlap, or clash, is specifically defined by the following three conditions being met:
+
+- Both appointments are set to the confirmed status.
+- Both appointments are for the same client.
+- Both appointments have overlapping timings.
+
+</div>
 
 1. Creating an appointment without appointment clashes.
    1.  Prerequisites: The client list contains a client named `TARGET_NAME`. To make sure that there is no appointment clashes, 
