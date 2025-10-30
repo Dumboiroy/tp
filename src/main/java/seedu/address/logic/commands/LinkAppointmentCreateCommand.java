@@ -39,6 +39,7 @@ public class LinkAppointmentCreateCommand extends LinkAppointmentCommand {
 
     private final Name clientName;
     private Appointment appointment;
+    private AppointmentId appointmentId;
 
     /**
      * Constructs a LinkAppointmentCommand to link client with the specified appointment
@@ -51,13 +52,19 @@ public class LinkAppointmentCreateCommand extends LinkAppointmentCommand {
         requireNonNull(appointment);
         this.clientName = clientName;
         this.appointment = appointment;
+        this.appointmentId = null;
+    }
+
+    public LinkAppointmentCreateCommand setAppointmentId(AppointmentId appointmentId) {
+        this.appointmentId = appointmentId;
+        return this;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        AppointmentId newId = model.generateId();
+        AppointmentId newId = (this.appointmentId == null) ? model.generateId() : this.appointmentId;
 
         this.appointment = new Appointment(newId, this.appointment.getClientName(), this.appointment.getDateTime(),
                 this.appointment.getLength(), this.appointment.getLocation(), this.appointment.getType(),

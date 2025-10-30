@@ -817,6 +817,8 @@ Two confirmed appointments clash.
 
 #### 2. `edit`
 - Invalid syntax: `edit` `edit test`<br>
+
+
    ```
    Invalid command format. Please ensure that the command adheres to the following:
    - Edit name: edit NAME n/NEW_NAME
@@ -922,6 +924,8 @@ Two confirmed appointments clash.
     Spaces are only allowed after +65 and in the middle of the 8 digits
     ```
 - Invalid email: `@gmail.com` `hello @gmail.com` `test` `test@a.c` `test'@a.com`<br>
+
+
     ```
     Emails should be of the format local-part@domain and adhere to the following constraints:
     1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
