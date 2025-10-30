@@ -25,6 +25,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ViewMode;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -188,11 +189,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void editAppointment(Appointment target, Appointment newAppt) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setAppointment(Appointment target, Appointment editedAppointment) {
             throw new AssertionError("This method should not be called.");
         }
@@ -224,6 +220,11 @@ public class AddCommandTest {
 
         @Override
         public ObjectProperty<ViewMode> getObservableViewMode() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public AppointmentId generateId() {
             throw new AssertionError("This method should not be called.");
         }
     }

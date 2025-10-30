@@ -129,4 +129,9 @@ public class ModelManagerTest {
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
+
+    @Test
+    public void generate_sevenDigitId() {
+        assertEquals(7, modelManager.generateId().toString().length());
+    }
 }
