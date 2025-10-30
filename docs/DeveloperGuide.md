@@ -623,8 +623,11 @@ Expected: All clients with their corresponding appointments are shown in the lis
 
 [Back to table of contents](#table-of-contents)
 
+### Finding clients
+todo
+
 ### Adding new client
-1. Add a new client to HeartLink
+1. Adding a new client to HeartLink
    1. Prerequisites: The client to add is not already existed in the client list
       (You can use `list` to show the list of all clients).
    2. Test cases: `add n/NAME p/PHONE_NUMBER` <br/>
@@ -638,7 +641,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
    5. Try using invalid inputs, such as `add n/John Doe p/1234` (invalid phone number) and `add n/John Doe p/88888888 e/abc` (invalid email).
    You can refer to invalid input formats from the user guide.
    Expected: No new client is added. The error message for the first invalid input is shown.
-2. Add an already-existing client
+2. Adding an already-existing client
    1. Prerequisite: The client list contains at least one client, named `SAME_NAME`.
    2. Test cases: `add n/SAME_NAME p/VALID_PHONE_NUMBER` <br/>
    Expected: No new client is added. The error message "This person already exists in the address book" is shown.
@@ -646,7 +649,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
 [Back to table of contents](#table-of-contents)
 
 ### Editing a client
-1. Edit client information in HeartLink with no name collision.
+1. Editing client information in HeartLink with no name collision.
     1. Prerequisites: The client list contains the target client, named `TARGET_NAME`.
     2. Test cases: `edit TARGET_NAME n/NEW_NAME` <br/>
        Expected: The client name changes from `TARGET_NAME` to `NEW_NAME`.
@@ -658,7 +661,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
        Expected: Client's information is unmodified. The error message for the first invalid input is shown.
    5. Other incorrect edit commands to try: `edit`, `edit n/`, `...`<br>
       Expected: The error message "Invalid command format! ..." is shown in the result box.
-2. Edit client name with name collision.
+2. Editing client name with name collision.
     1. Prerequisites: The client list contains at least two clients, named `NAME_1` and `NAME_2`.
     2. Test cases: `edit NAME_1 n/NAME_2` <br/>
     Expected: The error message "This person already exists in the address book" is shown.
@@ -678,7 +681,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
     1. Other incorrect delete commands to try: `delete`, `delete n/TARGET_NAME`, `...`<br>
        Expected: The error message "Invalid command format! ..." is shown in the result box.
 
-2. Delete a client with ambiguous prefix
+2. Deleting a client with ambiguous prefix
    1. Prerequisites: The client list contains the two clients with the same prefix `COMMON_PREFIX`
       (e.g. Bernice Yu and Bernice Yee). To achieve this, you might need to add more clients to the list.
    2. Test case: `delete COMMON_PREFIX` <br>
@@ -687,6 +690,41 @@ Expected: All clients with their corresponding appointments are shown in the lis
 
 [Back to table of contents](#table-of-contents)
 
+### Create an appointment
+
+1. Creating an appointment without appointment clashes.
+   1.  Prerequisites: The client list contains a client named `TARGET_NAME`. To make sure that there is no appointment clashes, 
+   you can add an appointment on a freshly created client.
+   2.  Test case: `link -c n/TARGET_NAME appt/DATE TIME len/MINUTES loc/LOCATION type/TYPE msg/MESSAGE status/STATUS`
+       (You can refer to the correct input format from the user guide.)
+   <br>
+   Expected: A new appointment is created and linked to `TARGET_NAME`. The status message displays the new appointment's details, including the
+   automatically generated Appointment ID, and confirms it's linked to `TARGET_NAME`.
+   3. Test case: `link -c n/TARGET_NAME appt/DATE TIME len/MINUTES` <br>
+   Expected: Same with previous test case, but the status is set to `planned`.
+   4. Try using invalid inputs, such as `link`, `link -c n/TARGET_NAME appt/12-10-2025` (`HHmm` is not specified), ...
+      You can refer to invalid input formats from the user guide. <br>
+      Expected: No new appointment is added.
+2. Creating an appointment with clash.
+   1. Prerequisite: The client list contains a client named `TARGET_NAME` without any appointments.
+   2. Add the first appointment to the list `link -c n/TARGET_NAME appt/12-10-2025 1000 len/30 status/confirmed`. <br>
+   Expected: The first appointment should be added successfully with its corresponding ID `ID_1`.
+   3. Add the second appointment to the list `link -c n/TARGET_NAME appt/12-10-2025 1020 len/30 status/confirmed` <br>
+   Expected: No new appointment is added. The error message "Two confirmed appointments clash ..." is shown.
+   4. An appointment clash only occurs when two appointments for the same client are confirmed. If this condition is not met,
+   both appointments should be created successfully without clashes.
+
+[Back to table of contents](#table-of-contents)
+
+### Edit an appointment
+todo
+
+### Delete an appointment
+todo
+
+### Finding appointments
+todo
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -694,5 +732,17 @@ Expected: All clients with their corresponding appointments are shown in the lis
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+[Back to table of contents](#table-of-contents)
+
+### Clear all entries
+Test case: `clear` <br/>
+Expected: Information of all clients is removed.
+
+[Back to table of contents](#table-of-contents)
+
+### Exit program
+Test case: `exit` <br/>
+Expected: Exits the program.
 
 [Back to table of contents](#table-of-contents)
