@@ -798,6 +798,8 @@ Expected: All clients with their corresponding appointments are shown in the lis
     4. Test case: `link -e id/SECOND_ID status/confirmed` <br>
     Expected: No new appointment is added. The error message "Two confirmed appointments clash ..." is shown.
 
+[Back to table of contents](#table-of-contents)
+
 ### Delete an appointment
 
 1. Deleting an appointment by ID
@@ -809,6 +811,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
    4. Try using invalid inputs, such as `link id/`.
    Expected: No appointment is deleted. The error message "Invalid ID!" is shown.
 
+[Back to table of contents](#table-of-contents)
 
 ### Saving data
 #### Handling erroneous data files
@@ -824,13 +827,22 @@ Expected: All clients with their corresponding appointments are shown in the lis
 "addressBookFilePath": "data/corrupted.json"
 ```
 
-3. Relaunch HeartLink
-4. Expected: HeartLink will launch with an empty client list. The app will overwrite the corrupted data and replace it with an empty data file:
+3. Relaunch HeartLink. HeartLink will launch with an empty client list.
+4. Make some changes with HeartLink (e.g. create new client). For example, `add n/Alex Yeoh p/88888888`
+5. Expected: The app will overwrite the corrupted data file with 
+the new data:
 ```
 {
-    "persons" : [ ],
-    "appointments": [ ]
-}
+  "persons" : [ {
+    "name" : "Alex Yeoh",
+    "phone" : "88888888",
+    "email" : "",
+    "address" : "",
+    "tags" : [ ],
+    "rank" : "",
+    "appointments" : [ ]
+  } ]
+}⏎    
 ```
 
 [Back to table of contents](#table-of-contents)
