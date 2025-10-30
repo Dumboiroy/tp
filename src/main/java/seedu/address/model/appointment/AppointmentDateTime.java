@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -66,7 +67,7 @@ public class AppointmentDateTime {
 
     private static boolean isLeapYear(LocalDateTime test) {
         int year = test.getYear();
-        return year % 4 == 0;
+        return Year.of(year).isLeap();
     }
 
     private static boolean canParseTime(String test, DateTimeFormatter format) {
