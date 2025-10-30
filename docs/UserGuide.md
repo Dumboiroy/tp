@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 HeartLink is a **desktop app** made for **social workers in Singapore** to help you **stay organized and work efficiently**. 
-If you type fast, HeartLink lets you **efficiently store** your clients’ details—names, phone numbers, and notes—and **link them directly** to appointments 
+If you type fast, HeartLink lets you **efficiently store** your clients’ details — names, phone numbers, and notes — and **link them directly** to appointments 
 so you **never miss** an important meeting.
 
 Optimized for use via a Command Line Interface (CLI) while still offering the benefits of a Graphical User Interface (GUI), 
@@ -69,7 +69,8 @@ This guide provides instructions for Social Workers in Singapore on how to effic
    >  in `Users\(name)`, you will type `cd Downloads` in the terminal).
    > 3. Type `java -jar HeartLink.jar` and HeartLink will open!
 
-    A GUI similar to the image below should appear in a few seconds. Note how the app contains some sample data.<br>
+    After you run the command, HeartLink displays a GUI like the one below, preloaded with sample data.<br>
+    <br>
     ![Ui](images/UI/Ui.png)
     
 
@@ -96,29 +97,6 @@ This guide provides instructions for Social Workers in Singapore on how to effic
 
 ## Features
 
-<div markdown="block" class="alert alert-info" id="command-format">
-
-**:information_source: Notes about the command format:**<br>
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines 
-  as space characters surrounding line-breaks may be omitted when copied over to the application.
-</div>
-
 ### Command summary
 
 | Action                                                             | Format, Examples                                                                                                                                                                                               |
@@ -142,7 +120,7 @@ This guide provides instructions for Social Workers in Singapore on how to effic
 
 ### List of commands:
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-info" id="command-format">
 
 **:information_source: Notes about the acceptable inputs:**<br>
 
@@ -172,7 +150,7 @@ Shows a message explaining how to access the help page.
 ```
 help
 ```
-> :bulb: **Tips:**
+> :bulb: **Tip:**
 > Any additional information after the command is being ignored.
 > e.g. `help [anything]` works.
 > e.g. `help [anything]` works.
@@ -199,26 +177,6 @@ add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
 > * All required fields must be provided.
 > * A person can have any number of tags (including 0). Unsure how? Refer [here](#command-format).
 
-<div markdown="block" class="alert alert-info" id="client-acceptable-inputs">
-
-**:information_source: Here’s the fields and their acceptable inputs relating to clients:**<br>
-
-* **n/NAME**: This specifies the name of the client. Your input must be alphanumeric. <br>
-  E.g. `John Doe`
-* **p/PHONE_NUMBER**: This specifies the phone number of the client. Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
-  You may choose to include spaces but they are only allowed after +65 and in the middle of the 8 digits <br>
-  E.g. `+6598765432`, `+65 98765432`, `+65 9876 5432`, `98765432` or `9876 5432`.
-* **e/EMAIL**: This specifies the email address of the client. Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
-  The local and domain parts should be alphanumeric characters. <br>
-  E.g. `johndoe@example.com`
-* **a/ADDRESS**: This specifies the address of the client. Your input must be alphanumeric. Special characters like `# - , . ( ) / ; : &` are accepted. <br>
-  E.g. `John street, block 123, #01-01`
-* **t/TAG**: This specifies the tag(s) of the client. Your input must be alphanumeric. <br>
-  E.g. `friend` or `patient`
-* **r/RANK**: This specifies the priority rank of the client. You can only input four types of priority, `stable` , `vulnerable` , `urgent` and `crisis` (all case-insensitive). <br>
-
-</div>
-
 #### Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
 Adds a new client named John Doe with phone number 98765432, email address johnd@example.com, address John street, block 123, #01-01, and ranks the client as stable.
@@ -242,7 +200,7 @@ Shows a list of all persons in the address book.
 ```
 list
 ```
-> :bulb: **Tips:**
+> :bulb: **Tip:**
 > 
 > Any additional information after the command is being ignored.
 > e.g. `list [anything]` works.
@@ -285,7 +243,9 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 Successfully edited OLD_NAME's information to:
 EDITED_NAME; Phone: EDITED_PHONE; Email: EDITED_MAIL; Address: EDITED_ADDRESS; Tags: [EDITED_TAGS]; Rank: EDITED_RANK 
 ```
-*EDITED_FIELD represents the old value if not specified in command, and represents new value if specified.
+> :bulb: **Tip:**
+>
+> EDITED_FIELD represents the old value if not specified in command, and represents new value if specified.
 
 The contact is updated to the address book.
 
@@ -359,17 +319,18 @@ Format:
 link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]
 ```
 
-<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**<br>
 
 - Both date and time can be specified, or just the date for all-day appointments.
-Ensure that the appointment does not clash. Please refer to [this](#appointment-clashes) for more details.
+Ensure that the appointment does not clash. Please refer to [this](#appointment-clashes) for more details.<br>
 
-- A random unique `Appointment ID` is generated automatically.
+- A random unique `Appointment ID` is generated automatically.<br>
 
-- All unspecified optional fields default to empty values or `"planned"` status.
+- All unspecified optional fields default to empty values or `"planned"` status.<br>
 
-- Note that fields in `[]` are optional!
-- Status can only be one of the words: status|planned|confirmed|completed
+- Note that fields in `[]` are optional!<br>
+
+- Status can only be one of the words: status|planned|confirmed|completed<br>
 </div>
 
 Examples:
@@ -397,15 +358,15 @@ Format:
 link -e id/APPOINTMENT_ID [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]
 ```
 
-<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**<br>
 
-- You can edit multiple fields at once or just one.
+- You can edit multiple fields at once or just one.<br>
 
-- Only specified fields are updated, unspecified fields remain unchanged.
+- Only specified fields are updated, unspecified fields remain unchanged.<br>
 
-- The appointment ID (`id/`) can be seen from the client card display.
+- The appointment ID (`id/`) can be seen from the client card display.<br>
 
-- Ensure that the appointment does not clash. Please refer to [this](#appointment-clashes) for more details.
+- Ensure that the appointment does not clash. Please refer to [this](#appointment-clashes) for more details.<br>
 
 - Note that fields in `[]` are optional!
 </div>
@@ -437,8 +398,8 @@ Format:
 link -d id/APPOINTMENT_ID
 ```
 
-<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
-- Deleting an appointment cannot be undone.
+<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**<br>
+- Deleting an appointment cannot be undone.<br>
 - Once deleted, it will be removed from both the client’s appointment list and the database.
 </div>
 
@@ -468,7 +429,7 @@ find [n/KEYWORD_1 KEYWORD_2 ...] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]
 
 You can use this command to retrieve a list of clients that match the specified attributes:
 
-<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**
+<div markdown="span" class="alert alert-info">:exclamation: **Remarks:**<br>
 The order of the attributes does not matter. If you haven't specified any attributes, the system will list all clients.
 </div>
 
@@ -525,7 +486,7 @@ Example:
 [Back to attribute list](#heres-the-list-of-attributes-for-client)
 
 #### vi. Chaining client attributes
-You can also type different attributes at once
+You can also type different attributes at once.
 
 Examples:
 * `find n/John Doe r/urgent` <br>
@@ -668,9 +629,9 @@ HeartLink data are saved in the hard disk automatically after any command that c
 
 HeartLink data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. 
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If you are familiar with JSON, you are welcome to update data directly by editing that data file! <br>
-However, do note that if the changes make the format invalid(e.g. values out of range, missing field), HeartLink will discard all data and start with an empty data file at the next run. 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**<br>
+If you are familiar with JSON, you are welcome to update data directly by editing that data file!
+However, do note that if the changes make the format invalid (e.g. values out of range, missing field), HeartLink will discard all data and start with an empty data file at the next run.
 Hence, it is recommended to take a backup of the file before editing it.<br>
 </div>
 
@@ -745,20 +706,20 @@ Two confirmed appointments clash.
 [Back to table of contents](#table-of-contents)
 
 #### 1. `add`
-- Invalid syntax: `add` `add test` `add n/test` `add n/John Doe 12345678`
+- Invalid syntax: `add` `add test` `add n/test` `add n/John Doe 12345678`<br>
     ```
     Invalid command format! 
     add: Adds a person to the address book. Parameters: n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK]
     Example: add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney r/stable
     ```
-- Duplicated person:
+- Duplicated person:<br>
    ```
    This person already exists in the address book
    ```
 [Back to table of contents](#table-of-contents)
 
 #### 2. `edit`
-- Invalid syntax: `edit` `edit test` 
+- Invalid syntax: `edit` `edit test`<br>
    ```
    Invalid command format. Please ensure that the command adheres to the following:
    - Edit name: edit NAME n/NEW_NAME
@@ -768,66 +729,66 @@ Two confirmed appointments clash.
    - Edit email address: edit NAME e/EMAIL
    - Combinations: edit NAME t/TAG p/PHONE ...
     ```
-- Invalid name of contact to edit: `edit John Doe n/newName` when the contact `John Doe` don't exist.
+- Invalid name of contact to edit: `edit John Doe n/newName` when the contact `John Doe` don't exist.<br>
     ```
    The person's name provided is invalid
    ```
 [Back to table of contents](#table-of-contents)
   
 #### 3. `delete`
-- Invalid name of contact to delete: `delete`
+- Invalid name of contact to delete: `delete`<br>
     ```
    Names should only contain alphanumeric characters and spaces, and it should not be blank
    ```
 [Back to table of contents](#table-of-contents)
  
 #### 4. `link`
-- No flag: `link` `link n/john` `link n/john appt/12-12-2025`
+- No flag: `link` `link n/john` `link n/john appt/12-12-2025`<br>
   ```
   Invalid command format! 
   Please include a flag after command.
   i.e. To create an appointment: link -c [PARAMETERS], to delete an appointment: link -d [PARAMETERS], to edit an appointment: link -e [PARAMETERS]
   ```
-- Invalid flag: `link -a ` `link -a n/john appt/12-12-2025`
+- Invalid flag: `link -a ` `link -a n/john appt/12-12-2025`<br>
   ```
   Invalid Flag!
   ```
-- Invalid syntax for create appointment: `link -c` `link -c name`
+- Invalid syntax for create appointment: `link -c` `link -c name`<br>
   ```
   Invalid command format!
   Create flag: Links a new appointment to a client. 
   Parameters: link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
   Example: link -c n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
   ```
-- Invalid name to link the appointment to: `link -c n/John appt/12-12-2025 2359` when `John` is not in the address book.
+- Invalid name to link the appointment to: `link -c n/John appt/12-12-2025 2359` when `John` is not in the address book.<br>
   ```
   No client found with the name: john
   ```
-- Invalid syntax for edit appointment: `link -e` `link -e id` `link -e id/1234567`
+- Invalid syntax for edit appointment: `link -e` `link -e id` `link -e id/1234567`<br>
   ```
   Invalid command format!  
   Edit flag: Updates an existing appointment for a client. 
   Parameters: link -e id/ID [n/NAME ] [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
   Example: link -e id/1234567 n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
   ```
-- Invalid id for edit appointment: `link -e id/1234567 msg/Bring consent form` when id of `1234567` does not exist.
+- Invalid id for edit appointment: `link -e id/1234567 msg/Bring consent form` when id of `1234567` does not exist.<br>
     ```
     Unable to find appointment with ID: ID
     ```
-- Invalid syntax for delete appointment: `link -d` `link -d 1234567`
+- Invalid syntax for delete appointment: `link -d` `link -d 1234567`<br>
   ```
   Invalid command format! 
   Delete flag: Deletes an existing appointment with a client.
   Parameters: link -d id/ID Example: link -d id/1234567
   ```
-- Invalid id for delete appointment: `link -d id/1234567` when id of `1234567` does not exist.
+- Invalid id for delete appointment: `link -d id/1234567` when id of `1234567` does not exist.<br>
     ```
     The appointment with id ID could not be found.
     ```
 [Back to table of contents](#table-of-contents)
 
 #### 5. `find`
-- Invalid Syntax: `find test` 
+- Invalid Syntax: `find test`<br>
     ```
     Invalid command format! 
     find: Finds persons whose fields contain any of the given keywords.
@@ -835,7 +796,7 @@ Two confirmed appointments clash.
     Example: find p/91234567 e/johndoe@example.com
     find appt/ 24-10-2025 to 26-10-2025
     ```
-- Invalid appointment found: `find appt/placeholder`
+- Invalid appointment found: `find appt/placeholder`<br>
     ```
     Please enter a valid DateTime in one of the following formats:
     • 'today' — for today's date
@@ -848,16 +809,16 @@ Two confirmed appointments clash.
 [Back to table of contents](#table-of-contents)
 
 ### Tag-related errors (General)
-- Invalid name: `hello_world` `[empty space]`
+- Invalid name: `hello_world` `[empty space]`<br>
     ```
     Names should only contain alphanumeric characters and spaces, and it should not be blank
     ```
-- Invalid phone number: `12345678` `912 89023` `6592343434` `+6512343434` `[empty space]`
+- Invalid phone number: `12345678` `912 89023` `6592343434` `+6512343434` `[empty space]`<br>
     ```
     Phone numbers should only contain numbers, and it should be 8 digits long starting with 9, 8 or 6
     Spaces are only allowed after +65 and in the middle of the 8 digits
     ```
-- Invalid email: `@gmail.com` `hello @gmail.com` `test` `test@a.c` `test'@a.com`
+- Invalid email: `@gmail.com` `hello @gmail.com` `test` `test@a.c` `test'@a.com`<br>
     ```
     Emails should be of the format local-part@domain and adhere to the following constraints:
     1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
@@ -867,41 +828,41 @@ Two confirmed appointments clash.
         - have each domain label start and end with alphanumeric characters
         - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
     ```
-- Invalid address: `Woodlands + Street`
+- Invalid address: `Woodlands + Street`<br>
     ```
     Addresses can take any values except some symbols. Address can be blank to represent no address
     ```
-- Invalid tag: `hello world` `hello-world`
+- Invalid tag: `hello world` `hello-world`<br>
     ```
     Tags names should be alphanumeric
     ```
-- Invalid rank: any input that is not `stable` `vulnerable` `urgent` `crisis`
+- Invalid rank: any input that is not `stable` `vulnerable` `urgent` `crisis`<br>
     ```
     Rank names should be one of the four: stable/vulnerable/urgent/crisis
     ```
 [Back to table of contents](#table-of-contents)
 
 ### Tag-related errors (Appointment)
-- Invalid date/time for appointment: `test` `121024`
+- Invalid date/time for appointment: `test` `121024`<br>
     ```
     DateTime must be in the format dd-MM-yyyy or dd-MM-yyyy HHmm, and must be valid calendar date/time.
     ```
-- Invalid length for appointment: `-10`
+- Invalid length for appointment: `-10`<br>
     ```
     Length must be a positive integer number of minutes (e.g. 30, 60, 90)
     ```
-- Invalid location for appointment: `Woodlands + Street`
+- Invalid location for appointment: `Woodlands + Street`<br>
     ```
     Location can take any values but should not contain invalid symbols.
     ```
-- Invalid status for appointment: any input that is not `planned` `confirmed` `completed` `cancelled`
+- Invalid status for appointment: any input that is not `planned` `confirmed` `completed` `cancelled`<br>
     ```
     Status must be one of: planned, confirmed, completed, cancelled
     ```
 [Back to table of contents](#table-of-contents)
 
 ### Other errors
-- Invalid command: `test`
+- Invalid command: `test`<br>
     ```
     Unknown command
     ```
