@@ -130,6 +130,13 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         LinkAppointmentCreateCommand.MESSAGE_FAIL));
             }
+            if (Stream.of(PREFIX_FLAG, PREFIX_NAME, PREFIX_APPOINTMENT, PREFIX_LENGTH)
+                    .anyMatch(prefix -> argMultimap.getValue(prefix)
+                            .map(String::trim)
+                            .orElse("")
+                            .isEmpty())) {
+                throw new ParseException("MESSAGE_EMPTY_ARGUMENTS");
+            }
             break;
         case 'd':
             if (!arePrefixesPresent(argMultimap, PREFIX_FLAG, PREFIX_ID)
