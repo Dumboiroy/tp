@@ -69,7 +69,7 @@ This guide provides instructions for Social Workers in Singapore on how to effic
    >  in `Users\(name)`, you will type `cd Downloads` in the terminal).
    > 3. Type `java -jar HeartLink.jar` and HeartLink will open!
 
-    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+    A GUI similar to the image below should appear in a few seconds. Note how the app contains some sample data.<br>
     ![Ui](images/UI/Ui.png)
     
 
