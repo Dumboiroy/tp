@@ -606,38 +606,266 @@ testers are expected to do more *exploratory* testing.
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 [//]: # (TODO: Update test cases for delete command)
 
 [Back to table of contents](#table-of-contents)
 
-### Deleting a person
+### Display help
+Test case: `help` <br/>
+Expected: The help window shows a quick summary of all commands,
+and a URL within it redirects the user to the User Guide.
 
-1. Deleting a person while all persons are being shown
+[Back to table of contents](#table-of-contents)
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+### List all clients
+Test case: `list` <br/>
+Expected: All clients with their corresponding appointments are shown in the list.
 
-    1. Test case: `delete 1`<br>
+[Back to table of contents](#table-of-contents)
+
+### Finding clients
+1. Find without any fields
+   1. Test case: `find` <br/>
+   Expected: The error message "Invalid command format. ..." is shown.
+2. Find client by keyword
+   1. Test case: `find n/KEYWORD_1` <br/>
+      Expected: All clients whose names contain `KEYWORD_1`
+      are listed.
+   2. Test case: `find n/KEYWORD_1 KEYWORD_2 ...` <br/>
+   Expected: All clients whose names contain any of the specified keywords
+   are listed.
+3. Find client by phone number.
+   1. Test case: `find p/PHONE_NUMBER` <br/>
+         Expected: All clients whose phone numbers exactly match `PHONE_NUMBER`
+         are listed.
+4. Find client by email.
+    1. Test case: `find e/EMAIL` <br/>
+       Expected: All clients whose emails exactly match `EMAIL`
+       are listed.
+
+5. Find client by tag.
+    1. Test case: `find t/TAG` <br/>
+    Expected: All clients whose tags contain `TAG` are listed.
+
+6. Find client by rank.
+   1. Test case: `find r/RANK` <br/>
+      Expected: All clients whose ranks exactly match `RANK`
+      are listed.
+
+7. Find client by chaining multiple commands
+    1. Test case: `find n/KEYWORD r/RANK` <br/>
+       Expected: All clients whose ranks exactly match `RANK`
+       and names contain `KEYWORD` are listed.
+
+
+[Back to table of contents](#table-of-contents)
+
+### Adding new client
+1. Adding a new client to HeartLink
+   1. Prerequisites: The client's name does not exist in the client list
+      (You can use `list` to show the list of all clients).
+   2. Test cases: `add n/NAME p/PHONE_NUMBER` <br/>
+   Expected: The client with name `NAME` and phone number `PHONE_NUMBER` is appended
+    to the end of the list.
+   3. Try adding client with optional fields. For example, 
+   `add n/NAME p/PHONE_NUMBER e/EMAIL`, `add n/NAME p/PHONE_NUMBER e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
+   Expected: Similar to the previous test case, except now the optional fields are added.
+   4. Missing mandatory fields: `add`, `add n/NAME`, `add n/NAME p/`, ... <br/>
+   Expected: No new client is added. The error message "Invalid command format! ..." is shown in the result box.
+   5. Try using invalid inputs, such as `add n/John Doe p/1234` (invalid phone number) and `add n/John Doe p/88888888 e/abc` (invalid email).
+   You can refer to invalid input formats from the user guide.
+   Expected: No new client is added. The error message for the first invalid input is shown.
+2. Adding an already-existing client
+   1. Prerequisite: The client list contains at least one client, named `SAME_NAME`.
+   2. Test cases: `add n/SAME_NAME p/VALID_PHONE_NUMBER` <br/>
+   Expected: No new client is added. The error message "This person already exists in the address book" is shown.
+
+[Back to table of contents](#table-of-contents)
+
+### Editing a client
+1. Editing client information in HeartLink with no name collision.
+    1. Prerequisites: The client list contains the target client, named `TARGET_NAME`.
+    2. Test cases: `edit TARGET_NAME n/NEW_NAME` <br/>
+       Expected: The client name changes from `TARGET_NAME` to `NEW_NAME`.
+    3. Try editing other fields.
+       `edit TARGET_NAME n/NEW_NAME p/PHONE_NUMBER e/EMAIL`, `edit TARGET_NAME n/NEW_NAME p/PHONE_NUMBER e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
+       Expected: Similar to the previous test case, except now the optional fields are added.
+    4. Try using invalid inputs, such as `edit TARGET_NAME p/1234` (invalid phone number) and `edit TARGET_NAME e/abc` (invalid email).
+       You can refer to invalid input formats from the user guide.
+       Expected: Client's information is unmodified. The error message for the first invalid input is shown.
+   5. Other incorrect edit commands to try: `edit`, `edit n/`, `...`<br>
+      Expected: The error message "Invalid command format! ..." is shown in the result box.
+2. Editing client name with name collision.
+    1. Prerequisites: The client list contains at least two clients, named `NAME_1` and `NAME_2`.
+    2. Test cases: `edit NAME_1 n/NAME_2` <br/>
+    Expected: The error message "This person already exists in the address book" is shown.
+
+[Back to table of contents](#table-of-contents)
+
+### Deleting a client
+
+1. Deleting a client with exact name
+
+    1. Prerequisites: The client list contains the target client, named `TARGET_NAME`.
+    1. Test case: `delete TARGET_NAME`<br>
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
        Timestamp in the status bar is updated.
+    1. Test case: `delete PREFIX_TARGET_NAME`. For example, if the target name is `Alex Yeoh`, try `delete Alex`. <br>
+       Expected: The client with`TARGET_NAME` is deleted.
+    1. Other incorrect delete commands to try: `delete`, `delete n/TARGET_NAME`, `...`<br>
+       Expected: The error message "Invalid command format! ..." is shown in the result box.
 
-    1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+2. Deleting a client with ambiguous prefix
+   1. Prerequisites: The client list contains the two clients with the same prefix `COMMON_PREFIX`
+      (e.g. Bernice Yu and Bernice Yee). To achieve this, you might need to add more clients to the list.
+   2. Test case: `delete COMMON_PREFIX` <br>
+   Expected: The error message "Multiple persons found with the same name! Please be more specific. ..."
+   is shown.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+[Back to table of contents](#table-of-contents)
 
-1. _{ more test cases …​ }_
+### Find an appointment
+1. Find appointment by meeting time
+    1. Test case: `find appt/DATE TIME to DATE TIME` <br/>
+       Expected: All appointments that overlap with the specified time range
+       are listed.
+    2. Test case: `find appt/DATE` <br/>
+       Expected: All appointments on the specified date
+       are listed.
+    3. Test case: `find appt/today` <br/>
+       Expected: All appointments scheduled for today
+       are listed.
+    4. Test case: `find appt/+N` (where N is a number) <br/>
+       Expected: All appointments in the upcoming N days
+       are listed.
+    5. Test case: `find appt/-N` (where N is a number) <br/>
+         Expected: All appointments from previous N days
+         are listed.
+
+2. Find appointment by status
+    1. Test case: `find status/STATUS` <br/>
+       Expected: All appointments with the specified status
+       are listed.
+   
+3. Find appointment by type
+    1. Test case: `find type/TYPE` <br/>
+       Expected: All appointments with the specified type
+       are listed.
+
+[Back to table of contents](#table-of-contents)
+
+### Create an appointment
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+
+In a live environment, HeartLink enforces a strict no-overlap policy for a client's confirmed appointments.
+An overlap, or clash, is specifically defined by the following three conditions being met:
+
+- Both appointments are set to the confirmed status.
+- Both appointments are for the same client.
+- Both appointments have overlapping timings.
+
+</div>
+
+1. Creating an appointment without appointment clashes.
+   1.  Prerequisites: The client list contains a client named `TARGET_NAME`. To make sure that there is no appointment clashes, 
+   you can add an appointment on a freshly created client.
+   2.  Test case: `link -c n/TARGET_NAME appt/DATE TIME len/MINUTES loc/LOCATION type/TYPE msg/MESSAGE status/STATUS`
+       (You can refer to the correct input format from the user guide.)
+   <br>
+   Expected: A new appointment is created and linked to `TARGET_NAME`. The status message displays the new appointment's details, including the
+   automatically generated Appointment ID, and confirms it's linked to `TARGET_NAME`. The list of appointments is shown.
+   3. Test case: `link -c n/TARGET_NAME appt/DATE TIME len/MINUTES` <br>
+   Expected: Same with previous test case, but the status is set to `planned`.
+   4. Try using invalid inputs, such as `link`, `link -c n/TARGET_NAME appt/12-10-2025` (`HHmm` is not specified), ...
+      You can refer to invalid input formats from the user guide. <br>
+      Expected: No new appointment is added.
+2. Creating an appointment with clash.
+   1. Prerequisite: The client list contains a client named `TARGET_NAME` without any appointments.
+   2. Add the first appointment to the list `link -c n/TARGET_NAME appt/12-10-2025 1000 len/30 status/confirmed`. <br>
+   Expected: The first appointment should be added successfully with its corresponding ID `ID_1`.
+   3. Add the second appointment to the list `link -c n/TARGET_NAME appt/12-10-2025 1020 len/30 status/confirmed` <br>
+   Expected: No new appointment is added. The error message "Two confirmed appointments clash ..." is shown.
+   4. An appointment clash only occurs when two appointments for the same client are confirmed. If this condition is not met,
+   both appointments should be created successfully without clashes.
+
+[Back to table of contents](#table-of-contents)
+
+### Edit an appointment
+
+1. Editing an appointment without appointment clashes.
+   1.  Prerequisites: The client list contains a client `TARGET_NAME` with at least one appointment.
+   The target appointment ID is `APPOINTMENT_ID`.
+   2. Test case `link -e id/APPOINTMENT_ID appt/DATE TIME len/MINUTES loc/LOCATION type/TYPE msg/MESSAGE status/STATUS` <br>
+   Expected: The appointment information should be edited. The list of appointments is shown.
+   3. Try using invalid inputs, such as `link`, `link -e`, `link -e appt/`, ... <br>
+   Expected: No information is edited. The error message "Invalid command format! ..." is shown in the result box.
+2. Editing an appointment with clashes.
+    1. Prerequisite: The client list contains a client named `TARGET_NAME` without any appointments.
+    2. Add the first appointment to the list `link -c n/TARGET_NAME appt/12-10-2025 1000 len/30 status/confirmed`. <br>
+          Expected: The first appointment should be added successfully with its corresponding ID `ID_1`.
+    3. Add the second appointment to the list `link -c n/TARGET_NAME appt/12-10-2025 1020 len/30 status/planned` <br>
+      Expected: The second appointment is added with appointment ID `SECOND_ID`.
+    4. Test case: `link -e id/SECOND_ID status/confirmed` <br>
+    Expected: No new appointment is added. The error message "Two confirmed appointments clash ..." is shown.
+
+[Back to table of contents](#table-of-contents)
+
+### Delete an appointment
+
+1. Deleting an appointment by ID
+   1. Prerequisite: The client list contains a client with at least one appointment. The target appointment ID is `APPOINTMENT_ID`.
+   2. Test case: `link -d id/APPOINTMENT_ID` <br>
+   Expected: The appointment with `APPOINTMENT_ID` is deleted. The list of appointments is shown.
+   3. Test case: `link -d id/APPOINTMENT_ID_NOT_IN_LIST` <br>
+   Expected: No appointment is deleted. The error message "The appointment with id `APPOINTMENT_ID_NOT_IN_LIST` could not be found".
+   4. Try using invalid inputs, such as `link id/`.
+   Expected: No appointment is deleted. The error message "Invalid ID!" is shown.
 
 [Back to table of contents](#table-of-contents)
 
 ### Saving data
+#### Handling erroneous data files
+1. Move the JAR file to a fresh directory. Run and close HeartLink to reset `preferences.json` to its default state.
+2. Test handling of missing data file
+    1. Delete `data/addressbook.json`.
+    2. Relaunch HeartLink.
+    3. Expected: A new `data/addressbook.json` file should be created, and it should be filled with sample data.
+3. Test handling of corrupted data file
+    1. Create a new file `data/corrupted.json` that has the same data as `data/addressbook.json` but edited by removing or adding lines such that it does not match the valid JSON format required for the data file.
+    2. Update `preferences.json` to contain:
+```
+"addressBookFilePath": "data/corrupted.json"
+```
 
-1. Dealing with missing/corrupted data files
+3. Relaunch HeartLink. HeartLink will launch with an empty client list.
+4. Make some changes with HeartLink (e.g. create new client). For example, `add n/Alex Yeoh p/88888888`
+5. Expected: The app will overwrite the corrupted data file with 
+the new data:
+```
+{
+  "persons" : [ {
+    "name" : "Alex Yeoh",
+    "phone" : "88888888",
+    "email" : "",
+    "address" : "",
+    "tags" : [ ],
+    "rank" : "",
+    "appointments" : [ ]
+  } ]
+}⏎    
+```
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+[Back to table of contents](#table-of-contents)
 
-1. _{ more test cases …​ }_
+### Clear all entries
+Test case: `clear` <br/>
+Expected: Information of all clients is removed.
+
+[Back to table of contents](#table-of-contents)
+
+### Exit program
+Test case: `exit` <br/>
+Expected: Exits the program.
 
 [Back to table of contents](#table-of-contents)
