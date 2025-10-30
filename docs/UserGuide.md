@@ -120,7 +120,7 @@ This guide provides instructions for Social Workers in Singapore on how to effic
 
 ### List of commands:
 
-<div markdown="block" class="alert alert-info">
+<div markdown="block" class="alert alert-info" id="command-format">
 
 **:information_source: Notes about the acceptable inputs:**<br>
 
@@ -150,7 +150,7 @@ Shows a message explaining how to access the help page.
 ```
 help
 ```
-> :bulb: **Tips:**
+> :bulb: **Tip:**
 > Any additional information after the command is being ignored.
 > e.g. `help [anything]` works.
 > e.g. `help [anything]` works.
@@ -177,26 +177,6 @@ add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​
 > * All required fields must be provided.
 > * A person can have any number of tags (including 0). Unsure how? Refer [here](#command-format).
 
-<div markdown="block" class="alert alert-info" id="client-acceptable-inputs">
-
-**:information_source: Here’s the fields and their acceptable inputs relating to clients:**<br>
-
-* **n/NAME**: This specifies the name of the client. Your input must be alphanumeric. <br>
-  E.g. `John Doe`
-* **p/PHONE_NUMBER**: This specifies the phone number of the client. Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
-  You may choose to include spaces but they are only allowed after +65 and in the middle of the 8 digits <br>
-  E.g. `+6598765432`, `+65 98765432`, `+65 9876 5432`, `98765432` or `9876 5432`.
-* **e/EMAIL**: This specifies the email address of the client. Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
-  The local and domain parts should be alphanumeric characters. <br>
-  E.g. `johndoe@example.com`
-* **a/ADDRESS**: This specifies the address of the client. Your input must be alphanumeric. Special characters like `# - , . ( ) / ; : &` are accepted. <br>
-  E.g. `John street, block 123, #01-01`
-* **t/TAG**: This specifies the tag(s) of the client. Your input must be alphanumeric. <br>
-  E.g. `friend` or `patient`
-* **r/RANK**: This specifies the priority rank of the client. You can only input four types of priority, `stable` , `vulnerable` , `urgent` and `crisis` (all case-insensitive). <br>
-
-</div>
-
 #### Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
 Adds a new client named John Doe with phone number 98765432, email address johnd@example.com, address John street, block 123, #01-01, and ranks the client as stable.
@@ -220,7 +200,7 @@ Shows a list of all persons in the address book.
 ```
 list
 ```
-> :bulb: **Tips:**
+> :bulb: **Tip:**
 > 
 > Any additional information after the command is being ignored.
 > e.g. `list [anything]` works.
@@ -263,7 +243,9 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 Successfully edited OLD_NAME's information to:
 EDITED_NAME; Phone: EDITED_PHONE; Email: EDITED_MAIL; Address: EDITED_ADDRESS; Tags: [EDITED_TAGS]; Rank: EDITED_RANK 
 ```
-*EDITED_FIELD represents the old value if not specified in command, and represents new value if specified.
+> :bulb: **Tip:**
+>
+> EDITED_FIELD represents the old value if not specified in command, and represents new value if specified.
 
 The contact is updated to the address book.
 
