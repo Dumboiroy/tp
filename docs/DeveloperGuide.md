@@ -624,7 +624,41 @@ Expected: All clients with their corresponding appointments are shown in the lis
 [Back to table of contents](#table-of-contents)
 
 ### Finding clients
-todo
+1. Find without any fields
+   1. Test case: `find` <br/>
+   Expected: The error message "Invalid command format. ..." is shown.
+2. Find client by keyword
+   1. Test case: `find n/KEYWORD_1` <br/>
+      Expected: All clients whose names contain `KEYWORD_1`
+      are listed.
+   2. Test case: `find n/KEYWORD_1 KEYWORD_2 ...` <br/>
+   Expected: All clients whose names contain any of the specified keywords
+   are listed.
+3. Find client by phone number.
+   1. Test case: `find p/PHOE_NUMBER` <br/>
+         Expected: All clients whose phone numbers exactly match `PHONE`
+         are listed.
+4. Find client by email.
+    1. Test case: `find e/EMAIL` <br/>
+       Expected: All clients whose emails exactly match `EMAIL`
+       are listed.
+
+5. Find client by tag.
+    1. Test case: `find t/TAG` <br/>
+    Expected: All clients whose tags contain `TAG` are listed.
+
+6. Find client by rank.
+   1. Test case: `find r/RANK` <br/>
+      Expected: All clients whose ranks exactly match `RANK`
+      are listed.
+
+7. Find client by chaining multiple commands
+    1. Test case: `find n/KEYWORD r/RANK` <br/>
+       Expected: All clients whose ranks exactly match `RANK`
+       and names contain `KEYWORD` are listed.
+
+
+[Back to table of contents](#table-of-contents)
 
 ### Adding new client
 1. Adding a new client to HeartLink
@@ -745,8 +779,6 @@ todo
    4. Try using invalid inputs, such as `link id/`.
    Expected: No appointment is deleted. The error message "Invalid ID!" is shown.
 
-### Finding appointments
-todo
 
 ### Saving data
 
