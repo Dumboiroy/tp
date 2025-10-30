@@ -4,7 +4,7 @@ title: HeartLink
 ---
 
 [![Java CI](https://github.com/AY2526S1-CS2103T-T09-1/tp/actions/workflows/gradle.yml/badge.svg?branch=master)](https://github.com/AY2526S1-CS2103T-T09-1/tp/actions/workflows/gradle.yml)
-[![codecov](https://codecov.io/gh/AY2526S1-CS2103-T09-01/tp/branch/master/graph/badge.svg?token=X0CYY9ZH9P)](https://codecov.io/gh/AY2526S1-CS2103-T09-01/tp)
+[![codecov](https://codecov.io/github/AY2526S1-CS2103T-T09-1/tp/graph/badge.svg?token=X0CYY9ZH9P)](https://codecov.io/github/AY2526S1-CS2103T-T09-1/tp)
 
 ![Ui](images/UI/Ui.png)
 
