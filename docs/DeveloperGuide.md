@@ -699,7 +699,7 @@ todo
        (You can refer to the correct input format from the user guide.)
    <br>
    Expected: A new appointment is created and linked to `TARGET_NAME`. The status message displays the new appointment's details, including the
-   automatically generated Appointment ID, and confirms it's linked to `TARGET_NAME`.
+   automatically generated Appointment ID, and confirms it's linked to `TARGET_NAME`. The list of appointments is shown.
    3. Test case: `link -c n/TARGET_NAME appt/DATE TIME len/MINUTES` <br>
    Expected: Same with previous test case, but the status is set to `planned`.
    4. Try using invalid inputs, such as `link`, `link -c n/TARGET_NAME appt/12-10-2025` (`HHmm` is not specified), ...
@@ -717,10 +717,33 @@ todo
 [Back to table of contents](#table-of-contents)
 
 ### Edit an appointment
-todo
+
+1. Editing an appointment without appointment clashes.
+   1.  Prerequisites: The client list contains a client `TARGET_NAME` with at least one appointment.
+   The target appointment ID is `APPOINTMENT_ID`.
+   2. Test case `link -e id/APPOINTMENT_ID appt/DATE TIME len/MINUTES loc/LOCATION type/TYPE msg/MESSAGE status/STATUS` <br>
+   Expected: The appointment information should be edited. The list of appointments is shown.
+   3. Try using invalid inputs, such as `link`, `link -e`, `link -e appt/`, ... <br>
+   Expected: No information is edited. The error message "Invalid command format! ..." is shown in the result box.
+2. Editing an appointment with clashes.
+    1. Prerequisite: The client list contains a client named `TARGET_NAME` without any appointments.
+    2. Add the first appointment to the list `link -c n/TARGET_NAME appt/12-10-2025 1000 len/30 status/confirmed`. <br>
+          Expected: The first appointment should be added successfully with its corresponding ID `ID_1`.
+    3. Add the second appointment to the list `link -c n/TARGET_NAME appt/12-10-2025 1020 len/30 status/planned` <br>
+      Expected: The second appointment is added with appointment ID `SECOND_ID`.
+    4. Test case: `link -e id/SECOND_ID status/confirmed` <br>
+    Expected: No new appointment is added. The error message "Two confirmed appointments clash ..." is shown.
 
 ### Delete an appointment
-todo
+
+1. Deleting an appointment by ID
+   1. Prerequisite: The client list contains a client with at least one appointment. The target appointment ID is `APPOINTMENT_ID`.
+   2. Test case: `link -d id/APPOINTMENT_ID` <br>
+   Expected: The appointment with `APPOINTMENT_ID` is deleted. The list of appointments is shown.
+   3. Test case: `link -d id/APPOINTMENT_ID_NOT_IN_LIST` <br>
+   Expected: No appointment is deleted. The error message "The appointment with id `APPOINTMENT_ID_NOT_IN_LIST` could not be found".
+   4. Try using invalid inputs, such as `link id/`.
+   Expected: No appointment is deleted. The error message "Invalid ID!" is shown.
 
 ### Finding appointments
 todo
