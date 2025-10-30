@@ -3,18 +3,15 @@ layout: page
 title: User Guide
 ---
 
-HeartLink is a desktop app for **managing clients' contacts and appointment** for **social workers in Singapore**. It is optimized for use via a **Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HeartLink can get your contact management tasks done faster than traditional GUI apps.
+HeartLink is a **desktop app** made for **social workers in Singapore** to help you **stay organized and work efficiently**. 
+If you type fast, HeartLink lets you **efficiently store** your clients’ details—names, phone numbers, and notes—and **link them directly** to appointments 
+so you **never miss** an important meeting.
+
+Optimized for use via a Command Line Interface (CLI) while still offering the benefits of a Graphical User Interface (GUI), 
+HeartLink helps you **spend less time navigating** menus and **more time focusing** on what matters: ***your clients***.
 
 ## Table of Contents
-1. [About this guide](#about-this-guide)
-2. [Quick start](#quick-start)
-2. [Features](#features)
-    1. [List of commands](#list-of-commands)
-    2. [Other features](#other-features)
-3. [Common errors](#warnings)
-4. [FAQ](#faq)
-5. [Command summary](#command-summary)
-
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -72,7 +69,7 @@ This guide provides instructions for Social Workers in Singapore on how to effic
    >  in `Users\(name)`, you will type `cd Downloads` in the terminal).
    > 3. Type `java -jar HeartLink.jar` and HeartLink will open!
 
-    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+    A GUI similar to the image below should appear in a few seconds. Note how the app contains some sample data.<br>
     ![Ui](images/UI/Ui.png)
     
 
@@ -122,36 +119,48 @@ This guide provides instructions for Social Workers in Singapore on how to effic
   as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
----
+### Command summary
+
+| Action                                                             | Format, Examples                                                                                                                                                                                               |
+|--------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **[Add Client](#2-adding-a-person-add)**                           | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                             |
+| **[Edit Client](#4-editing-a-person--edit)**                       | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                       |
+| **[Delete Client](#5-deleting-a-person--delete)**                  | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                        |
+| **[List Client](#3-listing-all-persons--list)**                    | `list`                                                                                                                                                                                                         |
+| **[Create Appointment](#i-creating-an-appointment-link--c)**       | `link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -c n/Alex appt/15-12-2025 2359 type/House Visit loc/Alex House len/60 msg/Bring Consent Form` |
+| **[Edit Appointment](#ii-editing-an-appointment--link--e)**        | `link -e id/APPOINTMENT_ID [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift`                    |
+| **[Delete Appointment](#iii-deleting-an-appointment--link--d)**    | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395`                                                                                                                                                       |
+| **[Find Clients](#7-looking-up-clients-by-fields-find)**           | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent`                                                                                                                            |
+| **[Find Appointments](#8-looking-up-appointments-by-fields-find)** | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today`                                                                                                                                       |
+| **[Clear All Entries](#9-clearing-all-entries--clear)**            | `clear`                                                                                                                                                                                                        |
+| **[Help](#1-viewing-help--help)**                                  | `help`                                                                                                                                                                                                         |
+| **[Exit Program](#10-exiting-the-program--exit)**                  | `exit`                                                                                                                                                                                                         |
+
+[Back to table of contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### List of commands:
 
-#### Quick Links
-1. [Viewing help](#1-viewing-help--help)
-2. [Adding a person](#2-adding-a-person-add)
-3. [Listing all persons](#3-listing-all-persons--list)
-4. [Editing a person](#4-editing-a-person--edit)
-5. [Deleting a person](#5-deleting-a-person--delete)
-6. [Managing Appointments with Clients](#6-managing-appointments-with-clients--link)
-    1. [Linking appointments](#i-creating-an-appointment-link--c)
-    2. [Editing appointments](#ii-editing-an-appointment--link--e)
-    3. [Deleting appointments](#iii-deleting-an-appointment--link--d)
-7. [Look up clients by fields](#7-look-up-clients-by-fields-find)
-    1. [Client name](#i-client-name-keyword)
-    2. [Client phone number](#ii-client-phone-number-phone)
-    3. [Client email](#iii-client-email-email)
-    4. [Client tag](#iv-client-tag-tag)
-    5. [Client rank](#v-client-rank-rank)
-    6. [Chaining attributes](#vi-chaining-client-attributes)
-8. [Look up appointments by fields](#8-look-up-appointments-by-fields-find)
-    1. [Appointment meeting time](#i-appointment-meeting-time-date-time)
-    2. [Appointment status](#ii-appointment-status-status)
-    3. [Appointment type](#iii-appointment-type-type)
-    4. [Chaining all attributes](#iv-chaining-commands)
-9. [Clearing all entries](#9-clearing-all-entries--clear)
-10. [Exiting the program](#10-exiting-the-program--exit)
+<div markdown="block" class="alert alert-info">
 
-[Back to table of contents](#table-of-contents)
+**:information_source: Notes about the acceptable inputs:**<br>
+
+* **n/NAME**: This specifies the name of the client. Your input must be alphanumeric. <br> 
+  E.g. `John Doe`  
+* **p/PHONE_NUMBER**: This specifies the phone number of the client. Your input should only contain 8 digits starting with 6, 8 or 9. You may choose to include the `+65` country code at the start (not included in the 8 digits). <br>
+  You may choose to include spaces but they are only allowed after +65 and in the middle of the 8 digits <br>
+  E.g. `+6598765432`, `+65 98765432`, `+65 9876 5432`, `98765432` or `9876 5432`.
+* **e/EMAIL**: This specifies the email address of the client. Your input must be in this format `[LOCAL]@[DOMAIN].[TOP-LEVEL DOMAIN]`.
+  The local and domain parts should be alphanumeric characters. <br> 
+  E.g. `johndoe@example.com`
+* **a/ADDRESS**: This specifies the address of the client. Your input must be alphanumeric. Special characters like `# - , . ( ) / ; : &` are accepted. <br>
+  E.g. `John street, block 123, #01-01`
+* **t/TAG**: This specifies the tag(s) of the client. Your input must be alphanumeric. <br>
+  E.g. `friend` or `patient`
+* **r/RANK**: This specifies the priority rank of the client. You can only input four types of priority, `stable` , `vulnerable` , `urgent` and `crisis` (all case-insensitive). <br>
+
+</div>
 
 ### 1. Viewing help : `help`
 
@@ -174,7 +183,7 @@ Opened help window.
 ```
 Additionally, a pop-up help window should appear with a link to our user guide.
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
 
 ### 2. Adding a person: `add`
 
@@ -223,7 +232,7 @@ New person added: NAME; Phone: PHONE; Email: EMAIL; Address: ADDRESS; Tags: [TAG
 
 ![img.png](images/UI/AddPerson.png)
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
 
 ### 3. Listing all persons : `list`
 
@@ -244,7 +253,7 @@ Listed all persons
 ```
 All contacts in address book should be listed.
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
 
 ### 4. Editing a person : `edit`
 
@@ -282,7 +291,7 @@ The contact is updated to the address book.
 
 ![img.png](images/UI/EditPerson.png)
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
 
 ### 5. Deleting a person : `delete`
 
@@ -309,7 +318,7 @@ The contact is deleted from the address book.
 
 ![img.png](images/UI/DeletePerson.png)
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
 
 ### 6. Managing Appointments with Clients : `link`
 
@@ -338,7 +347,7 @@ These commands allows social workers to record, track, and manage client appoint
 
 </div>
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
 
 #### i. Creating an appointment `link -c`
 
@@ -377,7 +386,7 @@ The appointment is linked to the person specified in the command.
 
 ![img.png](images/UI/CreateAppointment.png)
 
-[Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
+[Back to table of contents](#table-of-contents)
 
 #### ii. Editing an Appointment : `link -e`
 
@@ -417,7 +426,7 @@ The appointment with the same ID specifed in the command, is edited with the new
 
 ![img.png](images/UI/EditAppointment.png)
 
-[Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
+[Back to table of contents](#table-of-contents)
 
 #### iii. Deleting an Appointment : `link -d`
 
@@ -445,14 +454,12 @@ The appointment with the same ID specifed in the command, is deleted.
 
 ![img.png](images/UI/DeleteAppointment.png)
 
-[Back to shortcut list](#heres-the-shortcut-link-to-the-three-commands)
+[Back to table of contents](#table-of-contents)
 
-[Back to List of Commands](#quick-links)
-
-### 7. Look up clients by fields: `find`
+### 7. Looking up clients by fields: `find`
 
 Here is the first part of `find` command specific for clients.
-[Click here](#8-look-up-appointments-by-fields-find) to go to the second part for finding by appointment!
+[Click here](#8-looking-up-appointments-by-fields-find) to go to the second part for finding by appointment!
 
 Format:
 ```
@@ -473,7 +480,7 @@ The order of the attributes does not matter. If you haven't specified any attrib
 * [Client rank](#v-client-rank-rank)
 * [Chaining attributes](#vi-chaining-client-attributes)
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
 
 #### i. Client name `KEYWORD`
 
@@ -536,12 +543,12 @@ The address book lists all contacts that fits the specified constraints.
 
 [Back to attribute list](#heres-the-list-of-attributes-for-client)
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
 
-### 8. Look up appointments by fields `find`
+### 8. Looking up appointments by fields `find`
 
 Here is the second part of `find` command specific for appointments.
-[Click here](#8-look-up-appointments-by-fields-find) to go back to the first part for finding by client!
+[Click here](#7-looking-up-clients-by-fields-find) to go back to the first part for finding by client!
 
 Format:
 ```
@@ -557,7 +564,7 @@ that match the specified attributes.
 * [Appointment type](#iii-appointment-type-type)
 * [Chaining all attributes](#iv-chaining-commands)
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
 
 #### i. Appointment meeting time `DATE [TIME]`
 
@@ -619,7 +626,7 @@ The address book lists all appointments that fits the specified constraints.
 
 [Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
 
 ### 9. Clearing all entries : `clear`
 
@@ -636,7 +643,7 @@ Address book has been cleared!
 ```
 All contacts on the address book will be deleted.
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
 
 ### 10. Exiting the program : `exit`
 
@@ -647,7 +654,9 @@ Format:
 exit
 ```
 
-[Back to List of Commands](#quick-links)
+[Back to table of contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
 
 ### Other features:
 
@@ -717,7 +726,7 @@ Two confirmed appointments clash.
 
 --------------------------------------------------------------------------------------------------------------------
 ## Warnings
-**List of types of errors**
+**Here's a shortcut list to the types of errors**
 1. [Command-related errors](#command-related-errors)
 2. [Tag-related errors (General)](#tag-related-errors-general)
 3. [Tag-related errors (Appointment)](#tag-related-errors-appointment)
@@ -726,7 +735,7 @@ Two confirmed appointments clash.
 [Back to table of contents](#table-of-contents)
 
 ### Command-related errors
-**List of command-related errors**
+**Here's a summary of command-related errors**
 1. [add](#1-add)
 2. [edit](#2-edit)
 3. [delete](#3-delete)
@@ -746,7 +755,7 @@ Two confirmed appointments clash.
    ```
    This person already exists in the address book
    ```
-[Back to List of command-related errors](#command-related-errors)
+[Back to table of contents](#table-of-contents)
 
 #### 2. `edit`
 - Invalid syntax: `edit` `edit test` 
@@ -763,14 +772,14 @@ Two confirmed appointments clash.
     ```
    The person's name provided is invalid
    ```
-[Back to List of command-related errors](#command-related-errors)
+[Back to table of contents](#table-of-contents)
   
 #### 3. `delete`
 - Invalid name of contact to delete: `delete`
     ```
    Names should only contain alphanumeric characters and spaces, and it should not be blank
    ```
-[Back to List of command-related errors](#command-related-errors) 
+[Back to table of contents](#table-of-contents)
  
 #### 4. `link`
 - No flag: `link` `link n/john` `link n/john appt/12-12-2025`
@@ -815,7 +824,7 @@ Two confirmed appointments clash.
     ```
     The appointment with id ID could not be found.
     ```
-[Back to List of command-related errors](#command-related-errors)
+[Back to table of contents](#table-of-contents)
 
 #### 5. `find`
 - Invalid Syntax: `find test` 
@@ -835,9 +844,8 @@ Two confirmed appointments clash.
     • 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range
     Note: Time (HHmm) is optional. All dates must be valid calendar dates.
     ```
-[Back to List of command-related errors](#command-related-errors)
 
-[Back to List of types of errors](#warnings)
+[Back to table of contents](#table-of-contents)
 
 ### Tag-related errors (General)
 - Invalid name: `hello_world` `[empty space]`
@@ -871,7 +879,7 @@ Two confirmed appointments clash.
     ```
     Rank names should be one of the four: stable/vulnerable/urgent/crisis
     ```
-[Back to List of types of errors](#warnings)
+[Back to table of contents](#table-of-contents)
 
 ### Tag-related errors (Appointment)
 - Invalid date/time for appointment: `test` `121024`
@@ -890,14 +898,13 @@ Two confirmed appointments clash.
     ```
     Status must be one of: planned, confirmed, completed, cancelled
     ```
-[Back to List of types of errors](#warnings)
+[Back to table of contents](#table-of-contents)
 
 ### Other errors
 - Invalid command: `test`
     ```
     Unknown command
     ```
-[Back to List of types of errors](#warnings)
 
 [Back to table of contents](#table-of-contents)
 
@@ -912,26 +919,5 @@ Two confirmed appointments clash.
 3. Navigate to a folder named `data` and you will see a file called `addressbook.json` <br> 
 (If you don't see it in computer B, you can either run HeartLink once or create the file manually)
 4. Copy the contents of `addressbook.json` file from computer A (where your data is) to computer B.
-
-[Back to table of contents](#table-of-contents)
-
---------------------------------------------------------------------------------------------------------------------
-
-## Command summary
-
-| Action                 | Format, Examples                                                                                                                                                                                               |
-|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Client**         | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                             |
-| **Edit Client**        | `edit OLD_NAME [n/NEW_NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…​`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                       |
-| **Delete Client**      | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                        |
-| **List Client**        | `list`                                                                                                                                                                                                         |
-| **Find Clients**       | `find [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG] [r/RANK]`<br>e.g. `find n/Alex r/urgent`                                                                                                                            |
-| **Find Appointments**  | `find [appt/TIME] [status/STATUS] [type/TYPE]`<br>e.g. `find appt/today`                                                                                                                                       |
-| **Edit Appointment**   | `link -e id/APPOINTMENT_ID [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift`                    |
-| **Delete Appointment** | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395`                                                                                                                                                       |
-| **Add Appointment**    | `link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -c n/Alex appt/15-12-2025 2359 type/House Visit loc/Alex House len/60 msg/Bring Consent Form` |
-| **Clear All Entries**  | `clear`                                                                                                                                                                                                        |
-| **Help**               | `help`                                                                                                                                                                                                         |
-| **Exit Program**       | `exit`                                                                                                                                                                                                         |
 
 [Back to table of contents](#table-of-contents)
