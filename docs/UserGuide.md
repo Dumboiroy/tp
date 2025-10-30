@@ -208,8 +208,6 @@ This guide provides instructions for Social Workers in Singapore on how to effic
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
-
 #### Format: 
 ```
 help
@@ -217,13 +215,17 @@ help
 > :bulb: **Tip:**
 > Any additional information after the command is being ignored.
 > e.g. `help [anything]` works.
-> e.g. `help [anything]` works.
+> Just remember to add a space after `help`!
 
 #### Expected output:
 ```
 Opened help window.
 ```
-Additionally, a pop-up help window should appear with a link to our user guide.
+where a pop-up help window should appear with a command summary and a link to our user guide.
+
+The image below shows how it should look like when you execute the command: `help`
+
+![img.png](images/Ui/HelpWindow.png)
 
 [Back to table of contents](#table-of-contents)
 
@@ -251,6 +253,10 @@ Adds a new client named Betsy Crowe with email address betsycrowe@example.com, p
 ```
 New person added: NAME; Phone: PHONE; Email: EMAIL; Address: ADDRESS; Tags: [TAG1][TAG2]…​; Rank: RANK
 ```
+where a new person with the given details is added into HeartLink.
+
+The image below shows how it should look like when you execute the command:
+`add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
 
 ![img.png](images/UI/AddPerson.png)
 
@@ -268,12 +274,17 @@ list
 > 
 > Any additional information after the command is being ignored.
 > e.g. `list [anything]` works.
+> Just remember to add a space after `list`!
 
 #### Expected output:
 ```
 Listed all persons
 ```
-All contacts in address book should be listed.
+where all contacts in HeartLink should be listed.
+
+The image below shows how it should look like when you execute the command:`list`
+
+![img.png](images/UI/List.png)
 
 [Back to table of contents](#table-of-contents)
 
@@ -289,6 +300,7 @@ edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…�
 > :bulb: **Tips:**
 > * Edits the person at the specified `OLD_NAME`. The old name refers to the person's name before editing.
 > * At least one of the optional fields must be provided.
+> * `NAME` is case-sensitive.
 > * Existing values will be updated to the input values.
 > * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 > * You can remove all the person’s tags by typing `t/ ` without specifying any tags after it.
@@ -307,11 +319,12 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 Successfully edited OLD_NAME's information to:
 EDITED_NAME; Phone: EDITED_PHONE; Email: EDITED_MAIL; Address: EDITED_ADDRESS; Tags: [EDITED_TAGS]; Rank: EDITED_RANK 
 ```
+where the contact is updated in HeartLink.
 > :bulb: **Tip:**
 >
 > EDITED_FIELD represents the old value if not specified in command, and represents new value if specified.
 
-The contact is updated to the address book.
+The image below shows how it should look like when you execute the command: `edit John Doe p/91234567 e/johndoe@example.com r/urgent`
 
 ![img.png](images/UI/EditPerson.png)
 
@@ -328,7 +341,8 @@ delete NAME
 
 > :bulb: **Tips:**
 > * Deletes the person at the specified `NAME`.
-> * The NAME must be the same as the name reflected in HeartLink.
+> * `NAME` must be the same as the name reflected in HeartLink.
+> * `NAME` is case-sensitive.
 
 Example:
 * You have a person named `Alex Yeoh` in HeartLink. <br>
@@ -338,7 +352,9 @@ Example:
 ```
 Deleted Person: NAME; Phone: PHONE; Email: EMAIL; Address: ADDRESS; Tags: [TAGS]; Rank: RANK
 ```
-The contact is deleted from the address book.
+where the contact is deleted from HeartLink
+
+The image below shows how it should look like when you execute the command: `delete John Doe`
 
 ![img.png](images/UI/DeletePerson.png)
 
@@ -407,7 +423,10 @@ Examples:
 ```
 New appointment linked to NAME: Date/Time: DATE TIME; Length: LENGTH; Location: LOCATION; Type: TYPE; Message: MESSAGE; Status: STATUS
 ```
-The appointment is linked to the person specified in the command.
+where an appointment is linked to the contact specified in the command.
+
+The image below shows how it should look like when you execute the command:
+`link -c n/John appt/15-12-2025 2359 len/60 loc/Alex House type/House Visit msg/Bring Consent Form status/confirmed`
 
 ![img.png](images/UI/CreateAppointment.png)
 
@@ -447,7 +466,10 @@ Edits appointment `1b9a395` to reschedule the date and time to **18 Dec 2025, 3:
 Appointment with NAME edited to:
  Date/Time: DATE TIME; Length: LENGTH; Location: LOCATION; Type: TYPE; Message: MESSAGE; Status: STATUS
 ```
-The appointment with the same ID specifed in the command, is edited with the new information.
+where the appointment with the same ID specified in the command is edited with the new information.
+
+The image below shows how it should look like when you execute the command:
+`link -e id/06caace status/completed`
 
 ![img.png](images/UI/EditAppointment.png)
 
@@ -475,7 +497,10 @@ Example:
 ```
 Appointment with NAME deleted.
 ```
-The appointment with the same ID specifed in the command, is deleted.
+where the appointment with the same ID specified in the command is deleted.
+
+The image below shows how it should look like when you execute the command:
+`link -d id/06caace`
 
 ![img.png](images/UI/DeleteAppointment.png)
 
@@ -562,7 +587,9 @@ Examples:
 ```
 X persons listed!
 ```
-The address book lists all contacts that fits the specified constraints.
+where HeartLink listed out all contacts that fits the specified constraints.
+
+The image below shows how it should look like when you execute the command: `find stable`
 
 ![img.png](images/UI/FindPerson.png)
 
@@ -645,7 +672,9 @@ For example,
 ```
 X appointments listed!
 ```
-The address book lists all appointments that fits the specified constraints.
+where HeartLink listed out all appointments that fits the specified constraints.
+
+The image below shows how it should look like when you execute the command: `find appt/12-10-2025`
 
 ![img.png](images/UI/FindAppointment.png)
 
@@ -666,7 +695,11 @@ clear
 ```
 Address book has been cleared!
 ```
-All contacts on the address book will be deleted.
+where all contacts in HeartLink will be deleted.
+
+The image below shows how it should look like when you execute the command: `clear`
+
+![img.png](images/UI/Clear.png)
 
 [Back to table of contents](#table-of-contents)
 
@@ -791,6 +824,7 @@ Two confirmed appointments clash.
    - Edit home address: edit NAME a/ADDRESS
    - Edit phone number: edit NAME p/PHONE
    - Edit email address: edit NAME e/EMAIL
+   - Edit rank: edit NAME r/RANK
    - Combinations: edit NAME t/TAG p/PHONE ...
     ```
 - Invalid name of contact to edit: `edit John Doe n/newName` when the contact `John Doe` don't exist.<br>
@@ -815,24 +849,29 @@ Two confirmed appointments clash.
   ```
 - Invalid flag: `link -a ` `link -a n/john appt/12-12-2025`<br>
   ```
-  Invalid Flag!
+  Invalid command format!
+  Please include a flag after command.
+  i.e. To create an appointment: link -c [PARAMETERS], to delete an appointment: link -d [PARAMETERS], to edit an appointment: link -e [PARAMETERS]
   ```
 - Invalid syntax for create appointment: `link -c` `link -c name`<br>
   ```
   Invalid command format!
   Create flag: Links a new appointment to a client. 
-  Parameters: link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
+  Parameters: link -c n/NAME appt/DATE TIME len/MINUTES loc/LOCATION [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
   Example: link -c n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
   ```
 - Invalid name to link the appointment to: `link -c n/John appt/12-12-2025 2359` when `John` is not in the address book.<br>
   ```
-  No client found with the name: john
+  Invalid command format!
+  Create flag: Links a new appointment to a client.
+  Parameters: link -c n/NAME appt/DATE TIME len/MINUTES loc/LOCATION [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled]
+  Example: link -c n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
   ```
 - Invalid syntax for edit appointment: `link -e` `link -e id` `link -e id/1234567`<br>
   ```
   Invalid command format!  
   Edit flag: Updates an existing appointment for a client. 
-  Parameters: link -e id/ID [n/NAME ] [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
+  Parameters: link -e id/ID [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
   Example: link -e id/1234567 n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
   ```
 - Invalid id for edit appointment: `link -e id/1234567 msg/Bring consent form` when id of `1234567` does not exist.<br>
@@ -864,7 +903,7 @@ Two confirmed appointments clash.
     ```
     Please enter a valid DateTime in one of the following formats:
     • 'today' — for today's date
-    • '+N' or '-N' — where N is the number of days from today
+    • '+N' or '-N' — where N is the number of days from today (no more than 4 digits)
     • 'dd-MM-yyyy' — for a specific date
     • 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range
     Note: Time (HHmm) is optional. All dates must be valid calendar dates.
@@ -909,11 +948,11 @@ Two confirmed appointments clash.
 ### Tag-related errors (Appointment)
 - Invalid date/time for appointment: `test` `121024`<br>
     ```
-    DateTime must be in the format dd-MM-yyyy or dd-MM-yyyy HHmm, and must be valid calendar date/time.
+    DateTime must be in the format dd-MM-yyyy HHmm, and must be valid calendar date/time.
     ```
 - Invalid length for appointment: `-10`<br>
     ```
-    Length must be a positive integer number of minutes (e.g. 30, 60, 90)
+    Length must be a positive integer number of minutes (e.g. 30, 60, 90) with no more than 4 digits
     ```
 - Invalid location for appointment: `Woodlands + Street`<br>
     ```
