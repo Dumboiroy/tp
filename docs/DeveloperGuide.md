@@ -811,12 +811,27 @@ Expected: All clients with their corresponding appointments are shown in the lis
 
 
 ### Saving data
+#### Handling erroneous data files
+1. Move the JAR file to a fresh directory. Run and close HeartLink to reset `preferences.json` to its default state.
+2. Test handling of missing data file
+    1. Delete `data/addressbook.json`.
+    2. Relaunch HeartLink.
+    3. Expected: A new `data/addressbook.json` file should be created, and it should be filled with sample data.
+3. Test handling of corrupted data file
+    1. Create a new file `data/corrupted.json` that has the same data as `data/addressbook.json` but edited by removing or adding lines such that it does not match the valid JSON format required for the data file.
+    2. Update `preferences.json` to contain:
+```
+"addressBookFilePath": "data/corrupted.json"
+```
 
-1. Dealing with missing/corrupted data files
-
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+3. Relaunch HeartLink
+4. Expected: HeartLink will launch with an empty client list. The app will overwrite the corrupted data and replace it with an empty data file:
+```
+{
+    "persons" : [ ],
+    "appointments": [ ]
+}
+```
 
 [Back to table of contents](#table-of-contents)
 
