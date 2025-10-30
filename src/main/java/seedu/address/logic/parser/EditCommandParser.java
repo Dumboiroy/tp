@@ -80,6 +80,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (tags.isEmpty()) {
             return Optional.empty();
         }
+
+        for (String tag : tags) {
+            if (tag.length() > 30) {
+                throw new ParseException("Tag cannot be greater than 30 characters!");
+            }
+        }
+
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
