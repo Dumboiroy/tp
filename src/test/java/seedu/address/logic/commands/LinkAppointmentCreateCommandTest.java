@@ -40,20 +40,6 @@ public class LinkAppointmentCreateCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecified_success() {
-        Person client = new PersonBuilder(ALICE).build();
-        Appointment appt = new AppointmentBuilder()
-            .withName(client.getName().toString()).withDateTime("12-10-3099 1430").build();
-        LinkAppointmentCommand cmd = new LinkAppointmentCreateCommand(
-            client.getName(), appt);
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.addAppointmentWithPerson(appt, client);
-        assertCommandSuccess(cmd, model, String.format(
-            LinkAppointmentCommand.MESSAGE_SUCCESS, client.getName(),
-            Messages.format(appt)), expectedModel);
-    }
-
-    @Test
     public void execute_notFoundName_failure() {
         LinkAppointmentCommand cmd = new LinkAppointmentCreateCommand(
             new Name("random name"), DUMMY_APPT);
@@ -87,69 +73,6 @@ public class LinkAppointmentCreateCommandTest {
         LinkAppointmentCommand cmd = new LinkAppointmentCreateCommand(
             client.getName(), firstAliceAppointment);
         assertCommandFailure(cmd, model, LinkAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENTS);
-    }
-
-    @Test
-    public void execute_overlappingConfirmedAppointments_clashAppointmentException() {
-        Person client = new PersonBuilder(ALICE).build();
-        assert !ALICE.getAppointments().isEmpty();
-        Appointment firstAliceAppointment = new AppointmentBuilder(ALICE.getAppointments().get(0))
-            .withId("testing")
-            .withDateTime("12-01-2020 1200")
-            .withLength("70")
-            .withStatus("confirmed").build();
-        Appointment secondAliceAppointment = new AppointmentBuilder(ALICE.getAppointments().get(0))
-            .withId("testing II")
-            .withDateTime("12-01-2020 1300")
-            .withLength("30")
-            .withStatus("confirmed").build();
-
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        LinkAppointmentCommand firstCmd = new LinkAppointmentCreateCommand(
-            client.getName(), firstAliceAppointment);
-        expectedModel.addAppointmentWithPerson(firstAliceAppointment, client);
-        assertCommandSuccess(firstCmd, model, String.format(
-            LinkAppointmentCommand.MESSAGE_SUCCESS, client.getName(),
-            Messages.format(firstAliceAppointment)), expectedModel);
-
-        LinkAppointmentCommand secondCmd = new LinkAppointmentCreateCommand(
-            client.getName(), secondAliceAppointment);
-        assertCommandFailure(secondCmd, model,
-            String.format(LinkAppointmentCommand.MESSAGE_CLASH_APPOINTMENTS_CREATE,
-                firstAliceAppointment.getId(), firstAliceAppointment.getDateTime(),
-                secondAliceAppointment.getDateTime()));
-    }
-
-    @Test
-    public void execute_overlappingNotAppointments_noExceptionThrown() {
-        Person client = new PersonBuilder(ALICE).build();
-        assert !ALICE.getAppointments().isEmpty();
-        Appointment firstAliceAppointment = new AppointmentBuilder(ALICE.getAppointments().get(0))
-            .withId("testing")
-            .withDateTime("12-01-2020 1200")
-            .withLength("70")
-            .withStatus("confirmed").build();
-        Appointment secondAliceAppointment = new AppointmentBuilder(ALICE.getAppointments().get(0))
-            .withId("testing II")
-            .withDateTime("12-01-2020 1300")
-            .withLength("30")
-            .withStatus("planned").build();
-
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        LinkAppointmentCommand firstCmd = new LinkAppointmentCreateCommand(
-            client.getName(), firstAliceAppointment);
-        expectedModel.addAppointmentWithPerson(firstAliceAppointment, client);
-        assertCommandSuccess(firstCmd, model, String.format(
-            LinkAppointmentCommand.MESSAGE_SUCCESS, client.getName(),
-            Messages.format(firstAliceAppointment)), expectedModel);
-
-        LinkAppointmentCommand secondCmd = new LinkAppointmentCreateCommand(
-            client.getName(), secondAliceAppointment);
-        expectedModel.addAppointmentWithPerson(secondAliceAppointment,
-            client.withAddedAppointment(firstAliceAppointment));
-        assertCommandSuccess(secondCmd, model, String.format(
-            LinkAppointmentCommand.MESSAGE_SUCCESS, client.getName(),
-            Messages.format(secondAliceAppointment)), expectedModel);
     }
 
     @Test

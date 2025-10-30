@@ -57,10 +57,10 @@ public class LinkAppointmentCreateCommand extends LinkAppointmentCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        AppointmentId newId = this.appointment.getId().toString().equals("dummy")
-                ? model.generateId()
-                : this.appointment.getId();
-//        AppointmentId newId = model.generateId();
+//        AppointmentId newId = this.appointment.getId().toString().equals("dummy")
+//                ? model.generateId()
+//                : this.appointment.getId();
+        AppointmentId newId = model.generateId();
 
         this.appointment = new Appointment(newId, this.appointment.getClientName(), this.appointment.getDateTime(),
                 this.appointment.getLength(), this.appointment.getLocation(), this.appointment.getType(),
