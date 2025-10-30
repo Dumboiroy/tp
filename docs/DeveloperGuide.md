@@ -724,6 +724,36 @@ Expected: All clients with their corresponding appointments are shown in the lis
 
 [Back to table of contents](#table-of-contents)
 
+### Find an appointment
+1. Find appointment by meeting time
+    1. Test case: `find appt/DATE TIME to DATE TIME` <br/>
+       Expected: All appointments that overlap with the specified time range
+       are listed.
+    2. Test case: `find appt/DATE` <br/>
+       Expected: All appointments on the specified date
+       are listed.
+    3. Test case: `find appt/today` <br/>
+       Expected: All appointments scheduled for today
+       are listed.
+    4. Test case: `find appt/+N` (where N is a number) <br/>
+       Expected: All appointments in the upcoming N days
+       are listed.
+    5. Test case: `find appt/-N` (where N is a number) <br/>
+         Expected: All appointments from previous N days
+         are listed.
+
+2. Find appointment by status
+    1. Test case: `find status/STATUS` <br/>
+       Expected: All appointments with the specified status
+       are listed.
+   
+3. Find appointment by type
+    1. Test case: `find type/TYPE` <br/>
+       Expected: All appointments with the specified type
+       are listed.
+
+[Back to table of contents](#table-of-contents)
+
 ### Create an appointment
 
 1. Creating an appointment without appointment clashes.
