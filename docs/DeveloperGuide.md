@@ -606,29 +606,84 @@ testers are expected to do more *exploratory* testing.
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 [//]: # (TODO: Update test cases for delete command)
 
 [Back to table of contents](#table-of-contents)
 
-### Deleting a person
+### Display help
+Test case: `help` <br/>
+Expected: The help window shows a quick summary of all commands,
+and a URL within it redirects the user to the User Guide.
 
-1. Deleting a person while all persons are being shown
+[Back to table of contents](#table-of-contents)
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+### List all clients
+Test case: `list` <br/>
+Expected: All clients with their corresponding appointments are shown in the list.
 
-    1. Test case: `delete 1`<br>
+[Back to table of contents](#table-of-contents)
+
+### Adding new client
+1. Add a new client to HeartLink
+   1. Prerequisites: The client to add is not already existed in the client list
+      (You can use `list` to show the list of all clients).
+   2. Test cases: `add n/NAME p/PHONE_NUMBER` <br/>
+   Expected: The client with name `NAME` and phone number `PHONE_NUMBER` is appended
+    to the end of the list.
+   3. Try adding client with optional fields. For example, 
+   `add n/NAME p/PHONE_NUMBER e/EMAIL`, `add n/NAME p/PHONE_NUMBER e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
+   Expected: Similar to the previous test case, except now the optional fields are added.
+   4. Missing mandatory fields: `add`, `add n/NAME`, `add n/NAME p/`, ... <br/>
+   Expected: No new client is added. The error message "Invalid command format! ..." is shown in the result box.
+   5. Try using invalid inputs, such as `add n/John Doe p/1234` (invalid phone number) and `add n/John Doe p/88888888 e/abc` (invalid email).
+   You can refer to invalid input formats from the user guide.
+   Expected: No new client is added. The error message for the first invalid input is shown.
+2. Add an already-existing client
+   1. Prerequisite: The client list contains at least one client, named `SAME_NAME`.
+   2. Test cases: `add n/SAME_NAME p/VALID_PHONE_NUMBER` <br/>
+   Expected: No new client is added. The error message "This person already exists in the address book" is shown.
+
+[Back to table of contents](#table-of-contents)
+
+### Editing a client
+1. Edit client information in HeartLink with no name collision.
+    1. Prerequisites: The client list contains the target client, named `TARGET_NAME`.
+    2. Test cases: `edit TARGET_NAME n/NEW_NAME` <br/>
+       Expected: The client name changes from `TARGET_NAME` to `NEW_NAME`.
+    3. Try editing other fields.
+       `edit TARGET_NAME n/NEW_NAME p/PHONE_NUMBER e/EMAIL`, `edit TARGET_NAME n/NEW_NAME p/PHONE_NUMBER e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
+       Expected: Similar to the previous test case, except now the optional fields are added.
+    4. Try using invalid inputs, such as `edit TARGET_NAME p/1234` (invalid phone number) and `edit TARGET_NAME e/abc` (invalid email).
+       You can refer to invalid input formats from the user guide.
+       Expected: Client's information is unmodified. The error message for the first invalid input is shown.
+   5. Other incorrect edit commands to try: `edit`, `edit n/`, `...`<br>
+      Expected: The error message "Invalid command format! ..." is shown in the result box.
+2. Edit client name with name collision.
+    1. Prerequisites: The client list contains at least two clients, named `NAME_1` and `NAME_2`.
+    2. Test cases: `edit NAME_1 n/NAME_2` <br/>
+    Expected: The error message "This person already exists in the address book" is shown.
+
+[Back to table of contents](#table-of-contents)
+
+### Deleting a client
+
+1. Deleting a client with exact name
+
+    1. Prerequisites: The client list contains the target client, named `TARGET_NAME`.
+    1. Test case: `delete TARGET_NAME`<br>
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
        Timestamp in the status bar is updated.
+    1. Test case: `delete PREFIX_TARGET_NAME`. For example, if the target name is `Alex Yeoh`, try `delete Alex`. <br>
+       Expected: The client with`TARGET_NAME` is deleted.
+    1. Other incorrect delete commands to try: `delete`, `delete n/TARGET_NAME`, `...`<br>
+       Expected: The error message "Invalid command format! ..." is shown in the result box.
 
-    1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
+2. Delete a client with ambiguous prefix
+   1. Prerequisites: The client list contains the two clients with the same prefix `COMMON_PREFIX`
+      (e.g. Bernice Yu and Bernice Yee). To achieve this, you might need to add more clients to the list.
+   2. Test case: `delete COMMON_PREFIX` <br>
+   Expected: The error message "Multiple persons found with the same name! Please be more specific. ..."
+   is shown.
 
 [Back to table of contents](#table-of-contents)
 
