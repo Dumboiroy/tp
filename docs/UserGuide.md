@@ -11,7 +11,71 @@ Optimized for use via a Command Line Interface (CLI) while still offering the be
 HeartLink helps you **spend less time navigating** menus and **more time focusing** on what matters: ***your clients***.
 
 ## Table of Contents
-{:toc}
+
+<ol>
+    <li><a href="#about-this-guide">About this guide</a></li>
+    <li><a href="#quick-start">Quick start</a></li>
+    <li><a href="#features">Features</a>
+        <ol type="a">
+            <li><a href="#command-summary">Command summary</a></li>
+            <li><a href="#list-of-commands">List of commands</a>
+                <ol type="i">
+                    <li><a href="#1-viewing-help--help">Viewing help <code>help</code></a></li>
+                    <li><a href="#2-adding-a-person-add">Adding a person <code>add</code></a></li>
+                    <li><a href="#3-listing-all-persons--list">Listing all persons <code>list</code></a></li>
+                    <li><a href="#4-editing-a-person--edit">Editing a person <code>edit</code></a></li>
+                    <li><a href="#5-deleting-a-person--delete">Deleting a person <code>delete</code></a></li>
+                    <li><a href="#6-managing-appointments-with-clients--link">Managing Appointments with Clients</a>
+                        <ol type="1">
+                          <li><a href="#i-creating-an-appointment-link--c">Creating appointments <code>link -c</code></a></li>
+                          <li><a href="#ii-editing-an-appointment--link--e">Editing appointments <code>link -e</code></a></li>
+                          <li><a href="#iii-deleting-an-appointment--link--d">Deleting appointments <code>link -d</code></a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#7-looking-up-clients-by-fields-find">Looking up clients by fields <code>find</code></a>
+                        <ol type="1">
+                            <li><a href="#i-client-name-keyword">Client name</a></li>
+                            <li><a href="#ii-client-phone-number-phone">Client phone number</a></li>
+                            <li><a href="#iii-client-email-email">Client email</a></li>
+                            <li><a href="#iv-client-tag-tag">Client tag</a></li>
+                            <li><a href="#v-client-rank-rank">Client rank</a></li>
+                            <li><a href="#vi-chaining-client-attributes">Chaining attributes</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#8-looking-up-appointments-by-fields-find">Looking up appointments by fields <code>find</code></a>
+                        <ol type="1">
+                            <li><a href="#i-appointment-meeting-time-date-time">Appointment meeting time</a></li>
+                            <li><a href="#ii-appointment-status-status">Appointment status</a></li>
+                            <li><a href="#iii-appointment-type-type">Appointment type</a></li>
+                            <li><a href="#iv-chaining-commands">Chaining all attributes</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#9-clearing-all-entries--clear">Clearing all entries <code>clear</code></a></li>
+                    <li><a href="#10-exiting-the-program--exit">Exiting the program <code>exit</code></a></li>
+                </ol>
+            </li>
+            <li><a href="#other-features">Other features</a></li>
+        </ol>
+    </li>
+    <li><a href="#warnings">Common Errors</a>
+        <ol type="1">
+            <li><a href="#command-related-errors">Command-related errors</a>
+                <ol type="1">
+                    <li><a href="#1-add">add</a></li>
+                    <li><a href="#2-edit">edit</a></li>
+                    <li><a href="#3-delete">delete</a></li>
+                    <li><a href="#4-link">link</a></li>
+                    <li><a href="#5-find">find</a></li>
+                </ol>
+            </li>
+            <li><a href="#tag-related-errors-general">Tag-related errors (General)</a></li>
+            <li><a href="#tag-related-errors-appointment">Tag-related errors (Appointment)</a></li>
+            <li><a href="#other-errors">Other errors</a></li>
+        </ol>
+    </li>
+    <li><a href="#faq">FAQ</a></li>
+</ol>
+
 
 --------------------------------------------------------------------------------------------------------------------
 
