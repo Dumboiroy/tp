@@ -750,7 +750,7 @@ For example, suppose that your current address book is as follows.
         {
           "id": "e271471",
           "dateTime": "24-10-2025 1100",
-          "length": "30",
+          "length": "40",
           "status": "confirmed"
         },
         {
@@ -767,7 +767,7 @@ For example, suppose that your current address book is as follows.
 Note that the appointment `e271471` and `e125428` do not clash because one of the appointments are
 not confirmed.
 If you execute the command:`link -c n/Alex Yeoh appt/24-10-2025 1030 len/30 status/confirmed`, 
-you will receive an error message because the time slot `1100 - 1130` overlaps with `1030-1100`.
+you will receive an error message because the time slot `1100 - 1140` overlaps with `1030-1100`.
 ```
 Two confirmed appointments clash. 
 [old: e271471] 24-10-2025 1100
