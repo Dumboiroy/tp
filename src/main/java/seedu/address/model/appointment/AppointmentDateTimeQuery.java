@@ -16,7 +16,7 @@ public class AppointmentDateTimeQuery {
             + "• 'today' — for today's date\n"
             + "• '+N' or '-N' — where N is the number of days from today (no more than 4 digits)\n"
             + "• 'dd-MM-yyyy' — for a specific date\n"
-            + "• 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range\n"
+            + "• 'dd-MM-yyyy HHmm to dd-MM-yyyy HHmm' — for a custom date range\n"
             + "Note: Time (HHmm) is optional. All dates must be valid calendar dates.";
 
     public static final String KEYWORD_TODAY = "today";
