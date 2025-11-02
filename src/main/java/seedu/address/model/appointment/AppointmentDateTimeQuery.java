@@ -18,7 +18,7 @@ public class AppointmentDateTimeQuery {
             + "• 'dd-MM-yyyy' — for a specific date\n"
             + "• 'dd-MM-yyyy HHmm to dd-MM-yyyy HHmm' — for a custom date range\n"
             + "Note: Time (HHmm) is optional. All dates must be valid calendar dates.";
-
+    public static final String MESSAGE_START_TIME_AFTER_END_TIME = "Start time must not be later than end time.";
     public static final String KEYWORD_TODAY = "today";
     private static final String VALIDATION_REGEX =
             "^(today|"
