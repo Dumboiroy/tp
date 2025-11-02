@@ -707,7 +707,6 @@ Expected: All clients with their corresponding appointments are shown in the lis
     1. Prerequisites: The client list contains the target client, named `TARGET_NAME`.
     1. Test case: `delete TARGET_NAME`<br>
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
-       Timestamp in the status bar is updated.
     1. Test case: `delete PREFIX_TARGET_NAME`. For example, if the target name is `Alex Yeoh`, try `delete Alex`. <br>
        Expected: The client with`TARGET_NAME` is deleted.
     1. Other incorrect delete commands to try: `delete`, `delete n/TARGET_NAME`, `...`<br>
