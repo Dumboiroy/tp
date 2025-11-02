@@ -25,7 +25,7 @@ HeartLink helps you **spend less time navigating** menus and **more time focusin
                     <li><a href="#3-listing-all-clients--list">Listing all clients <code>list</code></a></li>
                     <li><a href="#4-editing-a-client--edit">Editing a client <code>edit</code></a></li>
                     <li><a href="#5-deleting-a-client--delete">Deleting a client <code>delete</code></a></li>
-                    <li><a href="#6-managing-appointments-with-clients--link">Managing Appointments with Clients<code>link</code></a></a>
+                    <li><a href="#6-managing-appointments-with-clients--link">Managing Appointments with Clients<code>link</code></a>
                         <ol type="1">
                           <li><a href="#i-creating-an-appointment-link--c">Creating appointments <code>link -c</code></a></li>
                           <li><a href="#ii-editing-an-appointment--link--e">Editing appointments <code>link -e</code></a></li>
