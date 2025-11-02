@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         // get person from nameQuery - i.e. get person from lastShownList whose name matches nameToDelete
-        List<Person> matchedPersons = getMatchedPersons(lastShownList, targetName);
+        List<Person> matchedPersons = getMatchedPerson(lastShownList, targetName);
         requireNonEmptyPersonList(matchedPersons);
         requireSinglePersonList(matchedPersons);
 
@@ -82,9 +82,9 @@ public class DeleteCommand extends Command {
                 .toString();
     }
 
-    private static List<Person> getMatchedPersons(List<Person> personList, Name targetName) {
+    private static List<Person> getMatchedPerson(List<Person> personList, Name targetName) {
         return personList.stream()
-                .filter(person -> person.getName().containsName(targetName))
+                .filter(person -> person.getName().equals(targetName))
                 .toList();
     }
 
