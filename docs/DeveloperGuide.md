@@ -7,29 +7,39 @@ title: Developer Guide
 1. [Acknowledgements](#acknowledgements)
 2. [Setting up, getting started](#setting-up-getting-started)
 3. [Design](#design)
-    1. [Architecture](#architecture)
-    2. [UI component](#ui-component)
-    3. [Logic component](#logic-component)
-    4. [Model component](#model-component)
-    5. [Storage component](#storage-component)
-    6. [Common classes](#common-classes)
-4. [Implementation](#implementation)
-    1. [Proposed Undo/redo feature](#proposed-undoredo-feature)
-    2. [Proposed Data archiving](#proposed-data-archiving)
-5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
-    1. [Documentation guide](Documentation.md)
-    2. [Testing guide](Testing.md)
-    3. [Logging guide](Logging.md)
-    4. [Configuration guide](Configuration.md)
-    5. [DevOps guide](DevOps.md)
-6. [Appendix: Requirements](#appendix-requirements)
-    1. [Product scope](#product-scope)
-    2. [User stories](#user-stories)
-    3. [Use cases](#use-cases)
-7. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
-    1. [Launch and shutdown](#launch-and-shutdown)
-    2. [Deleting a person](#deleting-a-person)
-    3. [Saving data](#saving-data)
+   1. [Architecture](#architecture)
+   2. [UI component](#ui-component)
+   3. [Logic component](#logic-component)
+   4. [Model component](#model-component)
+   5. [Storage component](#storage-component)
+   6. [Common classes](#common-classes)
+4. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+   1. [Documentation guide](Documentation.md)
+   2. [Testing guide](Testing.md)
+   3. [Logging guide](Logging.md)
+   4. [Configuration guide](Configuration.md)
+   5. [DevOps guide](DevOps.md)
+5. [Appendix: Requirements](#appendix-requirements)
+   1. [Product scope](#product-scope)
+   2. [User stories](#user-stories)
+   3. [Use cases](#use-cases)
+   4. [Non-Functional Requirements](#non-functional-requirements)
+   5. [Glossary](#glossary)
+6. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+   1. [Launch and shutdown](#launch-and-shutdown)
+   2. [Display help](#display-help)
+   3. [List all clients](#list-all-clients)
+   4. [Find clients](#finding-clients)
+   5. [Add client](#adding-new-client)
+   6. [Edit client](#editing-a-client)
+   7. [Delete client](#deleting-a-client)
+   8. [Find appointment](#find-an-appointment)
+   9. [Create appointment](#create-an-appointment)
+   10. [Edit appointment](#edit-an-appointment)
+   11. [Delete appointment](#delete-an-appointment)
+   12. [Saving data](#saving-data)
+   13. [Clear all entries](#clear-all-entries)
+   14. [Exit](#exit-program)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -321,7 +331,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to list of clients.
-2. User provides additional attributes to filter by, such as name, appointment date, tag, and rank.
+2. User provides additional attributes to filter by.
 3. HeartLink displays the list of all clients corresponding to the attributes given by a user.
    All information for each person are shown.
 
@@ -342,7 +352,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to add client
+1. User requests to add client.
 2. HeartLink adds the client to the list.
 
    Use case ends.
@@ -355,7 +365,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-* 1b. The given name/phone number/email already exists.
+* 1b. The given details already exists.
 
     * 1b1. HeartLink shows an error message.
 
@@ -372,9 +382,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
-2. HeartLink shows a list of clients
-3. User requests to delete a specific person in the list by name
-4. HeartLink deletes the specified client from the address book.
+2. HeartLink shows a list of clients.
+3. User requests to delete a specific client in the list.
+4. HeartLink deletes the specified client.
 
    Use case ends.
 
@@ -384,7 +394,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given name does not exist.
+* 3a. The given attribute to specify the client does not exist.
 
     * 3a1. HeartLink shows an error message.
 
@@ -396,7 +406,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
 2. HeartLink shows a list of clients
-3. User requests to edit a specific person in the list
+3. User requests to edit a specific client in the list
 4. HeartLink edits the specified details of the clients.
 
    Use case ends.
@@ -407,13 +417,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given name does not exist.
+* 3a. The given attribute to specify the client does not exist.
 
     * 3a1. HeartLink shows an error message.
 
       Use case resumes at step 2.
 
-* 3b. The updated name/phone number/email already exists.
+* 3b. The updated attribute already exists.
 
     * 3b1. HeartLink shows an error message.
 
@@ -438,27 +448,27 @@ Use case ends.
 
 **Extensions**
 
-* 2a. No clients available
+* 2a. No clients available.
     * 2a1. HeartLink shows an empty list.
 
       Use case ends.
 
-* 3a. Specified client does not exist
+* 3a. Specified client does not exist.
     * 3a1. HeartLink shows an error message.
 
       Use case resumes at step 2.
 
-* 3b. Appointment details are invalid (incorrect date, time, duration, or status)
+* 3b. Appointment details are invalid.
     * 3b1. HeartLink shows an error message.
 
       Use case resumes at step 2.
 
-* 3c. Appointment conflicts with an existing one
+* 3c. Appointment conflicts with an existing one.
     * 3c1. HeartLink shows a scheduling conflict message.
 
       Use case resumes at step 2.
 
-* 3d. Appointment duplicates an existing one
+* 3d. Appointment duplicates an existing one.
     * 3d1. HeartLink shows a duplicate appointment error.
 
       Use case resumes at step 2.
@@ -469,9 +479,8 @@ Use case ends.
 
 1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
 2. HeartLink shows a list of clients with their appointment details.
-3. User selects a specific client and requests to edit an existing appointment using its Appointment ID.
-4. User provides updated details for the appointment (date, time, duration, location, type, message, or status).
-5. HeartLink updates the appointment with the provided details, ensuring that no scheduling conflict occurs.
+3. User selects a specific client and requests to edit an existing appointment with updated details for the appointment.
+4. HeartLink updates the appointment with the provided details.
 
 Use case ends.
 
@@ -482,12 +491,12 @@ Use case ends.
 
     Use case ends.
 
-* 3a. The given appointment ID does not exist
+* 3a. The given attribute to specify the client does not exist.
   * 3a1. HeartLink shows an error message.
 
     Use case resumes at step 2.
 
-* 3b. The provided details are invalid (incorrect date, time, duration, or status)
+* 3b. The provided details are invalid.
   * 3b1. HeartLink shows an error message.
 
     Use case resumes at step 2.
@@ -497,7 +506,7 @@ Use case ends.
 
     Use case resumes at step 2.
 
-* 3d. The appointment ID is not found
+* 3d. The given attribute to specify client is invalid.
   * 3d1. HeartLink shows an error message.
 
     Use case resumes at step 2.
@@ -508,7 +517,7 @@ Use case ends.
 
 1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
 2. HeartLink shows a list of clients with the corresponding appointment details.
-3. User selects a specific client and requests to delete an existing appointment by using its Appointment ID.
+3. User selects a specific client and requests to delete an existing appointment.
 4. HeartLink deletes the specified appointment from the client’s record and removes it from the database.
 
     Use case ends.
@@ -520,12 +529,12 @@ Use case ends.
 
     Use case ends.
 
-* 3a. The given appointment ID does not exist.
+* 3a. The given attribute to specify client does not exist.
   * 3a1. HeartLink shows an error message.
 
     Use case resumes at step 2.
 
-* 3b. The appointment ID is invalid. 
+* 3b. The given attribute to specify client is invalid. 
   * 3b1. HeartLink shows an error message.
 
     Use case resumes at step 2.
@@ -545,7 +554,7 @@ Use case ends.
    also gracefully handle text-related issues such as long strings, emoji rendering, and font compatibility.
 6. **Process Requirement** Our project is expected to adhere to a schedule that delivers a feature set every week
    throughout the second half of the semester.
-7. **Quality Assurance** All source code shall achieve a minimum of 80% unit test coverage.
+7. **Quality Assurance** All source code shall achieve a minimum of 75% unit test coverage.
 
 [Back to table of contents](#table-of-contents)
 
@@ -583,16 +592,16 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-    1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder.
 
-    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be
+    2. Run HeartLink using the `java -jar HeartLink.jar` command. <br>Expected: Shows the GUI with a set of sample contacts. The window size may not be
        optimum.
 
 1. Saving window preferences
 
     1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-    1. Re-launch the app by double-clicking the jar file.<br>
+    1. Re-launch the app by using the `java -jar HeartLink.jar` command.<br>
        Expected: The most recent window size and location is retained.
 
 [//]: # (TODO: Update test cases for delete command)
@@ -842,7 +851,7 @@ the new data:
     "rank" : "",
     "appointments" : [ ]
   } ]
-}⏎    
+}    
 ```
 
 [Back to table of contents](#table-of-contents)
