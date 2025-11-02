@@ -32,6 +32,6 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "", Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "", DeleteCommand.INVALID_COMMAND_FORMAT);
     }
 }

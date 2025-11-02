@@ -56,7 +56,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
     private void requireNonEmptyName(String nameString) throws ParseException {
         if (nameString.isEmpty()) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(DeleteCommand.INVALID_COMMAND_FORMAT);
         }
     }
 }
