@@ -40,6 +40,7 @@ MainWindow -down-> "1" StatusBarFooter
 MainWindow --> "0..1" HelpWindow
 
 PersonListPanel -down-> "*" PersonCard
+PersonCard -left-> "*" AppointmentCard
 AppointmentListPanel -down-> "*" AppointmentCard
 
 MainWindow -left-|> UiPart
