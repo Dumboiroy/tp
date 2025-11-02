@@ -10,6 +10,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDateTime;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.AppointmentLength;
 import seedu.address.model.appointment.AppointmentLocation;
 import seedu.address.model.appointment.AppointmentMessage;
@@ -66,6 +67,7 @@ public class SampleDataUtil {
     public static List<Appointment> getSampleAppointmentsByIndices(String clientName, int... indices) {
         List<Appointment> sampleAppointments = List.of(
             new Appointment(
+                new AppointmentId("sampleid1"),
                 new Name(clientName),
                 new AppointmentDateTime("22-10-2025 0900"),
                 new AppointmentLength("45"),
@@ -75,6 +77,7 @@ public class SampleDataUtil {
                 new AppointmentStatus("confirmed")
             ),
             new Appointment(
+                new AppointmentId("sampleid2"),
                 new Name(clientName),
                 new AppointmentDateTime("23-10-2025 1600"),
                 new AppointmentLength("120"),
@@ -84,6 +87,7 @@ public class SampleDataUtil {
                 new AppointmentStatus("cancelled")
             ),
             new Appointment(
+                new AppointmentId("sampleid3"),
                 new Name(clientName),
                 new AppointmentDateTime("24-10-2025 1100"),
                 new AppointmentLength("30"),
