@@ -1,7 +1,6 @@
 package seedu.address.model.person;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
@@ -147,16 +146,12 @@ public class PersonQuery {
      * Comparison is case-insensitive.
      */
     private boolean hasAnyMatchingKeyword(Name personName, Set<Name> queryKeywords) {
-        Set<String> personNameTokens = Arrays.stream(personName.toString().trim().split("\\s+"))
-            .map(String::toLowerCase)
-            .collect(Collectors.toSet());
+        String personNameLower = personName.toString().toLowerCase();
 
-        Set<String> queryTokens = queryKeywords.stream()
+        return queryKeywords.stream()
             .map(Name::toString)
             .map(String::toLowerCase)
-            .collect(Collectors.toSet());
-
-        return !Collections.disjoint(personNameTokens, queryTokens);
+            .anyMatch(keyword -> personNameLower.contains(keyword));
     }
 
     /**
