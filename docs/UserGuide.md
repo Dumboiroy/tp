@@ -909,6 +909,7 @@ Two confirmed appointments clash.
     • 'dd-MM-yyyy' — for a specific date
     • 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range
     Note: Time (HHmm) is optional. All dates must be valid calendar dates.
+    Additionally, year must be >=1900.
     ```
 
 [Back to table of contents](#table-of-contents)
