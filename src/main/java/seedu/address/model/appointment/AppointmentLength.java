@@ -34,7 +34,7 @@ public class AppointmentLength {
      * @return A boolean stating whether string is valid or not
      */
     public static boolean isValidLength(String test) {
-        return test.equals(NO_LENGTH) || test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

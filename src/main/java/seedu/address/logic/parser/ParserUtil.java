@@ -221,7 +221,7 @@ public class ParserUtil {
      */
     public static AppointmentLength parseAppointmentLength(String length) throws ParseException {
         if (length == null || length.trim().isEmpty()) {
-            return new AppointmentLength(AppointmentLength.NO_LENGTH);
+            throw new ParseException(AppointmentLength.MESSAGE_CONSTRAINTS);
         }
         String trimmed = length.trim();
         if (!AppointmentLength.isValidLength(trimmed)) {
