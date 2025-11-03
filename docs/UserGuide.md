@@ -58,9 +58,9 @@ HeartLink helps you **spend less time navigating** menus and **more time focusin
         </ol>
     </li>
     <li><a href="#warnings">Common Errors</a>
-        <ol type="1">
+        <ol type="a">
             <li><a href="#command-related-errors">Command-related errors</a>
-                <ol type="1">
+                <ol type="i">
                     <li><a href="#1-add">add</a></li>
                     <li><a href="#2-edit">edit</a></li>
                     <li><a href="#3-delete">delete</a></li>
