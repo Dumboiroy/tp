@@ -150,8 +150,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .setStatus(new AppointmentStatus("confirmed"));
         return appointments.containsQuery(appt ->
                 query.filter(appt)
-                        && appt.getClientName().fullName.equalsIgnoreCase(
-                            appointment.getClientName().fullName)
+                        && appt.getClientName().equals(appointment.getClientName())
                         && !appt.getId().equals(appointment.getId()));
     }
 
