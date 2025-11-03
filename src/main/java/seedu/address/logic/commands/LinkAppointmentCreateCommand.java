@@ -30,7 +30,7 @@ public class LinkAppointmentCreateCommand extends LinkAppointmentCommand {
                     + PREFIX_NAME + "NAME "
                     + PREFIX_APPOINTMENT + "DATE TIME "
                     + PREFIX_LENGTH + "MINUTES "
-                    + PREFIX_LOCATION + "LOCATION "
+                    + "[" + PREFIX_LOCATION + "LOCATION] "
                     + "[" + PREFIX_TYPE + "TYPE] "
                     + "[" + PREFIX_MESSAGE + "NOTES] "
                     + "[" + PREFIX_STATUS + "planned|confirmed|completed|cancelled]\n"
