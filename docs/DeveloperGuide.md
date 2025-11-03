@@ -280,7 +280,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 **Value proposition**: Social workers manage dozens of clients at once.
 HeartLink provides fast and convenient access to client contact details while helping track workload.
 By reducing the burden of administrative tasks, remembering check-ins, and organizing deadlines across scattered
-records, our address book minimizes paperwork stress and allows social workers to focus on
+records, Heartlink minimizes paperwork stress and allows social workers to focus on
 supporting the people who need them.
 
 [Back to table of contents](#table-of-contents)
@@ -322,7 +322,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | less tech-savvy worker      | have easy access to an application guide        | learn how to use it without frustration                               |
 | `*`      | social worker               | have a system that works reliably               | ensure wrong commands don’t destroy the address book                  |
 
-*{More to be added}*
 
 [Back to table of contents](#table-of-contents)
 
@@ -337,7 +336,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to list of clients.
 2. User provides additional attributes to filter by.
 3. HeartLink displays the list of all clients corresponding to the attributes given by a user.
-   All information for each person are shown.
+   All information for each client are shown.
 
    Use case ends.
 
@@ -548,7 +547,7 @@ Use case ends.
 ### Non-Functional Requirements
 
 1. **Compatibility** Our system should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2. **Performance** Our system should be able to hold up to 1000 persons without a noticeable sluggishness in performance
+2. **Performance** Our system should be able to hold up to 1000 client details without a noticeable sluggishness in performance
    for typical usage.
 3. **User Experience** A user with above average typing speed for regular English text (i.e. not code, not system admin
    commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
@@ -598,7 +597,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Download the jar file and copy into an empty folder.
 
-    2. Run HeartLink using the `java -jar HeartLink.jar` command. <br>Expected: Shows the GUI with a set of sample contacts. The window size may not be
+    2. Run HeartLink using the `java -jar HeartLink.jar` command. <br>Expected: Shows the GUI with a set of sample clients. The window size may not be
        optimum.
 
 1. Saving window preferences
@@ -615,7 +614,7 @@ testers are expected to do more *exploratory* testing.
 ### Display help
 Test case: `help` <br/>
 Expected: The help window shows a quick summary of all commands,
-and a URL within it redirects the user to the User Guide.
+and a URL within it redirects the user to the User Guide by copy and pasting it in their web browser.
 
 [Back to table of contents](#table-of-contents)
 
@@ -637,8 +636,8 @@ Expected: All clients with their corresponding appointments are shown in the lis
    Expected: All clients whose names contain any of the specified keywords
    are listed.
 3. Find client by phone number.
-   1. Test case: `find p/PHONE_NUMBER` <br/>
-         Expected: All clients whose phone numbers exactly match `PHONE_NUMBER`
+   1. Test case: `find p/PHONE` <br/>
+         Expected: All clients whose phone numbers exactly match `PHONE`
          are listed.
 4. Find client by email.
     1. Test case: `find e/EMAIL` <br/>
@@ -666,11 +665,11 @@ Expected: All clients with their corresponding appointments are shown in the lis
 1. Adding a new client to HeartLink
    1. Prerequisites: The client's name does not exist in the client list
       (You can use `list` to show the list of all clients).
-   2. Test cases: `add n/NAME p/PHONE_NUMBER` <br/>
-   Expected: The client with name `NAME` and phone number `PHONE_NUMBER` is appended
+   2. Test cases: `add n/NAME p/PHONE` <br/>
+   Expected: The client with name `NAME` and phone number `PHONE` is appended
     to the end of the list.
    3. Try adding client with optional fields. For example, 
-   `add n/NAME p/PHONE_NUMBER e/EMAIL`, `add n/NAME p/PHONE_NUMBER e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
+   `add n/NAME p/PHONE e/EMAIL`, `add n/NAME p/PHONE e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
    Expected: Similar to the previous test case, except now the optional fields are added.
    4. Missing mandatory fields: `add`, `add n/NAME`, `add n/NAME p/`, ... <br/>
    Expected: No new client is added. The error message "Invalid command format! ..." is shown in the result box.
@@ -679,7 +678,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
    Expected: No new client is added. The error message for the first invalid input is shown.
 2. Adding an already-existing client
    1. Prerequisite: The client list contains at least one client, named `SAME_NAME`.
-   2. Test cases: `add n/SAME_NAME p/VALID_PHONE_NUMBER` <br/>
+   2. Test cases: `add n/SAME_NAME p/VALID_PHONE` <br/>
    Expected: No new client is added. The error message "This person already exists in the address book" is shown.
 
 [Back to table of contents](#table-of-contents)
@@ -690,7 +689,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
     2. Test cases: `edit TARGET_NAME n/NEW_NAME` <br/>
        Expected: The client name changes from `TARGET_NAME` to `NEW_NAME`.
     3. Try editing other fields.
-       `edit TARGET_NAME n/NEW_NAME p/PHONE_NUMBER e/EMAIL`, `edit TARGET_NAME n/NEW_NAME p/PHONE_NUMBER e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
+       `edit TARGET_NAME n/NEW_NAME p/PHONE e/EMAIL`, `edit TARGET_NAME n/NEW_NAME p/PHONE e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
        Expected: Similar to the previous test case, except now the optional fields are added.
     4. Try using invalid inputs, such as `edit TARGET_NAME p/1234` (invalid phone number) and `edit TARGET_NAME e/abc` (invalid email).
        You can refer to invalid input formats from the user guide.
@@ -710,7 +709,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
 
     1. Prerequisites: The client list contains the target client, named `TARGET_NAME`.
     1. Test case: `delete TARGET_NAME`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+       Expected: Client of `TARGET_NAME` is deleted from the list. Details of the deleted client shown in the status message.
     1. Test case: `delete PREFIX_TARGET_NAME`. For example, if the target name is `Alex Yeoh`, try `delete Alex`. <br>
        Expected: The client with`TARGET_NAME` is deleted.
     1. Other incorrect delete commands to try: `delete`, `delete n/TARGET_NAME`, `...`<br>
