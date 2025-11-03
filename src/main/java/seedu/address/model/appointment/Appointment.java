@@ -99,16 +99,20 @@ public class Appointment {
     }
 
     /**
-     * Returns true if both appointments have the same client and date/time.
-     * This defines a weaker notion of equality between two appointments.
+     * Returns true if both appointments have the same fields except id.
      */
     public boolean isSameAppointment(Appointment other) {
         if (other == this) {
             return true;
         }
         return other != null
-                && other.getClientName().equals(getClientName())
-                && other.getDateTime().equals(getDateTime());
+            && clientName.equals(other.clientName)
+            && dateTime.equals(other.dateTime)
+            && length.equals(other.length)
+            && location.equals(other.location)
+            && type.equals(other.type)
+            && message.equals(other.message)
+            && status.equals(other.status);
     }
 
     @Override

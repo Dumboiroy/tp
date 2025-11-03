@@ -35,13 +35,9 @@ public class AppointmentTest {
         assertFalse(DENTIST_APPT.isSameAppointment(editedAppointment));
 
         // Weak equality test
-        // different length, location, type, message, status -> returns true
+        // different id -> returns true
         editedAppointment = (new AppointmentBuilder(DENTIST_APPT))
-            .withLength("25")
-            .withLocation("NUS")
-            .withType("Personal")
-            .withMessage("-")
-            .withStatus("confirmed").build();
+            .withId("dummy").build();
         assertTrue(DENTIST_APPT.isSameAppointment(editedAppointment));
     }
 

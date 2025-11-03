@@ -87,7 +87,7 @@ public class LinkAppointmentCreateCommand extends LinkAppointmentCommand {
         Optional<Person> clientOpt = model.getFilteredPersonList().stream()
                 .filter(p -> {
                     assert clientName != null;
-                    return p.getName().fullName.equalsIgnoreCase(clientName.fullName);
+                    return p.getName().equals(clientName);
                 })
                 .findFirst();
 
