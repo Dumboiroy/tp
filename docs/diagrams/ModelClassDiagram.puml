@@ -23,13 +23,6 @@ Class Rank
 
 Class UniqueAppointmentList
 Class Appointment
-Class AppointmentId
-Class AppointmentDateTime
-Class AppointmentLength
-Class AppointmentLocation
-Class AppointmentType
-Class AppointmentMessage
-Class AppointmentStatus
 
 Class I #FFFFFF
 }
@@ -67,17 +60,5 @@ ModelManager --> "~* filtered" Person
 
 AddressBook *--> "1" UniqueAppointmentList
 UniqueAppointmentList --> "~* all" Appointment
-Appointment --> "1"AppointmentStatus
-Appointment --> "1"AppointmentDateTime
-Appointment --> "1"AppointmentLength
-Appointment --> "1"AppointmentId
-Appointment --> "1"AppointmentLocation
-Appointment --> "1"AppointmentType
-Appointment --> "1"AppointmentMessage
-
-AppointmentLocation -[hidden]up-> AppointmentId
-AppointmentMessage -[hidden]up-> AppointmentStatus
-AppointmentLength -[hidden]up-> AppointmentType
-AppointmentDateTime -[hidden]left-> AppointmentStatus
 ModelManager --> "~* filtered" Appointment
 @enduml
