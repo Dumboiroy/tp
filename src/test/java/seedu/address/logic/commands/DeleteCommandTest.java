@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonWithName;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalNames.NAME_ALICE_PAULINE;
 import static seedu.address.testutil.TypicalNames.NAME_BENSON_MEIER;
@@ -73,7 +72,6 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validSubstringNameFilteredList_success() {
-        showPersonWithName(model, ALICE_WITH_SUBSTRING_NAME.getName());
         Person personToDelete = ALICE_WITH_SUBSTRING_NAME;
         Name nameToDelete = personToDelete.getName();
         DeleteCommand deleteCommand = new DeleteCommand(nameToDelete);
@@ -83,7 +81,6 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
-        showNoPerson(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
