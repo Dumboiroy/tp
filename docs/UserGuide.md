@@ -818,16 +818,11 @@ Two confirmed appointments clash.
 #### 2. `edit`
 - Invalid syntax: `edit` `edit test`<br>
 
-
    ```
-   Invalid command format. Please ensure that the command adheres to the following:
-   - Edit name: edit NAME n/NEW_NAME
-   - Edit tags (able to chain more than 1 tag): edit NAME t/TAG
-   - Edit home address: edit NAME a/ADDRESS
-   - Edit phone number: edit NAME p/PHONE
-   - Edit email address: edit NAME e/EMAIL
-   - Edit rank: edit NAME r/RANK
-   - Combinations: edit NAME t/TAG p/PHONE ...
+    Invalid command format.
+    edit: Edits the details of the person identified by the old name used in the displayed person list. Existing values will be overwritten by the input values.
+    Parameters: OLD_NAME (must match one of the names in contacts) [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK]
+    Example: edit John Doe p/91234567 e/johndoe@example.com
     ```
 - Invalid name of contact to edit: `edit John Doe n/newName` when the contact `John Doe` don't exist.<br>
     ```
@@ -874,7 +869,7 @@ Two confirmed appointments clash.
   Invalid command format!  
   Edit flag: Updates an existing appointment for a client. 
   Parameters: link -e id/ID [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
-  Example: link -e id/1234567 n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
+  Example: link -e id/1234567 appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
   ```
 - Invalid id for edit appointment: `link -e id/1234567 msg/Bring consent form` when id of `1234567` does not exist.<br>
     ```
