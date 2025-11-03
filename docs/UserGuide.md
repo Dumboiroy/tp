@@ -830,43 +830,43 @@ Two confirmed appointments clash.
 
 #### 1. `add`
 - Invalid syntax: `add` `add test` `add n/test` `add n/John Doe 12345678`<br>
-    ```
-    Invalid command format! 
-    add: Adds a person to the address book. Parameters: n/NAME p/PHONE [e/EMAIL] 
-    [a/ADDRESS] [t/TAG]... [r/RANK]
-    Example: add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 
-    t/friends t/owesMoney r/stable
-    ```
+  ```
+  Invalid command format! 
+  add: Adds a person to the address book. Parameters: n/NAME p/PHONE [e/EMAIL] 
+  [a/ADDRESS] [t/TAG]... [r/RANK]
+  Example: add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 
+  t/friends t/owesMoney r/stable
+  ```
 - Duplicated person:<br>
-   ```
-   This person already exists in the address book
-   ```
+  ```
+  This person already exists in the address book
+  ```
 [Back to table of contents](#table-of-contents)
 
 #### 2. `edit`
 - Invalid syntax: `edit` `edit test`<br>
 
-   ```
-   Invalid command format. Please ensure that the command adheres to the following:
-   - Edit name: edit NAME n/NEW_NAME
-   - Edit tags (able to chain more than 1 tag): edit NAME t/TAG
-   - Edit home address: edit NAME a/ADDRESS
-   - Edit phone number: edit NAME p/PHONE
-   - Edit email address: edit NAME e/EMAIL
-   - Edit rank: edit NAME r/RANK
-   - Combinations: edit NAME t/TAG p/PHONE ...
-    ```
+  ```
+  Invalid command format. Please ensure that the command adheres to the following:
+  - Edit name: edit NAME n/NEW_NAME
+  - Edit tags (able to chain more than 1 tag): edit NAME t/TAG
+  - Edit home address: edit NAME a/ADDRESS
+  - Edit phone number: edit NAME p/PHONE
+  - Edit email address: edit NAME e/EMAIL
+  - Edit rank: edit NAME r/RANK
+  - Combinations: edit NAME t/TAG p/PHONE ...
+  ```
 - Invalid name of contact to edit: `edit John Doe n/newName` when the contact `John Doe` don't exist.<br>
-    ```
-   The person's name provided is invalid
-   ```
+  ```
+  The person's name provided is invalid
+  ```
 [Back to table of contents](#table-of-contents)
   
 #### 3. `delete`
 - Invalid name of contact to delete: `delete`<br>
-    ```
-    Names should only contain alphanumeric characters and spaces, and it should not be blank
-    ```
+  ```
+  Names should only contain alphanumeric characters and spaces, and it should not be blank
+  ```
 [Back to table of contents](#table-of-contents)
  
 #### 4. `link`
@@ -912,9 +912,9 @@ Two confirmed appointments clash.
   type/home-visit msg/Bring consent form status/planned
   ```
 - Invalid id for edit appointment: `link -e id/1234567 msg/Bring consent form` when id of `1234567` does not exist.<br>
-    ```
-    Unable to find appointment with ID: ID
-    ```
+  ```
+  Unable to find appointment with ID: ID
+  ```
 - Invalid syntax for delete appointment: `link -d` `link -d 1234567`<br>
   ```
   Invalid command format! 
@@ -922,100 +922,98 @@ Two confirmed appointments clash.
   Parameters: link -d id/ID Example: link -d id/1234567
   ```
 - Invalid id for delete appointment: `link -d id/1234567` when id of `1234567` does not exist.<br>
-    ```
-    The appointment with id ID could not be found.
-    ```
+  ```
+  The appointment with id ID could not be found.
+  ```
 [Back to table of contents](#table-of-contents)
 
 #### 5. `find`
 - Invalid Syntax: `find test`<br>
-    ```
-    Invalid command format! 
-    find: Finds persons whose fields contain any of the given keywords.
-    Parameters: [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK]
-    [appt/APPOINTMENT DATE-TIME][status/APPOINTMENT STATUS] [type/APPOINTMENT TYPES]
-    Example: find p/91234567 e/johndoe@example.com
-    find appt/ 24-10-2025 to 26-10-2025
-    ```
+  ```
+  Invalid command format! 
+  find: Finds persons whose fields contain any of the given keywords.
+  Parameters: [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK]
+  [appt/APPOINTMENT DATE-TIME][status/APPOINTMENT STATUS] [type/APPOINTMENT TYPES]
+  Example: find p/91234567 e/johndoe@example.com
+  find appt/ 24-10-2025 to 26-10-2025
+  ```
 - Invalid appointment found: `find appt/placeholder`<br>
-    ```
-    Please enter a valid DateTime in one of the following formats:
-    • 'today' — for today's date
-    • '+N' or '-N' — where N is the number of days from today (no more than 4 digits)
-    • 'dd-MM-yyyy' — for a specific date
-    • 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range
-    Note: Time (HHmm) is optional. All dates must be valid calendar dates.
-    ```
+  ```
+  Please enter a valid DateTime in one of the following formats:
+  • 'today' — for today's date
+  • '+N' or '-N' — where N is the number of days from today (no more than 4 digits)
+  • 'dd-MM-yyyy' — for a specific date
+  • 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range
+  Note: Time (HHmm) is optional. All dates must be valid calendar dates.
+  ```
 
 [Back to table of contents](#table-of-contents)
 
 ### Tag-related errors (General)
 - Invalid name: `hello_world` `[empty space]`<br>
-    ```
-    Names should only contain alphanumeric characters and spaces, and it should not be blank
-    ```
+  ```
+  Names should only contain alphanumeric characters and spaces, and it should not be blank
+  ```
 - Invalid phone number: `12345678` `912 89023` `6592343434` `+6512343434` `[empty space]`<br>
-    ```
-    Phone numbers should only contain numbers, and it should be 8 digits long starting with 
-    9, 8 or 6
-    Spaces are only allowed after +65 and in the middle of the 8 digits
-    ```
+  ```
+  Phone numbers should only contain numbers, and it should be 8 digits long starting with 
+  9, 8 or 6
+  Spaces are only allowed after +65 and in the middle of the 8 digits
+  ```
 - Invalid email: `@gmail.com` `hello @gmail.com` `test` `test@a.c` `test'@a.com`<br>
-
-
-    ```
-    Emails should be of the format local-part@domain and adhere to the following constraints:
-    1. The local-part should only contain alphanumeric characters and these special 
-    characters, excluding the parentheses, (+_.-). The local-part may not start or end 
-    with any special characters.
-    2. This is followed by a '@' and then a domain name. The domain name is made up of 
-    domain labels separated by periods.
-    The domain name must:
-        - end with a domain label at least 2 characters long
-        - have each domain label start and end with alphanumeric characters
-        - have each domain label consist of alphanumeric characters, separated only 
-    by hyphens, if any.
-    ```
+  ```
+  Emails should be of the format local-part@domain and adhere to the following constraints:
+  1. The local-part should only contain alphanumeric characters and these special 
+  characters, excluding the parentheses, (+_.-). The local-part may not start or end 
+  with any special characters.
+  2. This is followed by a '@' and then a domain name. The domain name is made up of 
+  domain labels separated by periods.
+  The domain name must:
+      - end with a domain label at least 2 characters long
+      - have each domain label start and end with alphanumeric characters
+      - have each domain label consist of alphanumeric characters, separated only 
+  by hyphens, if any.
+  ```
 - Invalid address: `Woodlands + Street`<br>
-    ```
-    Addresses can take any values except some symbols. Address can be blank to represent no
-    address
-    ```
+  ``` 
+  Addresses can take any values except some symbols. Address can be blank to represent no
+  address
+  ```
 - Invalid tag: `hello world` `hello-world`<br>
-    ```
-    Tags names should be alphanumeric
-    ```
+  ```
+  Tags names should be alphanumeric
+  ```
 - Invalid rank: any input that is not `stable` `vulnerable` `urgent` `crisis`<br>
-    ```
-    Rank names should be one of the four: stable/vulnerable/urgent/crisis
-    ```
+  ```
+  Rank names should be one of the four: stable/vulnerable/urgent/crisis
+  ```
 [Back to table of contents](#table-of-contents)
 
 ### Tag-related errors (Appointment)
 - Invalid date/time for appointment: `test` `121024`<br>
-    ```
-    DateTime must be in the format dd-MM-yyyy HHmm, and must be valid calendar date/time.
-    ```
+  ```
+  DateTime must be in the format dd-MM-yyyy HHmm, and must be valid calendar date/time.
+  ```
 - Invalid length for appointment: `-10`<br>
-    ```
-    Length must be a positive integer number of minutes (e.g. 30, 60, 90) with no more than
-    4 digits
-    ```
+  ```
+  Length must be a positive integer number of minutes (e.g. 30, 60, 90) with no more than
+  4 digits
+  ```
 - Invalid location for appointment: `Woodlands + Street`<br>
-    ```
-    Location can take any values but should not contain invalid symbols.
-    ```
+  ```
+  Location can take any values but should not contain invalid symbols.
+  ```
 - Invalid status for appointment: any input that is not `planned` `confirmed` `completed` `cancelled`<br>
-    ```
-    Status must be one of: planned, confirmed, completed, cancelled
-    ```
+  ```
+  Status must be one of: planned, confirmed, completed, cancelled
+  ```
 [Back to table of contents](#table-of-contents)
 
 ### Other errors
 - Invalid command: `test`<br>
-    ```
-    Unknown command
-    ```
+  ```
+  Unknown command
+  ```
 
 [Back to table of contents](#table-of-contents)
 
