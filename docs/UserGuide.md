@@ -988,7 +988,7 @@ Two confirmed appointments clash.
    (If you don't see it in computer B, you can either run HeartLink once or create the file manually)
 4. Copy the contents of `addressbook.json` file from computer A (where your data is) to computer B.
 
-**Q**: My name contains special characters such as `s/o`, does it matter?<br>
+**Q**: My name contains special characters such as `s/o`, is it acceptable?<br>
 **A**: All sequence of characters (String) are acceptable, as long as it is not a subset of any of the prefixes. <br>
 
 **Q**: How to create an appointment ID? <br>
@@ -998,6 +998,6 @@ Two confirmed appointments clash.
 **A**: Appointment clashes are not allowed only if they are confirmed and they belong to the same person.
 
 **Q**: How to remove all tags from a client? <br>
-**A**: You can try `t/` on its own. E.g. `edit test t/`.
+**A**: You can try `t/` on its own. E.g. `edit name t/`.
 
 [Back to table of contents](#table-of-contents)
