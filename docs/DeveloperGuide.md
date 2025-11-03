@@ -40,7 +40,11 @@ title: Developer Guide
     12. [Saving data](#saving-data)
     13. [Clear all entries](#clear-all-entries)
     14. [Exit](#exit-program)
-
+7. [Appendix: Planned Enhancements](#appendix-planned-enhancements)
+    1. [Make NAME case-insensitive](#1-make-name-case-insensitive)
+    2. [Make APPOINTMENT_ID more intuitive](#2-make-appointment_id-more-intuitive-to-type)
+    3. [Make PHONE more flexible](#3-make-phone-more-flexible)
+    4. [Make INDEX a key for `edit` `delete`](#4-make-index-a-key-for-editdelete)
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
@@ -864,5 +868,51 @@ Expected: Information of all clients is removed.
 ### Exit program
 Test case: `exit` <br/>
 Expected: Exits the program.
+
+[Back to table of contents](#table-of-contents)
+
+## **Appendix: Planned Enhancements**
+Team size: 5
+
+### 1. Make `NAME` case-insensitive.
+The current implementation uses a case-sensitive name. 
+We plan to make it case-insensitive so that if the social workers made a typo, eg they want to type `John Doe` 
+but they typed `john Doe` instead, it would correctly match with `John Doe`, making it less frustrating for social workers. 
+In the case of duplicate names, since social workers would very likely recognise their client by name instead of other
+attributes like phone number, address etc, they can simply type a `NOTE` behind the `NAME`. E.g. they can type
+`John Doe (school)` and `John Doe (engineer)` to differentiate between the two `John Doe`.
+
+[Back to table of contents](#table-of-contents)
+
+### 2. Make `APPOINTMENT_ID` more intuitive to type
+The current implementation for `APPOINTMENT_ID` uses a randomly generated alphanumeric text. 
+We plan to make the `APPOINTMENT_ID` use the client's name with a NUMBER at the back so that it is more
+intuitive for clients to type the `APPOINTMENT_ID` used to edit/delete the appointment. 
+E.g. if the client is called `Alex`, the `APPOINTMENT_ID` would be `Alex1` for the first appointment created.
+The NUMBER at the back would increment each time a new appointment for the same client is created, and
+reset to 1 when it hits a limit.
+While the `APPOINTMENT_ID` may be longer depending on the length of the name (e.g. `John` vs `Johnathon`),
+it can be faster to type as social workers don't need to slowly check and type each letter of the `APPOINTMENT_ID`. 
+
+[Back to table of contents](#table-of-contents)
+
+### 3. Make `PHONE` more flexible
+The current implementation for `PHONE` accepts only one Singapore number for each client since clients should be
+using Singapore numbers, even for foreigners studying/working in Singapore. As social work appointments concern their personal life, 
+the clients should be using their personal number.
+However, they could be rare cases of exceptions hence we plan to make `PHONE` accept special symbols and strings 
+so that if social workers want to add a note behind or save more numbers, they can.
+E.g. instead of just `98765432`, social workers can type `98765432 (HP)` or `HP: 98765432` according to their
+preferences.
+
+[Back to table of contents](#table-of-contents)
+
+### 4. Make `INDEX` a key for edit/delete
+The current implementation uses `NAME` as the key for the `edit` and `delete` command.
+We plan to make it also accept the `INDEX` as a key so that social workers can type less, especially if the name
+is very long.
+The `INDEX` would refer to the number beside the name, shown in the list. 
+E.g. the first person in the list is `Joe`, then executing `edit 1 n/Tim` would change the name `Joe` to `Tim`,
+just like how it would be if `edit Joe n/Tim` is executed.
 
 [Back to table of contents](#table-of-contents)
