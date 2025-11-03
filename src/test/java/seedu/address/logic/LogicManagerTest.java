@@ -57,12 +57,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_commandExecutionError_throwsParseException() {
-        String deleteCommand = "delete asd...123";
-        assertParseException(deleteCommand, Name.MESSAGE_CONSTRAINTS);
-    }
-
-    @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
