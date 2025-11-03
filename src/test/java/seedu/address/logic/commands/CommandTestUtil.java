@@ -83,7 +83,7 @@ public class CommandTestUtil {
     public static final String APPOINTMENT_MESSAGE_DESC_BOB = " " + PREFIX_MESSAGE + VALID_APPOINTMENT_MESSAGE;
     public static final String APPOINTMENT_STATUS_DESC_BOB = " " + PREFIX_STATUS + VALID_APPOINTMENT_STATUS;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " "; // empty names not allowed
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     // &^* not allowed in addresses

@@ -19,7 +19,6 @@ public abstract class LinkAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "link";
     public static final String MESSAGE_EDIT_APPOINTMENT = COMMAND_WORD + " -e "
             + PREFIX_ID + "1234567 "
-            + PREFIX_NAME + "Alex Wu "
             + PREFIX_APPOINTMENT + "12-10-2025 1430 "
             + PREFIX_LENGTH + "90 "
             + PREFIX_LOCATION + "Bukit Merah FSC "

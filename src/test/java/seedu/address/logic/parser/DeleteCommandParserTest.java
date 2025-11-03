@@ -26,11 +26,6 @@ public class DeleteCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "abc...123", String.format(Name.MESSAGE_CONSTRAINTS));
-    }
-
-    @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "", Name.MESSAGE_CONSTRAINTS);
     }
