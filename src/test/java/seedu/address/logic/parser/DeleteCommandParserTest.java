@@ -7,7 +7,6 @@ import static seedu.address.testutil.TypicalNames.NAME_ALICE_PAULINE;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.model.person.Name;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
