@@ -394,11 +394,11 @@ Adds, edits, or deletes appointments linked to clients.
 ##### Here's the shortcut link to the three commands:
 - [Creating appointment `-c`](#i-creating-an-appointment-link--c)
 - [Editing appointment `-e`](#ii-editing-an-appointment--link--e)
-- [Deleting appointment `d`](#iii-deleting-an-appointment--link--d)
+- [Deleting appointment `-d`](#iii-deleting-an-appointment--link--d)
 
 > :bulb: **Tip:**
 >
-> Note that if you type multiple flags(`-c`, `-e` or `d`), HeartLink will take the last flag
+> Note that if you type multiple flags(`-c`, `-e` or `-d`), HeartLink will take the last flag
 > and execute the associated command
 
 <div markdown="block" class="alert alert-info">
