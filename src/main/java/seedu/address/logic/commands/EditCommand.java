@@ -41,29 +41,31 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+            + "by the old name used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
+            + "Parameters: OLD_NAME (must match one of the names in contacts) "
+            + "[" + PREFIX_NAME + "NEW_NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_RANK + "RANK]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " John Doe "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Successfully edited %1$s's information to:\n";
-    public static final String MESSAGE_INVALID_SYNTAX = "Invalid command format. Please ensure that "
-            + "the command adheres to the following:\n"
-            + "- Edit name: edit NAME " + PREFIX_NAME + "NEW_NAME\n"
-            + "- Edit tags (able to chain more than 1 tag): edit NAME " + PREFIX_TAG + "TAG\n"
-            + "- Edit home address: edit NAME " + PREFIX_ADDRESS + "ADDRESS\n"
-            + "- Edit phone number: edit NAME " + PREFIX_PHONE + "PHONE\n"
-            + "- Edit email address: edit NAME " + PREFIX_EMAIL + "EMAIL\n"
-            + "- Edit rank: edit NAME " + PREFIX_RANK + "RANK\n"
-            + "- Combinations: edit NAME " + PREFIX_TAG + "TAG " + PREFIX_PHONE + "PHONE ...";
+    public static final String MESSAGE_INVALID_SYNTAX = "Invalid command format.\n" + MESSAGE_USAGE;
+
+//            "Invalid command format. Please ensure that "
+//            + "the command adheres to the following:\n"
+//            + "- Edit name: edit NAME " + PREFIX_NAME + "NEW_NAME\n"
+//            + "- Edit tags (able to chain more than 1 tag): edit NAME " + PREFIX_TAG + "TAG\n"
+//            + "- Edit home address: edit NAME " + PREFIX_ADDRESS + "ADDRESS\n"
+//            + "- Edit phone number: edit NAME " + PREFIX_PHONE + "PHONE\n"
+//            + "- Edit email address: edit NAME " + PREFIX_EMAIL + "EMAIL\n"
+//            + "- Edit rank: edit NAME " + PREFIX_RANK + "RANK\n"
+//            + "- Combinations: edit NAME " + PREFIX_TAG + "TAG " + PREFIX_PHONE + "PHONE ...";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final String indexName;
