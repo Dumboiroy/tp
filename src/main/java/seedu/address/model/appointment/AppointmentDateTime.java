@@ -83,8 +83,8 @@ public class AppointmentDateTime {
                     return isLeapYear(dateTime);
                 }
             }
-
-            return true;
+            // Ensure year is >= 1900
+            return dateTime.getYear() >= 1900;
         } catch (DateTimeParseException e) {
             return false;
         }
