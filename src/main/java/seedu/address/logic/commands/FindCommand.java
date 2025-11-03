@@ -30,7 +30,7 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons whose fields"
         + " contain any of the given keywords.\n"
         + "Parameters: "
-        + "[" + PREFIX_NAME + "NAME] "
+        + "[" + PREFIX_NAME + "KEYWORD_1 KEYWORD_2 ...] "
         + "[" + PREFIX_PHONE + "PHONE] "
         + "[" + PREFIX_EMAIL + "EMAIL] "
         + "[" + PREFIX_ADDRESS + "ADDRESS] "

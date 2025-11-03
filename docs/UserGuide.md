@@ -630,7 +630,11 @@ List all appointments on 4th July 2025.
 * `find appt/today` <br>
 List today's appointment.
 * `find appt/+3`<br>
-List all appointments in the upcoming three days.
+List all appointments in the upcoming three days. For example, if today is the 5th 
+of November, HeartLink will list the appointments from 5th to 8th November.
+* `find appt/-3`<br>
+  List all appointments in the past three days. For example, if today is the 5th
+  of November, HeartLink will list the appointments from 2nd to 5th November.
 
 [Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
