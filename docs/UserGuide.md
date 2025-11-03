@@ -21,11 +21,11 @@ HeartLink helps you **spend less time navigating** menus and **more time focusin
             <li><a href="#list-of-commands">List of commands</a>
                 <ol type="i">
                     <li><a href="#1-viewing-help--help">Viewing help <code>help</code></a></li>
-                    <li><a href="#2-adding-a-person-add">Adding a person <code>add</code></a></li>
-                    <li><a href="#3-listing-all-persons--list">Listing all persons <code>list</code></a></li>
-                    <li><a href="#4-editing-a-person--edit">Editing a person <code>edit</code></a></li>
-                    <li><a href="#5-deleting-a-person--delete">Deleting a person <code>delete</code></a></li>
-                    <li><a href="#6-managing-appointments-with-clients--link">Managing Appointments with Clients</a>
+                    <li><a href="#2-adding-a-client-add">Adding a client <code>add</code></a></li>
+                    <li><a href="#3-listing-all-clients--list">Listing all clients <code>list</code></a></li>
+                    <li><a href="#4-editing-a-client--edit">Editing a client <code>edit</code></a></li>
+                    <li><a href="#5-deleting-a-client--delete">Deleting a client <code>delete</code></a></li>
+                    <li><a href="#6-managing-appointments-with-clients--link">Managing Appointments with Clients<code>link</code></a>
                         <ol type="1">
                           <li><a href="#i-creating-an-appointment-link--c">Creating appointments <code>link -c</code></a></li>
                           <li><a href="#ii-editing-an-appointment--link--e">Editing appointments <code>link -e</code></a></li>
@@ -58,9 +58,9 @@ HeartLink helps you **spend less time navigating** menus and **more time focusin
         </ol>
     </li>
     <li><a href="#warnings">Common Errors</a>
-        <ol type="1">
+        <ol type="a">
             <li><a href="#command-related-errors">Command-related errors</a>
-                <ol type="1">
+                <ol type="i">
                     <li><a href="#1-add">add</a></li>
                     <li><a href="#2-edit">edit</a></li>
                     <li><a href="#3-delete">delete</a></li>
@@ -107,7 +107,7 @@ This guide provides instructions for Social Workers in Singapore on how to effic
    > 1. Open a command terminal.<br>
         - **Windows users**: Press `Windows + R`, type `cmd`, and press Enter.<br>
         - **Mac users**: Open **Terminal** from Spotlight (press `⌘ + Space`, type `Terminal`).<br>
-        - **Linux users**: Open **Terminal** from your applications menu.
+        - **Linux users**: Open **Terminal** from your application's menu.
    > 2. Type `java -version` and press Enter.
    > 3. If Java is installed, you’ll see the version number (e.g., `java version "17.0.1"`).
    > 4. The first number should be `17`.
@@ -906,7 +906,7 @@ Two confirmed appointments clash.
     • 'today' — for today's date
     • '+N' or '-N' — where N is the number of days from today (no more than 4 digits)
     • 'dd-MM-yyyy' — for a specific date
-    • 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range
+    • 'dd-MM-yyyy HHmm to dd-MM-yyyy HHmm' — for a custom date range
     Note: Time (HHmm) is optional. All dates must be valid calendar dates.
     Additionally, year must be >=1900.
     ```
@@ -915,45 +915,50 @@ Two confirmed appointments clash.
 
 ### Tag-related errors (General)
 - Invalid name: `[empty space]`<br>
-    ```
-    Names cannot contain any prefixes, and it should not be blank
-    ```
+  ```
+  Names cannot contain any prefixes, and it should not be blank
+  ```
 - Invalid phone number: `12345678` `912 89023` `6592343434` `+6512343434` `[empty space]`<br>
-    ```
-    Phone numbers should only contain numbers, and it should be 8 digits long starting with 9, 8 or 6
-    Spaces are only allowed after +65 and in the middle of the 8 digits
-    ```
+  ```
+  Phone numbers should only contain numbers, and it should be 8 digits long starting with 
+  9, 8 or 6
+  Spaces are only allowed after +65 and in the middle of the 8 digits
+  ```
 - Invalid email: `@gmail.com` `hello @gmail.com` `test` `test@a.c` `test'@a.com`<br>
 
-
-    ```
-    Emails should be of the format local-part@domain and adhere to the following constraints:
-    1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
-    2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.
-    The domain name must:
-        - end with a domain label at least 2 characters long
-        - have each domain label start and end with alphanumeric characters
-        - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
-    ```
+  ```
+  Emails should be of the format local-part@domain and adhere to the following constraints:
+  1. The local-part should only contain alphanumeric characters and these special 
+  characters, excluding the parentheses, (+_.-). The local-part may not start or end 
+  with any special characters.
+  2. This is followed by a '@' and then a domain name. The domain name is made up of 
+  domain labels separated by periods.
+  The domain name must:
+      - end with a domain label at least 2 characters long
+      - have each domain label start and end with alphanumeric characters
+      - have each domain label consist of alphanumeric characters, separated only 
+  by hyphens, if any.
+  ```
 - Invalid address: `Woodlands + Street`<br>
-    ```
-    Addresses can take any values except some symbols. Address can be blank to represent no address
-    ```
+  ``` 
+  Addresses can take any values except some symbols. Address can be blank to represent no
+  address
+  ```
 - Invalid tag: `hello world` `hello-world`<br>
-    ```
-    Tags names should be alphanumeric
-    ```
+  ```
+  Tags names should be alphanumeric
+  ```
 - Invalid rank: any input that is not `stable` `vulnerable` `urgent` `crisis`<br>
-    ```
-    Rank names should be one of the four: stable/vulnerable/urgent/crisis
-    ```
+  ```
+  Rank names should be one of the four: stable/vulnerable/urgent/crisis
+  ```
 [Back to table of contents](#table-of-contents)
 
 ### Tag-related errors (Appointment)
 - Invalid date/time for appointment: `test` `121024`<br>
-    ```
-    DateTime must be in the format dd-MM-yyyy HHmm, and must be valid calendar date/time.
-    ```
+  ```
+  DateTime must be in the format dd-MM-yyyy HHmm, and must be valid calendar date/time.
+  ```
 - Invalid length for appointment: `-10`<br>
     ```
     Length must be a positive integer number of minutes (e.g. 30, 60, 90) with no more than 4 digits

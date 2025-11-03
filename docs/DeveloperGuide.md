@@ -13,23 +13,38 @@ title: Developer Guide
     4. [Model component](#model-component)
     5. [Storage component](#storage-component)
     6. [Common classes](#common-classes)
-4. [Implementation](#implementation)
-    1. [Proposed Undo/redo feature](#proposed-undoredo-feature)
-    2. [Proposed Data archiving](#proposed-data-archiving)
-5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+4. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
     1. [Documentation guide](Documentation.md)
     2. [Testing guide](Testing.md)
     3. [Logging guide](Logging.md)
     4. [Configuration guide](Configuration.md)
     5. [DevOps guide](DevOps.md)
-6. [Appendix: Requirements](#appendix-requirements)
+5. [Appendix: Requirements](#appendix-requirements)
     1. [Product scope](#product-scope)
     2. [User stories](#user-stories)
     3. [Use cases](#use-cases)
-7. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+    4. [Non-Functional Requirements](#non-functional-requirements)
+    5. [Glossary](#glossary)
+6. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
     1. [Launch and shutdown](#launch-and-shutdown)
-    2. [Deleting a person](#deleting-a-person)
-    3. [Saving data](#saving-data)
+    2. [Display help](#display-help)
+    3. [List all clients](#list-all-clients)
+    4. [Find clients](#finding-clients)
+    5. [Add client](#adding-new-client)
+    6. [Edit client](#editing-a-client)
+    7. [Delete client](#deleting-a-client)
+    8. [Find appointment](#find-an-appointment)
+    9. [Create appointment](#create-an-appointment)
+    10. [Edit appointment](#edit-an-appointment)
+    11. [Delete appointment](#delete-an-appointment)
+    12. [Saving data](#saving-data)
+    13. [Clear all entries](#clear-all-entries)
+    14. [Exit](#exit-program)
+7. [Appendix: Planned Enhancements](#appendix-planned-enhancements)
+    1. [Make NAME case-insensitive](#1-make-name-case-insensitive)
+    2. [Make APPOINTMENT_ID more intuitive](#2-make-appointment_id-more-intuitive-to-type)
+    3. [Make PHONE more flexible](#3-make-phone-more-flexible)
+    4. [Make INDEX a key for `edit` and `delete`](#4-make-index-a-key-for-editdelete)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -269,7 +284,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 **Value proposition**: Social workers manage dozens of clients at once.
 HeartLink provides fast and convenient access to client contact details while helping track workload.
 By reducing the burden of administrative tasks, remembering check-ins, and organizing deadlines across scattered
-records, our address book minimizes paperwork stress and allows social workers to focus on
+records, Heartlink minimizes paperwork stress and allows social workers to focus on
 supporting the people who need them.
 
 [Back to table of contents](#table-of-contents)
@@ -311,7 +326,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | less tech-savvy worker      | have easy access to an application guide        | learn how to use it without frustration                               |
 | `*`      | social worker               | have a system that works reliably               | ensure wrong commands don’t destroy the address book                  |
 
-*{More to be added}*
 
 [Back to table of contents](#table-of-contents)
 
@@ -324,9 +338,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to list of clients.
-2. User provides additional attributes to filter by, such as name, appointment date, tag, and rank.
+2. User provides additional attributes to filter by.
 3. HeartLink displays the list of all clients corresponding to the attributes given by a user.
-   All information for each person are shown.
+   All information for each client are shown.
 
    Use case ends.
 
@@ -345,7 +359,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to add client
+1. User requests to add client.
 2. HeartLink adds the client to the list.
 
    Use case ends.
@@ -358,7 +372,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-* 1b. The given name/phone number/email already exists.
+* 1b. The given details already exists.
 
     * 1b1. HeartLink shows an error message.
 
@@ -375,9 +389,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
-2. HeartLink shows a list of clients
-3. User requests to delete a specific person in the list by name
-4. HeartLink deletes the specified client from the address book.
+2. HeartLink shows a list of clients.
+3. User requests to delete a specific client in the list.
+4. HeartLink deletes the specified client.
 
    Use case ends.
 
@@ -387,7 +401,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given name does not exist.
+* 3a. The given attribute to specify the client does not exist.
 
     * 3a1. HeartLink shows an error message.
 
@@ -399,7 +413,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
 2. HeartLink shows a list of clients
-3. User requests to edit a specific person in the list
+3. User requests to edit a specific client in the list
 4. HeartLink edits the specified details of the clients.
 
    Use case ends.
@@ -410,13 +424,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given name does not exist.
+* 3a. The given attribute to specify the client does not exist.
 
     * 3a1. HeartLink shows an error message.
 
       Use case resumes at step 2.
 
-* 3b. The updated name/phone number/email already exists.
+* 3b. The updated attribute already exists.
 
     * 3b1. HeartLink shows an error message.
 
@@ -441,27 +455,27 @@ Use case ends.
 
 **Extensions**
 
-* 2a. No clients available
+* 2a. No clients available.
     * 2a1. HeartLink shows an empty list.
 
       Use case ends.
 
-* 3a. Specified client does not exist
+* 3a. Specified client does not exist.
     * 3a1. HeartLink shows an error message.
 
       Use case resumes at step 2.
 
-* 3b. Appointment details are invalid (incorrect date, time, duration, or status)
+* 3b. Appointment details are invalid.
     * 3b1. HeartLink shows an error message.
 
       Use case resumes at step 2.
 
-* 3c. Appointment conflicts with an existing one
+* 3c. Appointment conflicts with an existing one.
     * 3c1. HeartLink shows a scheduling conflict message.
 
       Use case resumes at step 2.
 
-* 3d. Appointment duplicates an existing one
+* 3d. Appointment duplicates an existing one.
     * 3d1. HeartLink shows a duplicate appointment error.
 
       Use case resumes at step 2.
@@ -472,9 +486,8 @@ Use case ends.
 
 1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
 2. HeartLink shows a list of clients with their appointment details.
-3. User selects a specific client and requests to edit an existing appointment using its Appointment ID.
-4. User provides updated details for the appointment (date, time, duration, location, type, message, or status).
-5. HeartLink updates the appointment with the provided details, ensuring that no scheduling conflict occurs.
+3. User selects a specific client and requests to edit an existing appointment with updated details for the appointment.
+4. HeartLink updates the appointment with the provided details.
 
 Use case ends.
 
@@ -485,12 +498,12 @@ Use case ends.
 
     Use case ends.
 
-* 3a. The given appointment ID does not exist
+* 3a. The given attribute to specify the client does not exist.
   * 3a1. HeartLink shows an error message.
 
     Use case resumes at step 2.
 
-* 3b. The provided details are invalid (incorrect date, time, duration, or status)
+* 3b. The provided details are invalid.
   * 3b1. HeartLink shows an error message.
 
     Use case resumes at step 2.
@@ -500,7 +513,7 @@ Use case ends.
 
     Use case resumes at step 2.
 
-* 3d. The appointment ID is not found
+* 3d. The given attribute to specify client is invalid.
   * 3d1. HeartLink shows an error message.
 
     Use case resumes at step 2.
@@ -511,7 +524,7 @@ Use case ends.
 
 1. User requests to [<u>U1 View clients</u>](#use-case-view-clients).
 2. HeartLink shows a list of clients with the corresponding appointment details.
-3. User selects a specific client and requests to delete an existing appointment by using its Appointment ID.
+3. User selects a specific client and requests to delete an existing appointment.
 4. HeartLink deletes the specified appointment from the client’s record and removes it from the database.
 
     Use case ends.
@@ -523,12 +536,12 @@ Use case ends.
 
     Use case ends.
 
-* 3a. The given appointment ID does not exist.
+* 3a. The given attribute to specify client does not exist.
   * 3a1. HeartLink shows an error message.
 
     Use case resumes at step 2.
 
-* 3b. The appointment ID is invalid. 
+* 3b. The given attribute to specify client is invalid. 
   * 3b1. HeartLink shows an error message.
 
     Use case resumes at step 2.
@@ -538,7 +551,7 @@ Use case ends.
 ### Non-Functional Requirements
 
 1. **Compatibility** Our system should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2. **Performance** Our system should be able to hold up to 1000 persons without a noticeable sluggishness in performance
+2. **Performance** Our system should be able to hold up to 1000 client details without a noticeable sluggishness in performance
    for typical usage.
 3. **User Experience** A user with above average typing speed for regular English text (i.e. not code, not system admin
    commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
@@ -548,7 +561,7 @@ Use case ends.
    also gracefully handle text-related issues such as long strings, emoji rendering, and font compatibility.
 6. **Process Requirement** Our project is expected to adhere to a schedule that delivers a feature set every week
    throughout the second half of the semester.
-7. **Quality Assurance** All source code shall achieve a minimum of 80% unit test coverage.
+7. **Quality Assurance** All source code shall achieve a minimum of 75% unit test coverage.
 
 [Back to table of contents](#table-of-contents)
 
@@ -586,16 +599,16 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-    1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder.
 
-    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be
+    2. Run HeartLink using the `java -jar HeartLink.jar` command. <br>Expected: Shows the GUI with a set of sample clients. The window size may not be
        optimum.
 
 1. Saving window preferences
 
     1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-    1. Re-launch the app by double-clicking the jar file.<br>
+    1. Re-launch the app by using the `java -jar HeartLink.jar` command.<br>
        Expected: The most recent window size and location is retained.
 
 [//]: # (TODO: Update test cases for delete command)
@@ -605,7 +618,7 @@ testers are expected to do more *exploratory* testing.
 ### Display help
 Test case: `help` <br/>
 Expected: The help window shows a quick summary of all commands,
-and a URL within it redirects the user to the User Guide.
+and a URL within it redirects the user to the User Guide by copy and pasting it in their web browser.
 
 [Back to table of contents](#table-of-contents)
 
@@ -627,8 +640,8 @@ Expected: All clients with their corresponding appointments are shown in the lis
    Expected: All clients whose names contain any of the specified keywords
    are listed.
 3. Find client by phone number.
-   1. Test case: `find p/PHONE_NUMBER` <br/>
-         Expected: All clients whose phone numbers exactly match `PHONE_NUMBER`
+   1. Test case: `find p/PHONE` <br/>
+         Expected: All clients whose phone numbers exactly match `PHONE`
          are listed.
 4. Find client by email.
     1. Test case: `find e/EMAIL` <br/>
@@ -656,11 +669,11 @@ Expected: All clients with their corresponding appointments are shown in the lis
 1. Adding a new client to HeartLink
    1. Prerequisites: The client's name does not exist in the client list
       (You can use `list` to show the list of all clients).
-   2. Test cases: `add n/NAME p/PHONE_NUMBER` <br/>
-   Expected: The client with name `NAME` and phone number `PHONE_NUMBER` is appended
+   2. Test cases: `add n/NAME p/PHONE` <br/>
+   Expected: The client with name `NAME` and phone number `PHONE` is appended
     to the end of the list.
    3. Try adding client with optional fields. For example, 
-   `add n/NAME p/PHONE_NUMBER e/EMAIL`, `add n/NAME p/PHONE_NUMBER e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
+   `add n/NAME p/PHONE e/EMAIL`, `add n/NAME p/PHONE e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
    Expected: Similar to the previous test case, except now the optional fields are added.
    4. Missing mandatory fields: `add`, `add n/NAME`, `add n/NAME p/`, ... <br/>
    Expected: No new client is added. The error message "Invalid command format! ..." is shown in the result box.
@@ -669,7 +682,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
    Expected: No new client is added. The error message for the first invalid input is shown.
 2. Adding an already-existing client
    1. Prerequisite: The client list contains at least one client, named `SAME_NAME`.
-   2. Test cases: `add n/SAME_NAME p/VALID_PHONE_NUMBER` <br/>
+   2. Test cases: `add n/SAME_NAME p/VALID_PHONE` <br/>
    Expected: No new client is added. The error message "This person already exists in the address book" is shown.
 
 [Back to table of contents](#table-of-contents)
@@ -680,7 +693,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
     2. Test cases: `edit TARGET_NAME n/NEW_NAME` <br/>
        Expected: The client name changes from `TARGET_NAME` to `NEW_NAME`.
     3. Try editing other fields.
-       `edit TARGET_NAME n/NEW_NAME p/PHONE_NUMBER e/EMAIL`, `edit TARGET_NAME n/NEW_NAME p/PHONE_NUMBER e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
+       `edit TARGET_NAME n/NEW_NAME p/PHONE e/EMAIL`, `edit TARGET_NAME n/NEW_NAME p/PHONE e/EMAIL, a/ADDRESS, r/RANK, t/TAG`. <br>
        Expected: Similar to the previous test case, except now the optional fields are added.
     4. Try using invalid inputs, such as `edit TARGET_NAME p/1234` (invalid phone number) and `edit TARGET_NAME e/abc` (invalid email).
        You can refer to invalid input formats from the user guide.
@@ -700,8 +713,7 @@ Expected: All clients with their corresponding appointments are shown in the lis
 
     1. Prerequisites: The client list contains the target client, named `TARGET_NAME`.
     1. Test case: `delete TARGET_NAME`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
-       Timestamp in the status bar is updated.
+       Expected: Client of `TARGET_NAME` is deleted from the list. Details of the deleted client shown in the status message.
     1. Test case: `delete PREFIX_TARGET_NAME`. For example, if the target name is `Alex Yeoh`, try `delete Alex`. <br>
        Expected: The client with`TARGET_NAME` is deleted.
     1. Other incorrect delete commands to try: `delete`, `delete n/TARGET_NAME`, `...`<br>
@@ -845,7 +857,7 @@ the new data:
     "rank" : "",
     "appointments" : [ ]
   } ]
-}⏎    
+}    
 ```
 
 [Back to table of contents](#table-of-contents)
@@ -859,5 +871,51 @@ Expected: Information of all clients is removed.
 ### Exit program
 Test case: `exit` <br/>
 Expected: Exits the program.
+
+[Back to table of contents](#table-of-contents)
+
+## **Appendix: Planned Enhancements**
+Team size: 5
+
+### 1. Make `NAME` case-insensitive.
+The current implementation uses a case-sensitive name. 
+We plan to make it case-insensitive so that if the social workers made a typo, eg they want to type `John Doe` 
+but they typed `john Doe` instead, it would correctly match with `John Doe`, making it less frustrating for social workers. 
+In the case of duplicate names, since social workers would very likely recognise their client by name instead of other
+attributes like phone number, address etc, they can simply type a `NOTE` behind the `NAME`. E.g. they can type
+`John Doe (school)` and `John Doe (engineer)` to differentiate between the two `John Doe`.
+
+[Back to table of contents](#table-of-contents)
+
+### 2. Make `APPOINTMENT_ID` more intuitive to type
+The current implementation for `APPOINTMENT_ID` uses a randomly generated alphanumeric text. 
+We plan to make the `APPOINTMENT_ID` use the client's name with a NUMBER at the back so that it is more
+intuitive for clients to type the `APPOINTMENT_ID` used to edit/delete the appointment. 
+E.g. if the client is called `Alex`, the `APPOINTMENT_ID` would be `Alex1` for the first appointment created.
+The NUMBER at the back would increment each time a new appointment for the same client is created, and
+reset to 1 when it hits a limit.
+While the `APPOINTMENT_ID` may be longer depending on the length of the name (e.g. `John` vs `Johnathon`),
+it can be faster to type as social workers don't need to slowly check and type each letter of the `APPOINTMENT_ID`. 
+
+[Back to table of contents](#table-of-contents)
+
+### 3. Make `PHONE` more flexible
+The current implementation for `PHONE` accepts only one Singapore number for each client since clients should be
+using Singapore numbers, even for foreigners studying/working in Singapore. As social work appointments concern their personal life, 
+the clients should be using their personal number.
+However, they could be rare cases of exceptions hence we plan to make `PHONE` accept special symbols and strings 
+so that if social workers want to add a note behind or save more numbers, they can.
+E.g. instead of just `98765432`, social workers can type `98765432 (HP)` or `HP: 98765432` according to their
+preferences.
+
+[Back to table of contents](#table-of-contents)
+
+### 4. Make `INDEX` a key for edit/delete
+The current implementation uses `NAME` as the key for the `edit` and `delete` command.
+We plan to make it also accept the `INDEX` as a key so that social workers can type less, especially if the name
+is very long.
+The `INDEX` would refer to the number beside the name, shown in the list. 
+E.g. the first person in the list is `Joe`, then executing `edit 1 n/Tim` would change the name `Joe` to `Tim`,
+just like how it would be if `edit Joe n/Tim` is executed.
 
 [Back to table of contents](#table-of-contents)
