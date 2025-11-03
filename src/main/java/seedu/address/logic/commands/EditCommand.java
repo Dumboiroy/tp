@@ -56,16 +56,6 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Successfully edited %1$s's information to:\n";
     public static final String MESSAGE_INVALID_SYNTAX = "Invalid command format.\n" + MESSAGE_USAGE;
-
-//            "Invalid command format. Please ensure that "
-//            + "the command adheres to the following:\n"
-//            + "- Edit name: edit NAME " + PREFIX_NAME + "NEW_NAME\n"
-//            + "- Edit tags (able to chain more than 1 tag): edit NAME " + PREFIX_TAG + "TAG\n"
-//            + "- Edit home address: edit NAME " + PREFIX_ADDRESS + "ADDRESS\n"
-//            + "- Edit phone number: edit NAME " + PREFIX_PHONE + "PHONE\n"
-//            + "- Edit email address: edit NAME " + PREFIX_EMAIL + "EMAIL\n"
-//            + "- Edit rank: edit NAME " + PREFIX_RANK + "RANK\n"
-//            + "- Combinations: edit NAME " + PREFIX_TAG + "TAG " + PREFIX_PHONE + "PHONE ...";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     private final String indexName;
