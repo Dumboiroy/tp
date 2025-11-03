@@ -943,8 +943,9 @@ Two confirmed appointments clash.
   • 'today' — for today's date
   • '+N' or '-N' — where N is the number of days from today (no more than 4 digits)
   • 'dd-MM-yyyy' — for a specific date
-  • 'dd-MM-yyyy (HHmm) to dd-MM-yyyy (HHmm)' — for a custom date range
+  • 'dd-MM-yyyy HHmm to dd-MM-yyyy HHmm' — for a custom date range
   Note: Time (HHmm) is optional. All dates must be valid calendar dates.
+  Additionally, year must be >=1900.
   ```
 
 [Back to table of contents](#table-of-contents)
