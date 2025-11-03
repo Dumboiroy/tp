@@ -187,6 +187,10 @@ public class FindCommandParserTest {
         dateTimeStr = "12-10-2025 1200 too 13-10-2025";
         userInput = " " + PREFIX_APPOINTMENT + " " + dateTimeStr;
         assertParseFailure(parser, userInput, AppointmentDateTimeQuery.MESSAGE_CONSTRAINTS);
+        // start time after end time
+        dateTimeStr = "12-10-2025 1200 to 12-10-2025 0900";
+        userInput = " " + PREFIX_APPOINTMENT + " " + dateTimeStr;
+        assertParseFailure(parser, userInput, AppointmentDateTimeQuery.MESSAGE_START_TIME_AFTER_END_TIME);
     }
 
     @Test

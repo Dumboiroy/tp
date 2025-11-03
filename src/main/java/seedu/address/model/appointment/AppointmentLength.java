@@ -14,7 +14,7 @@ public class AppointmentLength {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Length must be a positive integer number of minutes (e.g. 30, 60, 90) with no more than 4 digits";
-    public static final String VALIDATION_REGEX = "^[1-9]\\d{1,4}$";
+    public static final String VALIDATION_REGEX = "^[1-9]\\d{0,3}$";
     public static final String NO_LENGTH = "";
 
     public final Duration duration;
@@ -34,7 +34,7 @@ public class AppointmentLength {
      * @return A boolean stating whether string is valid or not
      */
     public static boolean isValidLength(String test) {
-        return test.equals(NO_LENGTH) || test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

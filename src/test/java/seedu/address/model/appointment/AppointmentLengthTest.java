@@ -9,8 +9,8 @@ public class AppointmentLengthTest {
 
     @Test
     public void isValidLength() {
-        // Empty length -> true
-        assertTrue(AppointmentLength.isValidLength(""));
+        // Empty length -> false
+        assertFalse(AppointmentLength.isValidLength(""));
         // Non numeric -> false
         assertFalse(AppointmentLength.isValidLength("abc"));
         // Negative integer -> false
@@ -35,9 +35,7 @@ public class AppointmentLengthTest {
 
     @Test
     public void toStringMethod() {
-        AppointmentLength first = new AppointmentLength("");
-        AppointmentLength second = new AppointmentLength("20");
-        assertTrue(first.toString().equals("0"));
-        assertTrue(second.toString().equals("20"));
+        AppointmentLength first = new AppointmentLength("20");
+        assertTrue(first.toString().equals("20"));
     }
 }

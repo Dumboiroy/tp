@@ -21,8 +21,10 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the name used in the displayed person list.\n"
             + "Parameters: NAME \n"
-            + "Example: " + COMMAND_WORD + " John Doe"
+            + "Example: " + COMMAND_WORD + " John Doe\n"
             + "Note: The name is case sensitive.";
+    public static final String INVALID_COMMAND_FORMAT =
+            "Invalid command format! \n" + MESSAGE_USAGE;
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
@@ -44,7 +46,7 @@ public class DeleteCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         // get person from nameQuery - i.e. get person from lastShownList whose name matches nameToDelete
-        List<Person> matchedPersons = getMatchedPersons(lastShownList, targetName);
+        List<Person> matchedPersons = getMatchedPerson(lastShownList, targetName);
         requireNonEmptyPersonList(matchedPersons);
         requireSinglePersonList(matchedPersons);
 
@@ -82,9 +84,9 @@ public class DeleteCommand extends Command {
                 .toString();
     }
 
-    private static List<Person> getMatchedPersons(List<Person> personList, Name targetName) {
+    private static List<Person> getMatchedPerson(List<Person> personList, Name targetName) {
         return personList.stream()
-                .filter(person -> person.getName().containsName(targetName))
+                .filter(person -> person.getName().equals(targetName))
                 .toList();
     }
 

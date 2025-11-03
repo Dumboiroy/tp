@@ -209,6 +209,9 @@ public class ParserUtil {
         try {
             start = DateTimeUtil.localDateTimeFromString(startStr);
             end = DateTimeUtil.localDateTimeFromStringEnd(endStr);
+            if (start.isAfter(end)) {
+                throw new ParseException(AppointmentDateTimeQuery.MESSAGE_START_TIME_AFTER_END_TIME);
+            }
         } catch (DateTimeException err) {
             throw new ParseException(AppointmentDateTimeQuery.MESSAGE_CONSTRAINTS);
         }
@@ -221,7 +224,7 @@ public class ParserUtil {
      */
     public static AppointmentLength parseAppointmentLength(String length) throws ParseException {
         if (length == null || length.trim().isEmpty()) {
-            return new AppointmentLength(AppointmentLength.NO_LENGTH);
+            throw new ParseException(AppointmentLength.MESSAGE_CONSTRAINTS);
         }
         String trimmed = length.trim();
         if (!AppointmentLength.isValidLength(trimmed)) {
