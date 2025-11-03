@@ -44,7 +44,8 @@ title: Developer Guide
     1. [Make NAME case-insensitive](#1-make-name-case-insensitive)
     2. [Make APPOINTMENT_ID more intuitive](#2-make-appointment_id-more-intuitive-to-type)
     3. [Make PHONE more flexible](#3-make-phone-more-flexible)
-    4. [Make INDEX a key for edit and delete](#4-make-index-a-key-for-editdelete)
+    4. [Make INDEX a key for `edit` and `delete`](#4-make-index-a-key-for-editdelete)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
