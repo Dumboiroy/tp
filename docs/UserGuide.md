@@ -167,10 +167,10 @@ This guide provides instructions for Social Workers in Singapore on how to effic
 
 | Action                                                             | Format, Examples                                                                                                                                                                                                 |
 |--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **[Add Client](#2-adding-a-person-add)**                           | `add n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [t/TAG]…​ [r/RANK]`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                                      |
-| **[Edit Client](#4-editing-a-person--edit)**                       | `edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​ [r/RANK]`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                                |
-| **[Delete Client](#5-deleting-a-person--delete)**                  | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                          |
-| **[List Client](#3-listing-all-persons--list)**                    | `list`                                                                                                                                                                                                           |
+| **[Add Client](#2-adding-a-client-add)**                           | `add n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [t/TAG]…​ [r/RANK]`<br>e.g. `add n/James Ho p/92248444 e/jamesho@example.com a/123 Clementi Rd t/friend r/stable`                                                      |
+| **[Edit Client](#4-editing-a-client--edit)**                       | `edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​ [r/RANK]`<br>e.g. `edit John Doe p/91234567 e/johndoe@example.com r/urgent`                                                                |
+| **[Delete Client](#5-deleting-a-client--delete)**                  | `delete NAME`<br>e.g. `delete John Doe`                                                                                                                                                                          |
+| **[List Client](#3-listing-all-clients--list)**                    | `list`                                                                                                                                                                                                           |
 | **[Create Appointment](#i-creating-an-appointment-link--c)**       | `link -c n/NAME appt/DATE TIME len/MINUTES [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -c n/Alex appt/15-12-2025 2359 type/House Visit loc/Alex House len/60 msg/Bring Consent Form` |
 | **[Edit Appointment](#ii-editing-an-appointment--link--e)**        | `link -e id/APPOINTMENT_ID [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/MESSAGE] [status/STATUS]`<br>e.g. `link -e id/107f3db type/Friendly Chat loc/cafe msg/Bring gift`                      |
 | **[Delete Appointment](#iii-deleting-an-appointment--link--d)**    | `link -d id/APPOINTMENT_ID`<br>e.g. `link -d id/1b9a395`                                                                                                                                                         |
@@ -266,7 +266,7 @@ add n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [t/TAG]…​ [r/RANK]
 > :bulb: **Tips:**
 > 
 > * All required fields must be provided. These fields don't have the `[ ]`.
-> * See the `...` behind the tag? A person can have any number of tags (including 0). Unsure how? Refer [here](#command-format)
+> * See the `...` behind the tag? A client can have any number of tags (including 0). Unsure how? Refer [here](#command-format)
 
 #### Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/stable`
@@ -328,8 +328,8 @@ edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…�
 > * At least one of the optional fields must be provided.
 > * `NAME` is case-sensitive.
 > * Existing values will be updated to the input values.
-> * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-> * You can remove all the person’s tags by typing `t/ ` without specifying any tags after it.
+> * When editing tags, the existing tags of the client will be removed i.e adding of tags is not cumulative.
+> * You can remove all the client’s tags by typing `t/ ` without specifying any tags after it.
 > * You can use any combinations of the fields.
 > * You may refer to the above acceptable inputs [here](#command-format).
 
@@ -367,7 +367,7 @@ delete NAME
 ```
 
 > :bulb: **Tips:**
-> * Deletes the person at the specified `NAME`.
+> * Deletes the client at the specified `NAME`.
 > * `NAME` must be the same as the name reflected in HeartLink.
 > * `NAME` is case-sensitive.
 
@@ -837,7 +837,7 @@ Two confirmed appointments clash.
   Example: add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 
   t/friends t/owesMoney r/stable
   ```
-- Duplicated person:<br>
+- Duplicated client:<br>
   ```
   This person already exists in the address book
   ```

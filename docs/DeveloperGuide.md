@@ -332,7 +332,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to list of clients.
 2. User provides additional attributes to filter by.
 3. HeartLink displays the list of all clients corresponding to the attributes given by a user.
-   All information for each person are shown.
+   All information for each client are shown.
 
    Use case ends.
 
@@ -543,7 +543,7 @@ Use case ends.
 ### Non-Functional Requirements
 
 1. **Compatibility** Our system should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2. **Performance** Our system should be able to hold up to 1000 persons without a noticeable sluggishness in performance
+2. **Performance** Our system should be able to hold up to 1000 client details without a noticeable sluggishness in performance
    for typical usage.
 3. **User Experience** A user with above average typing speed for regular English text (i.e. not code, not system admin
    commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
