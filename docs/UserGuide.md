@@ -825,10 +825,11 @@ Two confirmed appointments clash.
 
    ```
     Invalid command format.
-    edit: Edits the details of the person identified by the old name used in the displayed person list. 
+    edit: Edits the details of the person identified by the old name used in the displayed 
+    person list. 
     Existing values will be overwritten by the input values.
-    Parameters: OLD_NAME (must match one of the names in contacts) [n/NEW_NAME] [p/PHONE] [e/EMAIL] 
-    [a/ADDRESS] [t/TAG]... [r/RANK]
+    Parameters: OLD_NAME (must match one of the names in contacts) [n/NEW_NAME] [p/PHONE] 
+    [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK]
     Example: edit John Doe p/91234567 e/johndoe@example.com
     ```
 - Invalid name of contact to edit: `edit John Doe n/newName` when the contact `John Doe` don't exist.<br>
