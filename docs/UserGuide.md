@@ -914,9 +914,9 @@ Two confirmed appointments clash.
 [Back to table of contents](#table-of-contents)
 
 ### Tag-related errors (General)
-- Invalid name: `hello_world` `[empty space]`<br>
+- Invalid name: `[empty space]`<br>
     ```
-    Names should only contain alphanumeric characters and spaces, and it should not be blank
+    Names cannot contain any prefixes, and it should not be blank
     ```
 - Invalid phone number: `12345678` `912 89023` `6592343434` `+6512343434` `[empty space]`<br>
     ```
