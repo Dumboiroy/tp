@@ -630,7 +630,11 @@ List all appointments on 4th July 2025.
 * `find appt/today` <br>
 List today's appointment.
 * `find appt/+3`<br>
-List all appointments in the upcoming three days.
+List all appointments in the upcoming three days. For example, if today is the 5th 
+of November, HeartLink will list the appointments from 5th to 8th November.
+* `find appt/-3`<br>
+  List all appointments in the past three days. For example, if today is the 5th
+  of November, HeartLink will list the appointments from 2nd to 5th November.
 
 [Back to list of attributes](#heres-the-list-of-attributes-for-appointment)
 
@@ -750,7 +754,7 @@ For example, suppose that your current address book is as follows.
         {
           "id": "e271471",
           "dateTime": "24-10-2025 1100",
-          "length": "30",
+          "length": "40",
           "status": "confirmed"
         },
         {
@@ -767,7 +771,7 @@ For example, suppose that your current address book is as follows.
 Note that the appointment `e271471` and `e125428` do not clash because one of the appointments are
 not confirmed.
 If you execute the command:`link -c n/Alex Yeoh appt/24-10-2025 1030 len/30 status/confirmed`, 
-you will receive an error message because the time slot `1100 - 1130` overlaps with `1030-1100`.
+you will receive an error message because the time slot `1100 - 1140` overlaps with `1030-1100`.
 ```
 Two confirmed appointments clash. 
 [old: e271471] 24-10-2025 1100
@@ -818,16 +822,11 @@ Two confirmed appointments clash.
 #### 2. `edit`
 - Invalid syntax: `edit` `edit test`<br>
 
-
    ```
-   Invalid command format. Please ensure that the command adheres to the following:
-   - Edit name: edit NAME n/NEW_NAME
-   - Edit tags (able to chain more than 1 tag): edit NAME t/TAG
-   - Edit home address: edit NAME a/ADDRESS
-   - Edit phone number: edit NAME p/PHONE
-   - Edit email address: edit NAME e/EMAIL
-   - Edit rank: edit NAME r/RANK
-   - Combinations: edit NAME t/TAG p/PHONE ...
+    Invalid command format.
+    edit: Edits the details of the person identified by the old name used in the displayed person list. Existing values will be overwritten by the input values.
+    Parameters: OLD_NAME (must match one of the names in contacts) [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK]
+    Example: edit John Doe p/91234567 e/johndoe@example.com
     ```
 - Invalid name of contact to edit: `edit John Doe n/newName` when the contact `John Doe` don't exist.<br>
     ```
@@ -874,7 +873,7 @@ Two confirmed appointments clash.
   Invalid command format!  
   Edit flag: Updates an existing appointment for a client. 
   Parameters: link -e id/ID [appt/DATE TIME] [len/MINUTES] [loc/LOCATION] [type/TYPE] [msg/NOTES] [status/planned|confirmed|completed|cancelled] 
-  Example: link -e id/1234567 n/Alex Wu appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
+  Example: link -e id/1234567 appt/12-10-2025 1430 len/90 loc/Bukit Merah FSC type/home-visit msg/Bring consent form status/planned
   ```
 - Invalid id for edit appointment: `link -e id/1234567 msg/Bring consent form` when id of `1234567` does not exist.<br>
     ```
@@ -915,9 +914,9 @@ Two confirmed appointments clash.
 [Back to table of contents](#table-of-contents)
 
 ### Tag-related errors (General)
-- Invalid name: `hello_world` `[empty space]`<br>
+- Invalid name: `[empty space]`<br>
     ```
-    Names should only contain alphanumeric characters and spaces, and it should not be blank
+    Names cannot contain any prefixes, and it should not be blank
     ```
 - Invalid phone number: `12345678` `912 89023` `6592343434` `+6512343434` `[empty space]`<br>
     ```

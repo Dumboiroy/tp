@@ -154,6 +154,7 @@ public class LinkAppointmentCommandParser implements Parser<LinkAppointmentComma
     private Appointment createAppointment(Name clientName, ArgumentMultimap argMultimap) throws ParseException {
         AppointmentDateTime dateTime =
                 ParserUtil.parseAppointmentDateTime(argMultimap.getValue(PREFIX_APPOINTMENT).get());
+        // TODO: FIX THIS PART
         AppointmentLength length = ParserUtil.parseAppointmentLength(
                 argMultimap.getValue(PREFIX_LENGTH).orElse(AppointmentLength.NO_LENGTH));
         AppointmentLocation location = ParserUtil.parseAppointmentLocation(
