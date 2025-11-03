@@ -21,8 +21,10 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the name used in the displayed person list.\n"
             + "Parameters: NAME \n"
-            + "Example: " + COMMAND_WORD + " John Doe"
+            + "Example: " + COMMAND_WORD + " John Doe\n"
             + "Note: The name is case sensitive.";
+    public static final String INVALID_COMMAND_FORMAT =
+            "Invalid command format! \n" + MESSAGE_USAGE;
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
