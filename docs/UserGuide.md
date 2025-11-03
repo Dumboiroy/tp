@@ -983,16 +983,6 @@ Two confirmed appointments clash.
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Follow the steps below:
 1. Install the app in the other computer, say computer B.
-2. On both computers, navigate to the folder with HeartLink. 
-3. Navigate to a folder named `data` and you will see a file called `addressbook.json` <br> 
-(If you don't see it in computer B, you can either run HeartLink once or create the file manually)
-4. Copy the contents of `addressbook.json` file from computer A (where your data is) to computer B.
-
-## FAQ
-
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Follow the steps below:
-1. Install the app in the other computer, say computer B.
 2. On both computers, navigate to the folder with HeartLink.
 3. Navigate to a folder named `data` and you will see a file called `addressbook.json` <br>
    (If you don't see it in computer B, you can either run HeartLink once or create the file manually)
