@@ -200,7 +200,7 @@ This guide provides instructions for Social Workers in Singapore on how to effic
   e.g. [t/TAG]…​ can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as help.
@@ -336,9 +336,9 @@ edit OLD_NAME [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/RANK] [t/TAG]…�
 Examples:
 *  `edit John Doe p/91234567 e/johndoe@example.com r/urgent`  
 Edits the phone number and email address of John Doe to be `91234567`, `johndoe@example.com` respectively
-and ranks the contact as `urgent`.
+and ranks the client as `urgent`.
 *  `edit Betsy Crownerrr n/Betsy Crower t/`  
-Edits the name of Betsy Crownerrr to be `Betsy Crower` and clears all existing tags.
+Edits the name of `Betsy Crownerrr` to be `Betsy Crower` and clears all existing tags.
 
 #### Expected output:
 ```
@@ -400,7 +400,7 @@ Adds, edits, or deletes appointments linked to clients.
 
 **:information_source: Here's the fields and their acceptable inputs relating to appointment:**<br>
 
-* **n/NAME**: This specifies the client the appointment is linking to. Your input must be alphanumeric and should be an existing name in contact list.
+* **n/NAME**: This specifies the client the appointment is linking to. Your input must be alphanumeric and should be an existing name in list of clients.
 * **appt/DATE TIME**: This specifies the date and time of the appointment. Your input must be a valid calendar date in the format `dd-MM-yyyy HHmm`,`d-MM-yyyy HHmm`, `dd-M-yyyy HHmm` or `d-M-yyyy HHmm`.
   <br> E.g. `04-07-2025 0930`, `4-07-2025 0930`, `04-7-2025 0930` or `4-7-2025 0930`
 * **id/APPOINTMENT_ID**: This is an unique ID of the appointment. You do NOT need to create an ID. It will be generated once the appointment is created.
@@ -451,7 +451,7 @@ Examples:
 New appointment linked to NAME: Date/Time: DATE TIME; Length: LENGTH; Location: LOCATION; 
 Type: TYPE; Message: MESSAGE; Status: STATUS
 ```
-where an appointment is linked to the contact specified in the command.
+where an appointment is linked to the client specified in the command.
 
 The image below shows how it should look like when you execute the command:
 `link -c n/John appt/15-12-2025 2359 len/60 loc/Alex House type/House Visit msg/Bring Consent Form status/confirmed`
@@ -850,20 +850,23 @@ Two confirmed appointments clash.
 #### 2. `edit`
 - Invalid syntax: `edit` `edit test`<br>
 
-  ```
-  Invalid command format.
-  edit: Edits the details of the person identified by the old name used in the displayed person list. Existing values will be overwritten by the input values.
-  Parameters: OLD_NAME (must match one of the names in contacts) [n/NEW_NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK]
-  Example: edit John Doe p/91234567 e/johndoe@example.com
-  ```
-- Invalid name of contact to edit: `edit John Doe n/newName` when the contact `John Doe` don't exist.<br>
+   ```
+   Invalid command format.
+   edit: Edits the details of the person identified by the old name used in the displayed 
+   person list. 
+   Existing values will be overwritten by the input values.
+   Parameters: OLD_NAME (must match one of the names in contacts) [n/NEW_NAME] [p/PHONE] 
+   [e/EMAIL] [a/ADDRESS] [t/TAG]... [r/RANK]
+   Example: edit John Doe p/91234567 e/johndoe@example.com
+   ```
+- Invalid name of client to edit: `edit John Doe n/newName` when the client `John Doe` don't exist.<br>
   ```
   The person's name provided is invalid
   ```
 [Back to table of contents](#table-of-contents)
   
 #### 3. `delete`
-- Invalid name of contact to delete: `delete`<br>
+- Invalid name of client to delete: `delete`<br>
   ```
   Names should only contain alphanumeric characters and spaces, and it should not be blank
   ```

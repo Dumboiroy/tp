@@ -204,6 +204,8 @@ How the parsing works:
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
+<img src="images/AppointmentClassDiagram.png" width="450" />
+
 
 The `Model` component,
 
