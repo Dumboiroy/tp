@@ -54,8 +54,12 @@ public class LinkAppointmentCreateCommandTest {
                 Messages.format(appt)), expectedModel);
     }
 
+    /**
+     * Update (3 Nov 2025): we allow appointments with the same client, datetime and length
+     * as long as at least one field (except id) is different.
+     */
     @Test
-    public void execute_duplicateAppointmentDifferentLength_failure() {
+    public void execute_duplicateAppointmentDifferentLength_success() {
         Person client = new PersonBuilder(ALICE).build();
         Appointment appt = new AppointmentBuilder()
                 .withName(client.getName().toString()).withDateTime("12-10-3099 1430")
@@ -69,11 +73,16 @@ public class LinkAppointmentCreateCommandTest {
                 Messages.format(appt)), expectedModel);
 
         Appointment modifiedLengthAppointment = new AppointmentBuilder()
-                .withName(client.getName().toString()).withDateTime("12-10-3099 1430").withLength("91").build();
+                .withId("testing II")
+                .withName(client.getName().toString()).withDateTime("12-10-3099 1430")
+                .withLength("91").build();
         cmd = new LinkAppointmentCreateCommand(
-                client.getName(), modifiedLengthAppointment);
-
-        assertCommandFailure(cmd, model, LinkAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENTS);
+                client.getName(), modifiedLengthAppointment)
+                .setAppointmentId(new AppointmentId("testing II"));
+        expectedModel.addAppointmentWithPerson(modifiedLengthAppointment, client.withAddedAppointment(appt));
+        assertCommandSuccess(cmd, model, String.format(
+            LinkAppointmentCommand.MESSAGE_SUCCESS, client.getName(),
+            Messages.format(modifiedLengthAppointment)), expectedModel);
     }
 
     @Test
